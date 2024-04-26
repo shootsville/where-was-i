@@ -4,7 +4,19 @@ export declare type WhereWasIOptions = {
   maxAmount?: number;
   /** the style for the location objects, @default "cards" */
   style?: "cards" | "panel";
-  acceptedPaths?: { type: "contains", path: string } | { type: "startsWith", path: string };
+  /** adds filter to which paths should be added as location objects */
+  acceptedPaths?: 
+    { 
+      /** path should contain the following string */
+      type: "contains",
+      path: string 
+    } 
+    | 
+    {
+      /** path should start with the following string */
+      type: "startsWith", 
+      path: string 
+    };
 };
 
 export declare type LocationObject = {
