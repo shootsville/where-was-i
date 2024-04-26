@@ -1,10 +1,8 @@
+import { WhereWasIOptions } from "../types";
 
-const css = `
-  :root {
-    --where-was-i-rotation: 6deg;
-  }
-
+const cardsCss = `
   #where-was-i-container {
+    --where-was-i-rotation: 6deg;
     position: fixed;
     bottom: 3rem;
     right: 6rem;
@@ -63,6 +61,10 @@ const css = `
   .where-was-i-card:hover .where-was-i-tooltip {
     opacity: 1;
   }
+  
+  .where-was-i-card--pad-left-a-little {
+    margin-left: -1.25rem;
+  }
 
   .where-was-i-card--pad-left {
     margin-left: -2.5rem;
@@ -102,9 +104,121 @@ const css = `
   }
 `
 
+const panelCss = `
+  #where-was-i-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    translate: 0 100%;
+    transition: translate .4s ease, box-shadow .4s ease;
+    box-shadow: 0 0 0 0 rgba(0,0,0,0.15);
+    background-color: white;
+    color: #242424;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  #where-was-i-container.open {
+    translate: 0 0;
+    pointer-events: all;
+    box-shadow: 0px -10px 10px 10px rgba(0,0,0,0.15);
+  }
+
+  #where-was-i-panel-screens-container {
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    height: 100%;
+    scrollbar-color: rgba(100, 108, 255, 0.3) white;
+    scrollbar-width: thin;
+    padding-bottom: .5rem;
+  }
+
+  #where-was-i-panel-screens-container > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  #where-was-i-panel-show-button {
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.7);
+    opacity: .5;
+    color: white;
+    position: absolute;
+    top: -5rem;
+    right: 2rem;
+    transition: opacity .4s ease, bottom .4s ease;
+    z-index: 2;
+  }
+
+  #where-was-i-panel-show-button:hover {
+    opacity: 1;
+  }
+
+  #where-was-i-panel-show-button:not(.open):before {
+    content: "\\2714";
+  }
+
+  #where-was-i-panel-show-button.open:before {
+    content: "\\2716";
+  }
+
+  #where-was-i-panel-controls {
+    padding-top: .5rem;
+    margin-top: 1rem;
+    border-top: 1.5px solid rgba(100, 108, 255, 0.15);
+    display: flex;
+    justify-content: end;
+  }
+
+  .where-was-i-clear-button {
+    background-color: transparent;
+    color: #242424;
+    transition: background-color .4s ease, color .4s ease;
+    padding: 0.3rem 0.6rem;
+    border: none;
+  }
+  .where-was-i-clear-button:hover {
+    background-color: #646cff;
+    color: white;
+  }
+
+  .where-was-i-clear-button:before {
+    content: "\\2716";
+  }
+
+  .where-was-i-screen {
+    display: block;
+    height: 120px;
+    width: 200px;
+    transition: scale .4s ease, box-shadow .4s ease;
+    box-shadow: 0 0 0 0 rgba(0,0,0,0.15);
+  }
+
+  .where-was-i-screen:hover {
+    scale: 1.05;
+    box-shadow: 0 0 4px 4px rgba(0,0,0,0.15);
+  }
+`;
+
 const applyCss = function(options: WhereWasIOptions) {
   const styleTag = document.createElement("style");
-  styleTag.innerHTML = css;
+
+  switch(options.style) {
+    case "panel":
+      styleTag.innerHTML = panelCss;
+      break;
+    default:
+      styleTag.innerHTML = cardsCss;
+      break;
+  }
 
   document.head.append(styleTag);
 }
