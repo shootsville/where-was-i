@@ -1,13 +1,28 @@
 import html2canvas from "html2canvas";
 import { LocationObject, WhereWasIOptions } from "../types";
 
-const generateScreenshot = function() {
+const PANEL_CANVAS_OPTIONS = {
+  scrollY: 0,
+  scale: 0.25,
+  windowWidth: 1200,
+  windowHeight: 800,
+  imageTimeout: 4000
+}
+
+const CARD_CANVAS_OPTIONS = {
+  scale: 0.25,
+  windowHeight: 1200,
+  windowWidth: 800,
+  scrollY: 0
+};
+
+const generateScreenshot = async function(options: WhereWasIOptions) {
   const screenshotTarget = document.body;
-  
-  return html2canvas(screenshotTarget, { scale: 0.5, logging: true,  }).then((canvas: HTMLCanvasElement) => {
-    const base64image = canvas.toDataURL("image/png");
-    return base64image;
-  });
+
+  const canvas = await html2canvas(screenshotTarget, options.style === "panel" ? PANEL_CANVAS_OPTIONS : CARD_CANVAS_OPTIONS);
+  const base64image = canvas.toDataURL("image/png");
+
+  return base64image;
 }
 
 const createHistory = async function(newItem: string, history: Array<LocationObject>, options: WhereWasIOptions) {
@@ -27,7 +42,7 @@ const createHistory = async function(newItem: string, history: Array<LocationObj
     }
   }
 
-  const imageData = await generateScreenshot();
+  const imageData = await generateScreenshot(options);
   const sortedHistory = [
     ...new Map([
       { location: `${location.origin}${newItem}`, imageData, title: document.title, newObject: true }, 

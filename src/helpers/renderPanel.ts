@@ -28,7 +28,7 @@ const renderPanelScreens = function(history: LocationObject[], container: HTMLDi
     screen.style.backgroundPosition = "center center";
 
     screen.addEventListener("click", function(e) {
-      e.preventDefault();
+      e.preventDefault(); 
       const currentTarget = e.currentTarget as HTMLAnchorElement;
       container.classList.remove("open");
       showButton.classList.remove("open");
@@ -49,11 +49,13 @@ const renderPanel = function(container: HTMLDivElement, history: Array<LocationO
   const clearButton = document.createElement("button");
   const screensContainer = document.querySelector("#where-was-i-panel-screens-container") || document.createElement("div");
   const showButton = document.querySelector("#where-was-i-panel-show-button") || document.createElement("button");
+
   screensContainer.id = "where-was-i-panel-screens-container";
   controlPanel.id = "where-was-i-panel-controls";
   showButton.id = "where-was-i-panel-show-button";
 
-
+  showButton.setAttribute("data-count", history.length.toString());
+  
   showButton.addEventListener("click", function(e) {
     container.classList.toggle("open");
     
