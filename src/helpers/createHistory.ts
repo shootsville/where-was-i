@@ -1,29 +1,30 @@
 import html2canvas from "html2canvas";
+import { Options as CanvasOptions } from "html2canvas";
 import { LocationObject, WhereWasIOptions } from "../types";
 
-const PANEL_CANVAS_OPTIONS = {
-  scrollY: 0,
+const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
-  windowWidth: 1200,
-  windowHeight: 800,
-  imageTimeout: 4000
 }
 
-const CARD_CANVAS_OPTIONS = {
+const CARD_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
-  windowHeight: 1200,
-  windowWidth: 800,
-  scrollY: 0
+  backgroundColor: "white",
+  logging: true
 };
 
-const generateScreenshot = async function(options: WhereWasIOptions) {
+export const generateScreenshot = async function(options: WhereWasIOptions) {
   const screenshotTarget = document.body;
 
-  const canvas = await html2canvas(screenshotTarget, options.style === "panel" ? PANEL_CANVAS_OPTIONS : CARD_CANVAS_OPTIONS);
+  const canvas = await html2canvas(
+    screenshotTarget, 
+    options.style === "panel" ? PANEL_CANVAS_OPTIONS : CARD_CANVAS_OPTIONS
+  );
+
   const base64image = canvas.toDataURL("image/png");
 
   return base64image;
 }
+
 
 const createHistory = async function(newItem: string, history: Array<LocationObject>, options: WhereWasIOptions) {
   if (options.acceptedPaths) {
@@ -42,16 +43,15 @@ const createHistory = async function(newItem: string, history: Array<LocationObj
     }
   }
 
+
   const imageData = await generateScreenshot(options);
-  const sortedHistory = [
-    ...new Map([
-      { location: `${location.origin}${newItem}`, imageData, title: document.title, newObject: true }, 
-      ...history.map(h => ({...h, newObject: false}))
-    ].map(item => [item["location"], item])).values()];
+  const newLocation = `${location.origin}${newItem}`;
+  const sortedHistory = [{ location: newLocation, imageData, title: document.title, newObject: true }, ...history.filter(h => h.location !== newLocation).map(h => ({...h, newObject: false}))];
 
   if (options.maxAmount && sortedHistory.length > options.maxAmount) {
     return sortedHistory.slice(0, options.maxAmount);
   }
+
 
   return sortedHistory;
 }
