@@ -138,10 +138,6 @@ const cardsCss = `
   opacity: 1;
 }
 
-#where-was-i-container .where-was-i-clear-button:before {
-  content: "\\2716";
-}
-
 @keyframes getInHere {
   0% {
     translate: 0 200%;
@@ -183,6 +179,7 @@ const panelCss = `
   scrollbar-color: rgba(100, 108, 255, 0.3) white;
   scrollbar-width: thin;
   padding: .5rem;
+  padding-top: 3rem;
 }
 
 #where-was-i-container #where-was-i-panel-screens-container > div {
@@ -194,7 +191,7 @@ const panelCss = `
 }
 
 #where-was-i-container #where-was-i-panel-show-button {
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 50%;
   background-color: rgba(0,0,0,0.7);
   opacity: .5;
@@ -210,32 +207,41 @@ const panelCss = `
   opacity: 1;
 }
 
-#where-was-i-container #where-was-i-panel-show-button:not(.open):before {
-  content: "\\2714";
+#where-was-i-container #where-was-i-panel-show-button svg {
+}
+#where-was-i-container #where-was-i-panel-show-button path {
+  stroke: white;
 }
 
-#where-was-i-container #where-was-i-panel-show-button.open:before {
-  content: "\\2716";
-}
 
-#where-was-i-container #where-was-i-panel-show-button:after {
+#where-was-i-container #where-was-i-panel-show-button[data-count]:after {
   content: attr(data-count);
+  font-size: smaller;
   position: absolute;
   top: 0;
   right: 0;
   translate: 25% -25%;
-  background: rgba(var(--main-color), .8);
+  background: rgba(var(--main-color), .6);
   color: white;
   padding: .2rem .4rem;
   border-radius: 50%;
 }
 
 #where-was-i-container #where-was-i-panel-controls {
-  padding-top: .5rem;
-  margin-top: 1rem;
-  border-top: 1.5px solid rgba(var(--main-color), 0.15);
+  position: fixed;
+  top: 0;
+  left: 1rem;
+  right: 1rem;
+  bottom: auto;
+  padding: .5rem 1rem;
+  border-bottom: 1.5px solid rgba(var(--main-color), 0.15);
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+}
+
+#where-was-i-container #where-was-i-panel-controls label {
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 #where-was-i-container .where-was-i-clear-button {
@@ -245,18 +251,29 @@ const panelCss = `
   padding: 0.3rem 0.6rem;
   border: none;
 }
+#where-was-i-container .where-was-i-clear-button path {
+  transition: stroke .4s ease, fill .4s ease;
+}
+#where-was-i-container .where-was-i-clear-button circle {
+  transition: fill .4s ease;
+}
+
 #where-was-i-container .where-was-i-clear-button:hover {
   background-color: rgb(var(--main-color));
   color: white;
 }
 
-#where-was-i-container .where-was-i-clear-button:before {
-  content: "\\2716";
+#where-was-i-container .where-was-i-clear-button:hover path {
+  fill: white;
+  stroke: white;
+}
+#where-was-i-container .where-was-i-clear-button:hover circle {
+  fill: white;
 }
 
 #where-was-i-container .where-was-i-screen {
   display: block;
-  height: 120px;
+  height: 150px;
   width: 200px;
   transition: scale .4s ease, box-shadow .4s ease;
   box-shadow: 0 0 0 0 rgba(var(--main-color), .2);

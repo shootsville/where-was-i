@@ -1,9 +1,13 @@
 
 export declare type WhereWasIOptions = {
+  /** The title to display in the control panel, @default "Where was i?" */
+  panelTitle?: string;
   /** the maximum amount of location objects to display */
   maxAmount?: number;
   /** the style for the location objects, @default "cards" */
   style?: "cards" | "panel";
+  /** how often the screenshot should refresh */
+  screenRefreshRate?: number;
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?: 
     { 
