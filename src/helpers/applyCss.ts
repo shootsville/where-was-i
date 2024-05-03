@@ -1,4 +1,4 @@
-import { WhereWasIOptions } from "../types";
+import { WhereWasIOptions } from '../types'
 
 const resetCss = `
 #where-was-i-container {
@@ -45,8 +45,7 @@ const resetCss = `
   border: none;
   border-radius: .2rem;
 }
-`;
-
+`
 
 const cardsCss = `
 #where-was-i-container {
@@ -138,6 +137,14 @@ const cardsCss = `
   opacity: 1;
 }
 
+#where-was-i-container .where-was-i-clear-button path {
+  transition: fill .4s ease, stroke .4s ease;
+}
+#where-was-i-container .where-was-i-clear-button:hover path {
+  fill: white;
+  stroke: white;
+}
+
 @keyframes getInHere {
   0% {
     translate: 0 200%;
@@ -148,8 +155,48 @@ const cardsCss = `
 }
 `
 
+const floatingButtonCss = `
+#where-was-i-container #where-was-i-show-button {
+  padding: 0.75rem;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.7);
+  opacity: .5;
+  color: white;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  transition: opacity .4s ease, bottom .4s ease;
+  z-index: 2;
+}
+
+#where-was-i-container #where-was-i-show-button:hover {
+  opacity: 1;
+}
+
+#where-was-i-container #where-was-i-show-button svg {
+}
+#where-was-i-container #where-was-i-show-button path {
+  stroke: white;
+}
+
+
+#where-was-i-container #where-was-i-show-button[data-count]:after {
+  content: attr(data-count);
+  font-size: smaller;
+  position: absolute;
+  top: 0;
+  right: 0;
+  translate: 25% -25%;
+  background: rgba(var(--main-color), .6);
+  color: white;
+  padding: .2rem .4rem;
+  border-radius: 50%;
+}
+`
+
 const panelCss = `
-#where-was-i-container {
+${floatingButtonCss}
+#where-was-i-panel {
   position: fixed;
   left: 0;
   right: 0;
@@ -164,13 +211,13 @@ const panelCss = `
   box-sizing: border-box;
 }
 
-#where-was-i-container.open {
+#where-was-i-container.open #where-was-i-panel {
   translate: 0 0;
   pointer-events: all;
   box-shadow: 0px -10px 10px 10px rgba(0,0,0,0.15);
 }
 
-#where-was-i-container #where-was-i-panel-screens-container {
+#where-was-i-panel #where-was-i-panel-screens-container {
   position: relative;
   display: flex;
   gap: 1rem;
@@ -182,7 +229,7 @@ const panelCss = `
   padding-top: 3rem;
 }
 
-#where-was-i-container #where-was-i-panel-screens-container > div {
+#where-was-i-panel #where-was-i-panel-screens-container > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -190,88 +237,51 @@ const panelCss = `
   flex-wrap: wrap;
 }
 
-#where-was-i-container #where-was-i-panel-show-button {
-  padding: 0.75rem;
-  border-radius: 50%;
-  background-color: rgba(0,0,0,0.7);
-  opacity: .5;
-  color: white;
-  position: absolute;
-  top: -5rem;
-  right: 2rem;
-  transition: opacity .4s ease, bottom .4s ease;
-  z-index: 2;
-}
-
-#where-was-i-container #where-was-i-panel-show-button:hover {
-  opacity: 1;
-}
-
-#where-was-i-container #where-was-i-panel-show-button svg {
-}
-#where-was-i-container #where-was-i-panel-show-button path {
-  stroke: white;
-}
-
-
-#where-was-i-container #where-was-i-panel-show-button[data-count]:after {
-  content: attr(data-count);
-  font-size: smaller;
-  position: absolute;
-  top: 0;
-  right: 0;
-  translate: 25% -25%;
-  background: rgba(var(--main-color), .6);
-  color: white;
-  padding: .2rem .4rem;
-  border-radius: 50%;
-}
-
-#where-was-i-container #where-was-i-panel-controls {
+#where-was-i-panel #where-was-i-panel-controls {
   position: fixed;
   top: 0;
   left: 1rem;
   right: 1rem;
   bottom: auto;
   padding: .5rem 1rem;
-  border-bottom: 1.5px solid rgba(var(--main-color), 0.15);
+  border-bottom: 1.5px solid rgba(var(--dark-color), 0.15);
   display: flex;
   justify-content: space-between;
 }
 
-#where-was-i-container #where-was-i-panel-controls label {
+#where-was-i-panel #where-was-i-panel-controls label {
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-#where-was-i-container .where-was-i-clear-button {
+#where-was-i-panel .where-was-i-clear-button {
   background-color: transparent;
   color: rgb(var(--dark-color));
   transition: background-color .4s ease, color .4s ease;
   padding: 0.3rem 0.6rem;
   border: none;
 }
-#where-was-i-container .where-was-i-clear-button path {
+#where-was-i-panel .where-was-i-clear-button path {
   transition: stroke .4s ease, fill .4s ease;
 }
-#where-was-i-container .where-was-i-clear-button circle {
+#where-was-i-panel .where-was-i-clear-button circle {
   transition: fill .4s ease;
 }
 
-#where-was-i-container .where-was-i-clear-button:hover {
+#where-was-i-panel .where-was-i-clear-button:hover {
   background-color: rgb(var(--main-color));
   color: white;
 }
 
-#where-was-i-container .where-was-i-clear-button:hover path {
+#where-was-i-panel .where-was-i-clear-button:hover path {
   fill: white;
   stroke: white;
 }
-#where-was-i-container .where-was-i-clear-button:hover circle {
+#where-was-i-panel .where-was-i-clear-button:hover circle {
   fill: white;
 }
 
-#where-was-i-container .where-was-i-screen {
+#where-was-i-panel .where-was-i-screen {
   display: block;
   height: 150px;
   width: 200px;
@@ -281,26 +291,78 @@ const panelCss = `
   border-radius: .2rem;
 }
 
-#where-was-i-container .where-was-i-screen:hover {
+#where-was-i-panel .where-was-i-screen:hover {
   scale: 1.05;
   box-shadow: 0 0 4px 4px rgba(var(--main-color), .2);
 }
-`;
+`
 
-const applyCss = function(options: WhereWasIOptions) {
-  const styleTag = document.createElement("style");
-  styleTag.innerHTML = resetCss;
-  
-  switch(options.style) {
-    case "panel":
-      styleTag.innerHTML += panelCss;
-      break;
-    default:
-      styleTag.innerHTML += cardsCss;
-      break;
-  }
-
-  document.head.append(styleTag);
+const drawerCss = `
+body {
+  max-width: 100%;
+  transition: padding-left .4s ease, max-width .4s ease;
+}
+body:has(#where-was-i-container.open) {
+  padding-left: 360px;
+  max-width: calc(100% - 360px);
 }
 
-export default applyCss;
+${floatingButtonCss}
+
+#where-was-i-drawer {
+  position: fixed;
+  inset: 0;
+  right: auto;
+  background: rgb(var(--dark-color));
+  width: 360px;
+  padding: 1rem;
+  translate: -100% 0;
+  transition: translate .4s ease;
+}
+
+#where-was-i-container.open #where-was-i-drawer {
+  translate: 0 0;
+}
+
+#where-was-i-container .screens {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#where-was-i-container .screen {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  display: flex;
+  flex-direction: column;
+}
+#where-was-i-container .screen .where-was-i-screen {
+  flex: 1;
+}
+
+#where-was-i-container .control-buttons {
+  display: flex; 
+  justify-content: space-between;
+}
+`
+
+const applyCss = function (options: WhereWasIOptions) {
+  const styleTag = document.createElement('style')
+  styleTag.innerHTML = resetCss
+
+  switch (options.style) {
+    case 'panel':
+      styleTag.innerHTML += panelCss
+      break
+    case 'drawer':
+      styleTag.innerHTML += drawerCss
+      break
+    default:
+      styleTag.innerHTML += cardsCss
+      break
+  }
+
+  document.head.append(styleTag)
+}
+
+export default applyCss
