@@ -1,5 +1,5 @@
 const resetCss = `
-#where-was-i-container {
+#wwi-container {
   --main-color: 100, 108, 255;
   --dark-color: 36, 36, 36;
 
@@ -11,35 +11,35 @@ const resetCss = `
   font-weight: normal;
 }
 
-#where-was-i-container *, *:before, #where-was-i-container *:after {
+#wwi-container *, *:before, #wwi-container *:after {
   box-sizing: inherit;
 }
 
-#where-was-i-container h1, 
-#where-was-i-container h2, 
-#where-was-i-container h3,
-#where-was-i-container h4, 
-#where-was-i-container h5, 
-#where-was-i-container h6, 
-#where-was-i-container p, 
-#where-was-i-container ol, 
-#where-was-i-container ul {
+#wwi-container h1, 
+#wwi-container h2, 
+#wwi-container h3,
+#wwi-container h4, 
+#wwi-container h5, 
+#wwi-container h6, 
+#wwi-container p, 
+#wwi-container ol, 
+#wwi-container ul {
   margin: 0;
   padding: 0;
   font-weight: normal;
 }
 
-#where-was-i-container ol, 
-#where-was-i-container ul {
+#wwi-container ol, 
+#wwi-container ul {
   list-style: none;
 }
 
-#where-was-i-container img {
+#wwi-container img {
   max-width: 100%;
   height: auto;
 }
 
-#where-was-i-container button {
+#wwi-container button {
   border: none;
   border-radius: .2rem;
 }
@@ -48,46 +48,46 @@ const resetCss = `
 const generalCss = `
 ${resetCss}
 
-#where-was-i-container h1, #where-was-i-container h2, #where-was-i-container h3 {
+#wwi-container h1, #wwi-container h2, #wwi-container h3 {
   font-weight: bold;
 }
 `
 
 const buttonCss = `
-#where-was-i-container .where-was-i-button {
+#wwi-container .wwi-button {
   background-color: rgba(var(--dark-color), .6);
   color: white;
   transition: background-color .4s ease, color .4s ease;
   padding: 0.3rem 0.6rem;
   border: none;
 }
-#where-was-i-container .where-was-i-button path {
+#wwi-container .wwi-button path {
   transition: stroke .4s ease, fill .4s ease;
 }
-#where-was-i-container .where-was-i-button circle {
+#wwi-container .wwi-button circle {
   transition: fill .4s ease;
 }
 
-#where-was-i-container .where-was-i-button:hover {
+#wwi-container .wwi-button:hover {
   background-color: rgb(var(--main-color));
   color: white;
 }
 
-#where-was-i-container .where-was-i-button--light {
+#wwi-container .wwi-button--light {
   background-color: transparent;
   color: rgb(var(--dark-color));
 }
 
-#where-was-i-container .buttons-container {
+#wwi-container .buttons-container {
   display: flex; 
   gap: .25rem;
 }
 
-#where-was-i-container .where-was-i-button[tooltip] {
+#wwi-container .wwi-button[tooltip] {
   position: relative;
 }
 
-#where-was-i-container .where-was-i-button[tooltip]:before {
+#wwi-container .wwi-button[tooltip]:before {
   opacity: 0;
   z-index: 1;
   pointer-events: none;
@@ -107,12 +107,12 @@ const buttonCss = `
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
 }
 
-#where-was-i-container .where-was-i-button[tooltip]:hover:before {
+#wwi-container .wwi-button[tooltip]:hover:before {
   opacity: 1;
   translate: -75% calc(-100% - 4px);
 }
 
-#where-was-i-container .where-was-i-button[tooltip]:after {
+#wwi-container .wwi-button[tooltip]:after {
   opacity: 0;
   position: absolute;
   top: -4px;
@@ -127,21 +127,21 @@ const buttonCss = `
   transition: opacity .4s ease;
 }
 
-#where-was-i-container .where-was-i-button[tooltip]:hover:after {
+#wwi-container .wwi-button[tooltip]:hover:after {
   opacity: 1;
 }
 
-#where-was-i-container .where-was-i-button[tooltip][tooltip-direction=bottom]:before {
+#wwi-container .wwi-button[tooltip][tooltip-direction=bottom]:before {
   bottom: 0;
   top: unset;
   translate: -10% 75%;
 }
 
-#where-was-i-container .where-was-i-button[tooltip][tooltip-direction=bottom]:hover:before {
+#wwi-container .wwi-button[tooltip][tooltip-direction=bottom]:hover:before {
   translate: -10% calc(100% + 4px);
 }
 
-#where-was-i-container .where-was-i-button[tooltip][tooltip-direction=bottom]:after {
+#wwi-container .wwi-button[tooltip][tooltip-direction=bottom]:after {
   rotate: 180deg;
   right: 8px;
   top: unset;
@@ -151,8 +151,8 @@ const buttonCss = `
 
 const cardsCss = `
 ${buttonCss}
-#where-was-i-container {
-  --where-was-i-rotation: 6deg;
+#wwi-container {
+  --wwi-rotation: 6deg;
   position: fixed;
   bottom: 3rem;
   right: 6rem;
@@ -163,12 +163,12 @@ ${buttonCss}
   scale: 0.6;
 }
 
-#where-was-i-container:hover {
+#wwi-container:hover {
   bottom: 2rem;
   scale: 1;
 }
 
-#where-was-i-container .where-was-i-tooltip {
+#wwi-container .wwi-tooltip {
   position: absolute;
   top: -2rem;
   right: 0.4rem;
@@ -185,7 +185,7 @@ ${buttonCss}
   border-radius: .2rem .2rem 0 0;
 }
 
-#where-was-i-container .where-was-i-card {
+#wwi-container .wwi-card {
   display: block;
   position: absolute;
   inset: 0;
@@ -195,31 +195,31 @@ ${buttonCss}
   border: 1px solid rgba(0, 0, 0, 0.3);
   height: 200px;
   width: 160px;
-  rotate: calc(var(--where-was-i-rotation) * var(--card-index));
+  rotate: calc(var(--wwi-rotation) * var(--card-index));
   filter: brightness(0.8);
 }
 
-#where-was-i-container .where-was-i-card--new {
+#wwi-container .wwi-card--new {
   animation: getInHere .7s forwards cubic-bezier(0,.52,.36,.94);
 }
 
-#where-was-i-container .where-was-i-card:hover {
+#wwi-container .wwi-card:hover {
   filter: brightness(1);
   top: -2rem;
 }
 
-#where-was-i-container .where-was-i-card:hover .where-was-i-tooltip {
+#wwi-container .wwi-card:hover .wwi-tooltip {
   opacity: 1;
 }
 
-#where-was-i-container .where-was-i-card--pad-left-a-little {
+#wwi-container .wwi-card--pad-left-a-little {
   margin-left: -1.25rem;
 }
 
-#where-was-i-container .where-was-i-card--pad-left {
+#wwi-container .wwi-card--pad-left {
   margin-left: -2.5rem;
 }
-#where-was-i-container .where-was-i-card--pad-right {
+#wwi-container .wwi-card--pad-right {
   margin-left: 2.5rem;
 }
 
@@ -234,7 +234,7 @@ ${buttonCss}
 `
 
 const screenCss = `
-  #where-was-i-container .where-was-i-screen-container {
+  #wwi-container .wwi-screen-container {
     aspect-ratio: 3 / 1;
     min-width: 300px;
     display: flex;
@@ -243,35 +243,36 @@ const screenCss = `
     background-color: rgba(0,0,0,0);
     transition: scale .2s ease, background-color .2s ease;
   }
-  #where-was-i-container .where-was-i-screen-container:hover {
+  #wwi-container .wwi-screen-container:hover {
     scale: 1.03;
     background-color: rgba(0,0,0,.03);
   }
-  #where-was-i-container .where-was-i-screen-container__screen {
+  #wwi-container .wwi-screen-container__screen {
     flex-basis: 50%;
     border-radius: .5rem;
   }
 
-  #where-was-i-container .where-was-i-screen-container__meta {
+  #wwi-container .wwi-screen-container__meta {
     display: flex;
     flex-direction: column;
     padding: .5rem;
     color: rgb(var(--dark-color));
   }
 
-  #where-was-i-container .where-was-i-screen-container__title {
+  #wwi-container .wwi-screen-container__title {
     font-weight: bold;
     padding-bottom: .3rem;
   }
 
-  #where-was-i-container .where-was-i-screen-container__subtitle {
+  #wwi-container .wwi-screen-container__subtitle {
     font-size: smaller;
     opacity: 0.8;
+    white-space: nowrap;
   }
 `
 
 const floatingButtonCss = `
-#where-was-i-container #where-was-i-show-button {
+#wwi-container #wwi-show-button {
   padding: 0.75rem;
   border-radius: 50%;
   background-color: rgba(0,0,0,0.7);
@@ -284,18 +285,18 @@ const floatingButtonCss = `
   z-index: 2;
 }
 
-#where-was-i-container #where-was-i-show-button:hover {
+#wwi-container #wwi-show-button:hover {
   opacity: 1;
 }
 
-#where-was-i-container #where-was-i-show-button svg {
+#wwi-container #wwi-show-button svg {
 }
-#where-was-i-container #where-was-i-show-button path {
+#wwi-container #wwi-show-button path {
   stroke: white;
 }
 
 
-#where-was-i-container #where-was-i-show-button[data-count]:after {
+#wwi-container #wwi-show-button[data-count]:after {
   content: attr(data-count);
   font-size: smaller;
   position: absolute;
@@ -313,7 +314,7 @@ const panelCss = `
 ${floatingButtonCss}
 ${buttonCss}
 ${screenCss}
-#where-was-i-panel {
+#wwi-panel {
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -331,12 +332,12 @@ ${screenCss}
   box-sizing: border-box;
 }
 
-#where-was-i-container.open #where-was-i-panel {
+#wwi-container.open #wwi-panel {
   translate: 0 0;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-#where-was-i-panel #where-was-i-panel-screens-container {
+#wwi-panel #wwi-panel-screens-container {
   position: relative;
   display: flex;
   gap: 1rem;
@@ -348,7 +349,7 @@ ${screenCss}
   padding-top: 3rem;
 }
 
-#where-was-i-panel #where-was-i-panel-controls {
+#wwi-panel #wwi-panel-controls {
   position: fixed;
   top: 0;
   left: 1rem;
@@ -360,13 +361,13 @@ ${screenCss}
   justify-content: space-between;
 }
 
-#where-was-i-panel #where-was-i-panel-controls label {
+#wwi-panel #wwi-panel-controls label {
   font-weight: bold;
   font-size: 1.2rem;
 }
 
 
-#where-was-i-panel .where-was-i-screen {
+#wwi-panel .wwi-screen {
   display: block;
   height: 150px;
   width: 200px;
@@ -377,7 +378,7 @@ ${screenCss}
   
 }
 
-#where-was-i-panel .where-was-i-screen:hover {
+#wwi-panel .wwi-screen:hover {
   scale: 1.05;
   box-shadow: 0 0 4px 4px rgba(var(--main-color), .2);
 }
@@ -387,7 +388,7 @@ const drawerCss = `
 ${buttonCss}
 ${floatingButtonCss}
 ${screenCss}
-#where-was-i-drawer {
+#wwi-drawer {
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -403,19 +404,19 @@ ${screenCss}
   transition: translate .4s ease, box-shadow .4s ease;
 }
 
-#where-was-i-container.open #where-was-i-drawer {
+#wwi-container.open #wwi-drawer {
   translate: 0 0;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-#where-was-i-container #where-was-i-panel-screens-container {
+#wwi-container #wwi-panel-screens-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
 
-#where-was-i-container .control-buttons {
+#wwi-container .control-buttons {
   display: flex; 
   justify-content: space-between;
 }

@@ -1,61 +1,13 @@
 import renderHistory from './helpers/renderHistory'
 import createHistory, { generateScreenshot } from './helpers/createHistory'
 import applyCss from './helpers/applyCss'
-import { LocationObject } from './types'
 import 'url-change-event'
-import { setShowButtonValue } from './views/showButton'
-import { WhereWasIOptions } from './types'
+import { getStorage, setStorage } from './helpers/storage'
 
-export type { LocationObject, WhereWasIOptions }
 
 window.wwiOptions = { maxAmount: 12, style: 'cards' }
 
 let INTERVAL = 0
-export const ANIMATION_TIMEOUT = 400
-
-export const getStorage = function () {
-  return JSON.parse(
-    window.sessionStorage.getItem('wwi-items') ?? '[]',
-  ) as Array<LocationObject>
-}
-export const setStorage = function (locations: LocationObject[]) {
-  window.sessionStorage.setItem('wwi-items', JSON.stringify(locations))
-}
-
-export const clearStorage = function () {
-  toggleVisibility(false)
-  setTimeout(() => {
-    window.sessionStorage.removeItem('wwi-items')
-    setShowButtonValue(0)
-    renderHistory([])
-  }, ANIMATION_TIMEOUT)
-}
-
-export const toggleVisibility = function (show?: boolean) {
-  const wwiContainer = document.querySelector('#where-was-i-container')
-  const toggleButton = document.querySelector(
-    '#where-was-i-container #where-was-i-show-button',
-  )
-
-  if (!wwiContainer) {
-    console.error('container was not found')
-    return
-  }
-
-  if (typeof show !== 'undefined') {
-    if (show) {
-      wwiContainer.classList.add('open')
-      toggleButton?.classList.add('open')
-    } else {
-      wwiContainer.classList.remove('open')
-      toggleButton?.classList.remove('open')
-    }
-    return
-  }
-
-  wwiContainer.classList.toggle('open')
-  toggleButton?.classList.toggle('open')
-}
 
 const updateCurrentScreen = function (path: string) {
   INTERVAL = window.setInterval(() => {
@@ -66,7 +18,7 @@ const updateCurrentScreen = function (path: string) {
         s => s.location === newLocation,
       )
       const currentLocationElement = document.querySelector<HTMLDivElement>(
-        `#where-was-i-container [data-location="${newLocation}"]`,
+        `#wwi-container [data-location="${newLocation}"]`,
       )
       if (currentLocationObject && currentLocationElement) {
         currentLocationObject.imageData = res
@@ -78,7 +30,7 @@ const updateCurrentScreen = function (path: string) {
   }, window.wwiOptions.screenRefreshRate ?? 5000)
 }
 
-const whereWasI = function (instanceOptions?: WhereWasIOptions) {
+const WhereWasI = function (instanceOptions?: WhereWasIOptions) {
   let storage = getStorage()
 
   if (instanceOptions) {
@@ -110,4 +62,42 @@ const whereWasI = function (instanceOptions?: WhereWasIOptions) {
   })
 }
 
-export default whereWasI
+
+declare type WhereWasIOptions = {
+  /** The title to display in the control panel, @default "Where was i?" */
+  panelTitle?: string
+  /** the maximum amount of location objects to display */
+  maxAmount?: number
+  /** the style for the location objects, @default "panel" */
+  style?: 'cards' | 'panel' | 'drawer'
+  /** how often the screenshot should refresh */
+  screenRefreshRate?: number
+  /** adds filter to which paths should be added as location objects */
+  acceptedPaths?:
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
+
+  /** get the content of meta fields to use as metadata along each screenshot */
+  metafields?: Array<string | Array<string>>
+}
+
+declare type LocationObject = {
+  title: string
+  location: string
+  imageData: string
+  newObject: boolean
+  metafields?: string[]
+}
+
+
+export type { LocationObject, WhereWasIOptions }
+
+export default WhereWasI

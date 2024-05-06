@@ -1,8 +1,8 @@
-import { clearStorage } from '..'
-import { LocationObject } from '../types'
+import { LocationObject } from '..'
 import { infoMiniIcon, trashMiniIcon } from './icons'
 import { createWwiElement } from '../helpers/elementFactory'
 import { getScreenThumbnail } from './screenThumbnail'
+import { clearStorage } from '../helpers/storage'
 
 const renderPanelScreens = function (
   history: LocationObject[],
@@ -22,31 +22,31 @@ const renderPanelScreens = function (
 }
 
 const getPanelsView = function (history: Array<LocationObject>) {
-  const panelView = createWwiElement<HTMLDivElement>('where-was-i-panel', 'div')
-  const controlPanel = createWwiElement('where-was-i-panel-controls', 'div')
+  const panelView = createWwiElement<HTMLDivElement>('wwi-panel', 'div')
+  const controlPanel = createWwiElement('wwi-panel-controls', 'div')
   const controlPanelTitle = createWwiElement(
-    'where-was-i-panel-screens-title',
+    'wwi-panel-screens-title',
     'h3',
     window.wwiOptions.panelTitle ?? 'Where was I?',
   )
   const clearButton = createWwiElement(
-    'where-was-i-panel-screens-clear-button',
+    'wwi-panel-screens-clear-button',
     'button',
     trashMiniIcon,
-    ['where-was-i-button'],
+    ['wwi-button'],
   )
   const infoButton = createWwiElement(
-    'where-was-i-panel-screens-info-button',
+    'wwi-panel-screens-info-button',
     'button',
     infoMiniIcon,
-    ['where-was-i-button', 'where-was-i-button--light'],
+    ['wwi-button', 'wwi-button--light'],
   )
   const screensContainer = createWwiElement(
-    'where-was-i-panel-screens-container',
+    'wwi-panel-screens-container',
     'div',
   )
   const buttonsContainer = createWwiElement(
-    'where-was-i-panel-buttons-container',
+    'wwi-panel-buttons-container',
     'div',
     undefined,
     ['buttons-container'],

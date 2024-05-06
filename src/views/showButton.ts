@@ -1,13 +1,41 @@
-import { LocationObject, toggleVisibility } from '..'
+import { LocationObject } from '..'
 import { createWwiElement } from '../helpers/elementFactory'
 import { historyIcon } from './icons'
+
+export const ANIMATION_TIMEOUT = 400
+
+export const toggleVisibility = function (show?: boolean) {
+  const wwiContainer = document.querySelector('#wwi-container')
+  const toggleButton = document.querySelector(
+    '#wwi-container #wwi-show-button',
+  )
+
+  if (!wwiContainer) {
+    console.error('container was not found')
+    return
+  }
+
+  if (typeof show !== 'undefined') {
+    if (show) {
+      wwiContainer.classList.add('open')
+      toggleButton?.classList.add('open')
+    } else {
+      wwiContainer.classList.remove('open')
+      toggleButton?.classList.remove('open')
+    }
+    return
+  }
+
+  wwiContainer.classList.toggle('open')
+  toggleButton?.classList.toggle('open')
+}
 
 const addShowButton = function (
   container: HTMLDivElement,
   history: LocationObject[],
 ) {
   const showButton = createWwiElement(
-    'where-was-i-show-button',
+    'wwi-show-button',
     'button',
     historyIcon,
   )
@@ -20,7 +48,7 @@ const addShowButton = function (
 }
 
 const setShowButtonValue = function (amount: number) {
-  const showButton = document.querySelector('#where-was-i-show-button')
+  const showButton = document.querySelector('#wwi-show-button')
 
   if (showButton) {
     showButton.setAttribute('data-count', amount.toString())

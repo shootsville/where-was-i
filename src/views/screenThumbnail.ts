@@ -1,6 +1,6 @@
-import { ANIMATION_TIMEOUT, toggleVisibility } from '..'
 import { createWwiElement } from '../helpers/elementFactory'
-import { LocationObject } from '../types'
+import { LocationObject } from '..'
+import { ANIMATION_TIMEOUT, toggleVisibility } from './showButton'
 
 export const getScreenThumbnail = function (
   obj: LocationObject,
@@ -13,7 +13,7 @@ export const getScreenThumbnail = function (
     `wwi-screen-thumb-${friendlyIdSlug}-container`,
     'a',
     undefined,
-    ['where-was-i-screen-container'],
+    ['wwi-screen-container'],
   )
   const screen = createWwiElement(
     `wwi-screen-thumb-${friendlyIdSlug}`,
@@ -21,28 +21,28 @@ export const getScreenThumbnail = function (
     undefined,
     obj.newObject
       ? [
-          'where-was-i-screen-container__screen',
-          'where-was-i-screen-container__screen--new',
-        ]
-      : ['where-was-i-screen-container__screen'],
+        'wwi-screen-container__screen',
+        'wwi-screen-container__screen--new',
+      ]
+      : ['wwi-screen-container__screen'],
   )
   const screenMeta = createWwiElement(
     `wwi-screen-thumb-${friendlyIdSlug}-meta`,
     'div',
     undefined,
-    ['where-was-i-screen-container__meta'],
+    ['wwi-screen-container__meta'],
   )
   const screenTitle = createWwiElement(
     `wwi-screen-thumb-${friendlyIdSlug}-title`,
     'span',
     obj.title,
-    ['where-was-i-screen-container__title'],
+    ['wwi-screen-container__title'],
   )
   const screenSubtitle = createWwiElement(
     `wwi-screen-thumb-${friendlyIdSlug}-meta`,
     'div',
     undefined,
-    ['where-was-i-screen-container__subtitle'],
+    ['wwi-screen-container__subtitle'],
   )
 
   screenContainer.href = obj.location

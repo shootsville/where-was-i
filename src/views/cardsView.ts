@@ -1,7 +1,7 @@
-import { clearStorage } from '..'
-import { LocationObject } from '../types'
 import { trashIcon } from './icons'
 import { createWwiElement } from '../helpers/elementFactory'
+import { clearStorage } from '../helpers/storage'
+import { LocationObject } from '..'
 
 const ROTATION = 6
 
@@ -11,7 +11,7 @@ const getCardsView = function (history: Array<LocationObject>) {
     'wwi-clear-button',
     'button',
     trashIcon,
-    ['where-was-i-button'],
+    ['wwi-button'],
   )
 
   let currentRotation =
@@ -23,8 +23,8 @@ const getCardsView = function (history: Array<LocationObject>) {
       'a',
       undefined,
       obj.newObject
-        ? ['where-was-i-card', 'where-was-i-card--new']
-        : ['where-was-i-card'],
+        ? ['wwi-card', 'wwi-card--new']
+        : ['wwi-card'],
     )
     const tooltip = createWwiElement(`wwi-card-${index}-tooltip`, 'span')
 
@@ -45,29 +45,29 @@ const getCardsView = function (history: Array<LocationObject>) {
     card.addEventListener('mouseover', function (e) {
       const div = e.currentTarget as HTMLDivElement
       const hoveredIndex = Number(div.dataset.index)
-      div.classList.add('where-was-i-card--pad-left-a-little')
+      div.classList.add('wwi-card--pad-left-a-little')
       document
         .querySelectorAll<HTMLDivElement>(
-          `.where-was-i-card:not([data-index='${hoveredIndex}'])`,
+          `.wwi-card:not([data-index='${hoveredIndex}'])`,
         )
         .forEach(elm => {
           if (Number(elm.dataset.index) < hoveredIndex) {
-            elm.classList.add('where-was-i-card--pad-left')
+            elm.classList.add('wwi-card--pad-left')
           } else {
-            elm.classList.add('where-was-i-card--pad-right')
+            elm.classList.add('wwi-card--pad-right')
           }
         })
     })
 
     card.addEventListener('mouseout', function () {
-      document.querySelectorAll(`.where-was-i-card`).forEach(elm => {
-        elm.classList.remove('where-was-i-card--pad-left-a-little')
-        elm.classList.remove('where-was-i-card--pad-left')
-        elm.classList.remove('where-was-i-card--pad-right')
+      document.querySelectorAll(`.wwi-card`).forEach(elm => {
+        elm.classList.remove('wwi-card--pad-left-a-little')
+        elm.classList.remove('wwi-card--pad-left')
+        elm.classList.remove('wwi-card--pad-right')
       })
     })
 
-    tooltip.classList.add('where-was-i-tooltip')
+    tooltip.classList.add('wwi-tooltip')
     tooltip.innerHTML = obj.title
     card.append(tooltip)
 

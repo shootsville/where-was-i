@@ -1,6 +1,6 @@
 import html2canvas from 'html2canvas'
 import { Options as CanvasOptions } from 'html2canvas'
-import { LocationObject } from '../types'
+import { LocationObject } from '..'
 
 const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
@@ -68,7 +68,6 @@ const createHistory = async function (
 ) {
   const options = window.wwiOptions
 
-  console.log(newItem)
   if (options.acceptedPaths) {
     let shouldReturn = false
     switch (options.acceptedPaths.type) {

@@ -1,4 +1,4 @@
-import { LocationObject } from '../types'
+import { LocationObject } from '..'
 import getCardsView from '../views/cardsView'
 import getDrawerView from '../views/drawerView'
 import getPanelsView from '../views/panelsView'
@@ -8,13 +8,13 @@ import { createWwiElement } from './elementFactory'
 const renderHistory = function (history: Array<LocationObject>) {
   const body = document.body
   const wwiContainer = createWwiElement<HTMLDivElement>(
-    'where-was-i-container',
+    'wwi-container',
     'div',
     '',
   )
 
   wwiContainer.setAttribute('data-html2canvas-ignore', 'true')
-  wwiContainer.id = 'where-was-i-container'
+  wwiContainer.id = 'wwi-container'
   wwiContainer.style.setProperty('--children-count', history.length.toString())
 
   /** start fresh if render history gets called again */
