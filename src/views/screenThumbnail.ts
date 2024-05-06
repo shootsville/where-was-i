@@ -20,10 +20,7 @@ export const getScreenThumbnail = function (
     'div',
     undefined,
     obj.newObject
-      ? [
-        'wwi-screen-container__screen',
-        'wwi-screen-container__screen--new',
-      ]
+      ? ['wwi-screen-container__screen', 'wwi-screen-container__screen--new']
       : ['wwi-screen-container__screen'],
   )
   const screenMeta = createWwiElement(

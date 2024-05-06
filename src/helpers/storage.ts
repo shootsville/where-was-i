@@ -1,6 +1,10 @@
-import { LocationObject } from ".."
-import { ANIMATION_TIMEOUT, setShowButtonValue, toggleVisibility } from "../views/showButton"
-import renderHistory from "./renderHistory"
+import { LocationObject } from '..'
+import {
+  ANIMATION_TIMEOUT,
+  setShowButtonValue,
+  toggleVisibility,
+} from '../views/showButton'
+import renderHistory from './renderHistory'
 
 export const getStorage = function () {
   return JSON.parse(

@@ -22,9 +22,7 @@ const getCardsView = function (history: Array<LocationObject>) {
       `wwi-card-${index}`,
       'a',
       undefined,
-      obj.newObject
-        ? ['wwi-card', 'wwi-card--new']
-        : ['wwi-card'],
+      obj.newObject ? ['wwi-card', 'wwi-card--new'] : ['wwi-card'],
     )
     const tooltip = createWwiElement(`wwi-card-${index}-tooltip`, 'span')
 

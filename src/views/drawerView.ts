@@ -21,10 +21,7 @@ const renderPanelScreens = function (
 }
 
 const getDrawerView = function (history: Array<LocationObject>) {
-  const drawerView = createWwiElement<HTMLDivElement>(
-    'wwi-drawer',
-    'div',
-  )
+  const drawerView = createWwiElement<HTMLDivElement>('wwi-drawer', 'div')
   const controlPanel = createWwiElement(
     '#wwi-panel-controls',
     'div',

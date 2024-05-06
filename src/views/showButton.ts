@@ -6,9 +6,7 @@ export const ANIMATION_TIMEOUT = 400
 
 export const toggleVisibility = function (show?: boolean) {
   const wwiContainer = document.querySelector('#wwi-container')
-  const toggleButton = document.querySelector(
-    '#wwi-container #wwi-show-button',
-  )
+  const toggleButton = document.querySelector('#wwi-container #wwi-show-button')
 
   if (!wwiContainer) {
     console.error('container was not found')
@@ -34,11 +32,7 @@ const addShowButton = function (
   container: HTMLDivElement,
   history: LocationObject[],
 ) {
-  const showButton = createWwiElement(
-    'wwi-show-button',
-    'button',
-    historyIcon,
-  )
+  const showButton = createWwiElement('wwi-show-button', 'button', historyIcon)
 
   showButton.setAttribute('data-count', history.length.toString())
 

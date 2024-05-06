@@ -4,7 +4,6 @@ import applyCss from './helpers/applyCss'
 import 'url-change-event'
 import { getStorage, setStorage } from './helpers/storage'
 
-
 window.wwiOptions = { maxAmount: 12, style: 'cards' }
 
 let INTERVAL = 0
@@ -62,7 +61,6 @@ const WhereWasI = function (instanceOptions?: WhereWasIOptions) {
   })
 }
 
-
 declare type WhereWasIOptions = {
   /** The title to display in the control panel, @default "Where was i?" */
   panelTitle?: string
@@ -74,16 +72,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-  | {
-    /** path should contain the following string */
-    type: 'contains'
-    path: string
-  }
-  | {
-    /** path should start with the following string */
-    type: 'startsWith'
-    path: string
-  }
+    | {
+        /** path should contain the following string */
+        type: 'contains'
+        path: string
+      }
+    | {
+        /** path should start with the following string */
+        type: 'startsWith'
+        path: string
+      }
 
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
@@ -96,7 +94,6 @@ declare type LocationObject = {
   newObject: boolean
   metafields?: string[]
 }
-
 
 export type { LocationObject, WhereWasIOptions }
 
