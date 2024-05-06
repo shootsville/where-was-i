@@ -5,9 +5,7 @@ import { createWwiElement } from '../helpers/elementFactory'
 
 const ROTATION = 6
 
-const getCardsView = function (
-  history: Array<LocationObject>
-) {
+const getCardsView = function (history: Array<LocationObject>) {
   const cardsDiv = createWwiElement<HTMLDivElement>('wwi-cards', 'div')
   const clearButton = createWwiElement(
     'wwi-clear-button',

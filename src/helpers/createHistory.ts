@@ -14,27 +14,31 @@ const CARD_CANVAS_OPTIONS: Partial<CanvasOptions> = {
 
 const extractMetafields = function () {
   if (!window.wwiOptions.metafields) {
-    return;
+    return
   }
 
-  const fields: string[] = [];
+  const fields: string[] = []
 
   window.wwiOptions.metafields.forEach(f => {
-    if (typeof f === "string") {
-      const metaElm = document.querySelector(`meta[property='${f}'], meta[name='${f}']`);
+    if (typeof f === 'string') {
+      const metaElm = document.querySelector(
+        `meta[property='${f}'], meta[name='${f}']`,
+      )
       if (metaElm) {
-        const content = metaElm.getAttribute("content")
-        if (content)
-          fields.push(content)
+        const content = metaElm.getAttribute('content')
+        if (content) fields.push(content)
       }
-      return;
+      return
     }
 
-    let aggregatedField = "";
+    let aggregatedField = ''
     f.forEach(subF => {
-
-      const metaElm = document.querySelector(`meta[property='${subF}'], meta[name='${subF}']`);
-      if (metaElm) { aggregatedField += metaElm.getAttribute("content") }
+      const metaElm = document.querySelector(
+        `meta[property='${subF}'], meta[name='${subF}']`,
+      )
+      if (metaElm) {
+        aggregatedField += metaElm.getAttribute('content')
+      }
     })
 
     fields.push(aggregatedField)
@@ -48,7 +52,9 @@ export const generateScreenshot = async function () {
 
   const canvas = await html2canvas(
     screenshotTarget,
-    window.wwiOptions.style === 'panel' ? PANEL_CANVAS_OPTIONS : CARD_CANVAS_OPTIONS,
+    window.wwiOptions.style === 'panel'
+      ? PANEL_CANVAS_OPTIONS
+      : CARD_CANVAS_OPTIONS,
   )
 
   const base64image = canvas.toDataURL('image/png')
@@ -58,9 +64,9 @@ export const generateScreenshot = async function () {
 
 const createHistory = async function (
   newItem: string,
-  history: Array<LocationObject>
+  history: Array<LocationObject>,
 ) {
-  const options = window.wwiOptions;
+  const options = window.wwiOptions
 
   console.log(newItem)
   if (options.acceptedPaths) {
@@ -81,14 +87,14 @@ const createHistory = async function (
 
   const imageData = await generateScreenshot()
   const newLocation = `${location.origin}${newItem}`
-  const metafields = extractMetafields();
+  const metafields = extractMetafields()
   const sortedHistory = [
     {
       location: newLocation,
       imageData,
       title: document.title,
       newObject: true,
-      metafields: metafields
+      metafields: metafields,
     },
     ...history
       .filter(h => h.location !== newLocation)

@@ -15,12 +15,12 @@ const renderPanelScreens = function (
     return
   }
 
-  history.map(getScreenThumbnail).forEach(screen => screensContainer.append(screen));
+  history
+    .map(getScreenThumbnail)
+    .forEach(screen => screensContainer.append(screen))
 }
 
-const getDrawerView = function (
-  history: Array<LocationObject>
-) {
+const getDrawerView = function (history: Array<LocationObject>) {
   const drawerView = createWwiElement<HTMLDivElement>(
     'where-was-i-drawer',
     'div',
@@ -58,18 +58,20 @@ const getDrawerView = function (
     'where-was-i-panel-buttons-container',
     'div',
     undefined,
-    ['buttons-container']
+    ['buttons-container'],
   )
 
-  infoButton.setAttribute("tooltip", `This is your recently visited pages on this site. 
-This is only stored on your computer and is removed as soon as you close the browser`)
-  infoButton.setAttribute("tooltip-direction", "bottom")
+  infoButton.setAttribute(
+    'tooltip',
+    `This is your recently visited pages on this site. 
+This is only stored on your computer and is removed as soon as you close the browser`,
+  )
+  infoButton.setAttribute('tooltip-direction', 'bottom')
 
-  clearButton.setAttribute("tooltip", "Clear your session history")
-  clearButton.setAttribute("tooltip-direction", "bottom")
+  clearButton.setAttribute('tooltip', 'Clear your session history')
+  clearButton.setAttribute('tooltip-direction', 'bottom')
 
   clearButton.addEventListener('click', clearStorage)
-
 
   buttonsContainer.append(infoButton)
   buttonsContainer.append(clearButton)

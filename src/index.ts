@@ -8,7 +8,7 @@ import { WhereWasIOptions } from './types'
 
 export type { LocationObject, WhereWasIOptions }
 
-window.wwiOptions = { maxAmount: 12, style: 'cards' };
+window.wwiOptions = { maxAmount: 12, style: 'cards' }
 
 let INTERVAL = 0
 export const ANIMATION_TIMEOUT = 400
@@ -78,13 +78,11 @@ const updateCurrentScreen = function (path: string) {
   }, window.wwiOptions.screenRefreshRate ?? 5000)
 }
 
-const whereWasI = function (
-  instanceOptions?: WhereWasIOptions,
-) {
+const whereWasI = function (instanceOptions?: WhereWasIOptions) {
   let storage = getStorage()
 
   if (instanceOptions) {
-    window.wwiOptions = instanceOptions;
+    window.wwiOptions = instanceOptions
   }
 
   window.addEventListener('urlchangeevent', () => {

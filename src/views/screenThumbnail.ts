@@ -1,17 +1,49 @@
-import { ANIMATION_TIMEOUT, toggleVisibility } from ".."
-import { createWwiElement } from "../helpers/elementFactory"
-import { LocationObject } from "../types"
+import { ANIMATION_TIMEOUT, toggleVisibility } from '..'
+import { createWwiElement } from '../helpers/elementFactory'
+import { LocationObject } from '../types'
 
 export const getScreenThumbnail = function (
   obj: LocationObject,
-  index: number
+  index: number,
 ) {
-  const friendlyIdSlug = obj.location.replaceAll(/:/g, "-").replaceAll(/\//g, "-")
-  const screenContainer = createWwiElement<HTMLAnchorElement>(`wwi-screen-thumb-${friendlyIdSlug}-container`, "a", undefined, ["where-was-i-screen-container"])
-  const screen = createWwiElement(`wwi-screen-thumb-${friendlyIdSlug}`, "div", undefined, obj.newObject ? ["where-was-i-screen-container__screen", "where-was-i-screen-container__screen--new"] : ["where-was-i-screen-container__screen"])
-  const screenMeta = createWwiElement(`wwi-screen-thumb-${friendlyIdSlug}-meta`, 'div', undefined, ['where-was-i-screen-container__meta']);
-  const screenTitle = createWwiElement(`wwi-screen-thumb-${friendlyIdSlug}-title`, "span", obj.title, ["where-was-i-screen-container__title"])
-  const screenSubtitle = createWwiElement(`wwi-screen-thumb-${friendlyIdSlug}-meta`, 'div', undefined, ['where-was-i-screen-container__subtitle']);
+  const friendlyIdSlug = obj.location
+    .replaceAll(/:/g, '-')
+    .replaceAll(/\//g, '-')
+  const screenContainer = createWwiElement<HTMLAnchorElement>(
+    `wwi-screen-thumb-${friendlyIdSlug}-container`,
+    'a',
+    undefined,
+    ['where-was-i-screen-container'],
+  )
+  const screen = createWwiElement(
+    `wwi-screen-thumb-${friendlyIdSlug}`,
+    'div',
+    undefined,
+    obj.newObject
+      ? [
+          'where-was-i-screen-container__screen',
+          'where-was-i-screen-container__screen--new',
+        ]
+      : ['where-was-i-screen-container__screen'],
+  )
+  const screenMeta = createWwiElement(
+    `wwi-screen-thumb-${friendlyIdSlug}-meta`,
+    'div',
+    undefined,
+    ['where-was-i-screen-container__meta'],
+  )
+  const screenTitle = createWwiElement(
+    `wwi-screen-thumb-${friendlyIdSlug}-title`,
+    'span',
+    obj.title,
+    ['where-was-i-screen-container__title'],
+  )
+  const screenSubtitle = createWwiElement(
+    `wwi-screen-thumb-${friendlyIdSlug}-meta`,
+    'div',
+    undefined,
+    ['where-was-i-screen-container__subtitle'],
+  )
 
   screenContainer.href = obj.location
   screen.title = obj.title
@@ -38,7 +70,7 @@ export const getScreenThumbnail = function (
 
   if (obj.metafields) {
     obj.metafields.forEach(meta => {
-      const metaDiv = document.createElement("div")
+      const metaDiv = document.createElement('div')
       metaDiv.innerHTML = meta
       screenSubtitle.append(metaDiv)
     })

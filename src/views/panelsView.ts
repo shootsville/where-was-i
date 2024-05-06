@@ -16,12 +16,12 @@ const renderPanelScreens = function (
     return
   }
 
-  history.map(getScreenThumbnail).forEach(screen => screensContainer.append(screen));
+  history
+    .map(getScreenThumbnail)
+    .forEach(screen => screensContainer.append(screen))
 }
 
-const getPanelsView = function (
-  history: Array<LocationObject>
-) {
+const getPanelsView = function (history: Array<LocationObject>) {
   const panelView = createWwiElement<HTMLDivElement>('where-was-i-panel', 'div')
   const controlPanel = createWwiElement('where-was-i-panel-controls', 'div')
   const controlPanelTitle = createWwiElement(
@@ -49,20 +49,22 @@ const getPanelsView = function (
     'where-was-i-panel-buttons-container',
     'div',
     undefined,
-    ['buttons-container']
+    ['buttons-container'],
   )
 
   renderPanelScreens(history, screensContainer)
 
-  clearButton.setAttribute("tooltip", "Clear your session history")
+  clearButton.setAttribute('tooltip', 'Clear your session history')
   clearButton.addEventListener('click', clearStorage)
 
-  infoButton.setAttribute("tooltip", `This is your recently visited pages on this site. 
-This is only stored on your computer and is removed as soon as you close the browser`)
+  infoButton.setAttribute(
+    'tooltip',
+    `This is your recently visited pages on this site. 
+This is only stored on your computer and is removed as soon as you close the browser`,
+  )
 
   buttonsContainer.append(infoButton)
   buttonsContainer.append(clearButton)
-
 
   controlPanel.append(controlPanelTitle)
   controlPanel.append(buttonsContainer)

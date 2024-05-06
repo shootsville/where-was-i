@@ -268,7 +268,7 @@ const screenCss = `
     font-size: smaller;
     opacity: 0.8;
   }
-`;
+`
 
 const floatingButtonCss = `
 #where-was-i-container #where-was-i-show-button {

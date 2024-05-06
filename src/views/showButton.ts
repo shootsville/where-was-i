@@ -14,21 +14,17 @@ const addShowButton = function (
 
   showButton.setAttribute('data-count', history.length.toString())
 
-
   showButton.addEventListener('click', () => toggleVisibility())
 
   container.append(showButton)
 }
 
 const setShowButtonValue = function (amount: number) {
-  const showButton = document.querySelector("#where-was-i-show-button");
+  const showButton = document.querySelector('#where-was-i-show-button')
 
   if (showButton) {
-    showButton.setAttribute('data-count', amount.toString());
+    showButton.setAttribute('data-count', amount.toString())
   }
 }
 
-export {
-  addShowButton,
-  setShowButtonValue
-}
+export { addShowButton, setShowButtonValue }
