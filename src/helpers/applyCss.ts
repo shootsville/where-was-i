@@ -242,6 +242,7 @@ const screenCss = `
     border-radius: .5rem;
     background-color: rgba(0,0,0,0);
     transition: scale .2s ease, background-color .2s ease;
+    text-decoration: none;
   }
   #wwi-container .wwi-screen-container:hover {
     scale: 1.03;
