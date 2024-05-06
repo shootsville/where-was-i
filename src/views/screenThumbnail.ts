@@ -8,7 +8,7 @@ export const getScreenThumbnail = function (
 ) {
   const friendlyIdSlug = obj.location
     .replaceAll(/:/g, '-')
-    .replaceAll(/\//g, '-')
+    .replaceAll(/[/]/g, '-')
   const screenContainer = createWwiElement<HTMLAnchorElement>(
     `wwi-screen-thumb-${friendlyIdSlug}-container`,
     'a',
@@ -58,8 +58,8 @@ export const getScreenThumbnail = function (
     if (!newLoc) {
       return true
     }
-    toggleVisibility(false)
     e.preventDefault()
+    toggleVisibility(false)
     setTimeout(() => {
       window.location.href = newLoc
     }, ANIMATION_TIMEOUT)

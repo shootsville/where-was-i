@@ -248,13 +248,16 @@ const screenCss = `
     background-color: rgba(0,0,0,.03);
   }
   #wwi-container .wwi-screen-container__screen {
-    flex-basis: 50%;
+    flex-basis: 40%;
+    max-width: 40%;
     border-radius: .5rem;
   }
 
   #wwi-container .wwi-screen-container__meta {
     display: flex;
     flex-direction: column;
+    flex-basis: 60%;
+    max-width: 60%;
     padding: .5rem;
     color: rgb(var(--dark-color));
   }
@@ -267,7 +270,12 @@ const screenCss = `
   #wwi-container .wwi-screen-container__subtitle {
     font-size: smaller;
     opacity: 0.8;
+  }
+
+  #wwi-container .wwi-screen-container__subtitle > div {
+    overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
   }
 `
 
