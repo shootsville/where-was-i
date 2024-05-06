@@ -1,6 +1,6 @@
 import { clearStorage } from '..'
 import { LocationObject } from '../types'
-import { infoMiniIcon, trashMiniIcon } from '../helpers/icons'
+import { infoMiniIcon, trashMiniIcon } from './icons'
 import { createWwiElement } from '../helpers/elementFactory'
 import { getScreenThumbnail } from './screenThumbnail'
 

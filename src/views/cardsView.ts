@@ -1,6 +1,6 @@
 import { clearStorage } from '..'
 import { LocationObject } from '../types'
-import { trashIcon } from '../helpers/icons'
+import { trashIcon } from './icons'
 import { createWwiElement } from '../helpers/elementFactory'
 
 const ROTATION = 6

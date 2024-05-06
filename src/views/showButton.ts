@@ -1,6 +1,6 @@
 import { LocationObject, toggleVisibility } from '..'
 import { createWwiElement } from '../helpers/elementFactory'
-import { historyIcon } from '../helpers/icons'
+import { historyIcon } from './icons'
 
 const addShowButton = function (
   container: HTMLDivElement,
@@ -14,7 +14,7 @@ const addShowButton = function (
 
   showButton.setAttribute('data-count', history.length.toString())
 
-  
+
   showButton.addEventListener('click', () => toggleVisibility())
 
   container.append(showButton)
