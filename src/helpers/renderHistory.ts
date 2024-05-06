@@ -1,4 +1,4 @@
-import { LocationObject, WhereWasIOptions } from '../types'
+import { LocationObject } from '../types'
 import getCardsView from '../views/cardsView'
 import getDrawerView from '../views/drawerView'
 import getPanelsView from '../views/panelsView'
@@ -6,8 +6,7 @@ import { addShowButton } from '../views/showButton'
 import { createWwiElement } from './elementFactory'
 
 const renderHistory = function (
-  history: Array<LocationObject>,
-  options: WhereWasIOptions,
+  history: Array<LocationObject>
 ) {
   const body = document.body
   const wwiContainer = createWwiElement<HTMLDivElement>(
@@ -20,18 +19,21 @@ const renderHistory = function (
   wwiContainer.id = 'where-was-i-container'
   wwiContainer.style.setProperty('--children-count', history.length.toString())
 
+  /** start fresh if render history gets called again */
+  wwiContainer.innerHTML = "";
+
   let wwiView: HTMLElement
 
-  switch (options.style) {
+  switch (window.wwiOptions.style) {
     case 'cards':
-      wwiView = getCardsView(history, options)
+      wwiView = getCardsView(history)
       break
     case 'drawer':
-      wwiView = getDrawerView(history, options)
+      wwiView = getDrawerView(history)
       addShowButton(wwiContainer, history)
       break
     default:
-      wwiView = getPanelsView(history, options)
+      wwiView = getPanelsView(history)
       addShowButton(wwiContainer, history)
       break
   }

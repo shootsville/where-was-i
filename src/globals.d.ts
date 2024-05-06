@@ -1,4 +1,4 @@
-export declare type WhereWasIOptions = {
+declare type WhereWasIOptions = {
   /** The title to display in the control panel, @default "Where was i?" */
   panelTitle?: string
   /** the maximum amount of location objects to display */
@@ -24,10 +24,4 @@ export declare type WhereWasIOptions = {
   metafields?: Array<string | Array<string>>
 }
 
-export declare type LocationObject = {
-  title: string
-  location: string
-  imageData: string
-  newObject: boolean
-  metafields?: string[]
-}
+declare interface Window { wwiOptions: WhereWasIOptions; }

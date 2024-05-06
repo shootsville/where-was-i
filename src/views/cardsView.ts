@@ -1,21 +1,19 @@
-import { setStorage } from '..'
-import { LocationObject, WhereWasIOptions } from '../types'
+import { clearStorage } from '..'
+import { LocationObject } from '../types'
 import { trashIcon } from '../helpers/icons'
-import renderHistory from '../helpers/renderHistory'
 import { createWwiElement } from '../helpers/elementFactory'
 
 const ROTATION = 6
 
 const getCardsView = function (
-  history: Array<LocationObject>,
-  options: WhereWasIOptions,
+  history: Array<LocationObject>
 ) {
   const cardsDiv = createWwiElement<HTMLDivElement>('wwi-cards', 'div')
   const clearButton = createWwiElement(
     'wwi-clear-button',
     'button',
     trashIcon,
-    ['where-was-i-clear-button'],
+    ['where-was-i-button'],
   )
 
   let currentRotation =
@@ -78,10 +76,7 @@ const getCardsView = function (
     cardsDiv.append(card)
   })
 
-  clearButton.addEventListener('click', function () {
-    setStorage([])
-    renderHistory([], options)
-  })
+  clearButton.addEventListener('click', clearStorage)
 
   cardsDiv.append(clearButton)
 

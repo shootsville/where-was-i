@@ -1,12 +1,17 @@
 import renderHistory from './helpers/renderHistory'
 import createHistory, { generateScreenshot } from './helpers/createHistory'
 import applyCss from './helpers/applyCss'
-import { LocationObject, WhereWasIOptions } from './types'
+import { LocationObject } from './types'
 import 'url-change-event'
+import { setShowButtonValue } from './views/showButton'
+import { WhereWasIOptions } from './types'
 
 export type { LocationObject, WhereWasIOptions }
 
+window.wwiOptions = { maxAmount: 12, style: 'cards' };
+
 let INTERVAL = 0
+export const ANIMATION_TIMEOUT = 400
 
 export const getStorage = function () {
   return JSON.parse(
@@ -15,6 +20,15 @@ export const getStorage = function () {
 }
 export const setStorage = function (locations: LocationObject[]) {
   window.sessionStorage.setItem('wwi-items', JSON.stringify(locations))
+}
+
+export const clearStorage = function () {
+  toggleVisibility(false)
+  setTimeout(() => {
+    window.sessionStorage.removeItem('wwi-items')
+    setShowButtonValue(0)
+    renderHistory([])
+  }, ANIMATION_TIMEOUT)
 }
 
 export const toggleVisibility = function (show?: boolean) {
@@ -43,9 +57,9 @@ export const toggleVisibility = function (show?: boolean) {
   toggleButton?.classList.toggle('open')
 }
 
-const updateCurrentScreen = function (options: WhereWasIOptions, path: string) {
+const updateCurrentScreen = function (path: string) {
   INTERVAL = window.setInterval(() => {
-    generateScreenshot(options).then(res => {
+    generateScreenshot().then(res => {
       const storage = getStorage()
       const newLocation = `${location.origin}${path}`
       const currentLocationObject = storage.find(
@@ -61,36 +75,40 @@ const updateCurrentScreen = function (options: WhereWasIOptions, path: string) {
 
       setStorage(storage)
     })
-  }, options.screenRefreshRate ?? 5000)
+  }, window.wwiOptions.screenRefreshRate ?? 5000)
 }
 
 const whereWasI = function (
-  options: WhereWasIOptions = { maxAmount: 12, style: 'cards' },
+  instanceOptions?: WhereWasIOptions,
 ) {
   let storage = getStorage()
+
+  if (instanceOptions) {
+    window.wwiOptions = instanceOptions;
+  }
 
   window.addEventListener('urlchangeevent', () => {
     clearInterval(INTERVAL)
     /** SPA:s trigger url change event before changing rendered page */
     setTimeout(() => {
-      createHistory(location.pathname, storage, options).then(res => {
+      createHistory(location.pathname, storage).then(res => {
         storage = res
         setStorage(storage)
-        renderHistory(storage, options)
+        renderHistory(storage)
       })
-      updateCurrentScreen(options, location.pathname)
+      updateCurrentScreen(location.pathname)
     }, 500)
   })
 
   document.addEventListener('DOMContentLoaded', () => {
-    createHistory(location.pathname, storage, options).then(res => {
+    createHistory(location.pathname, storage).then(res => {
       storage = res
       setStorage(storage)
-      renderHistory(storage, options)
+      renderHistory(storage)
     })
-    updateCurrentScreen(options, location.pathname)
+    updateCurrentScreen(location.pathname)
 
-    applyCss(options)
+    applyCss()
   })
 }
 

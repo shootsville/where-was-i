@@ -1,5 +1,3 @@
-import { WhereWasIOptions } from '../types'
-
 const resetCss = `
 #where-was-i-container {
   --main-color: 100, 108, 255;
@@ -47,7 +45,112 @@ const resetCss = `
 }
 `
 
+const generalCss = `
+${resetCss}
+
+#where-was-i-container h1, #where-was-i-container h2, #where-was-i-container h3 {
+  font-weight: bold;
+}
+`
+
+const buttonCss = `
+#where-was-i-container .where-was-i-button {
+  background-color: rgba(var(--dark-color), .6);
+  color: white;
+  transition: background-color .4s ease, color .4s ease;
+  padding: 0.3rem 0.6rem;
+  border: none;
+}
+#where-was-i-container .where-was-i-button path {
+  transition: stroke .4s ease, fill .4s ease;
+}
+#where-was-i-container .where-was-i-button circle {
+  transition: fill .4s ease;
+}
+
+#where-was-i-container .where-was-i-button:hover {
+  background-color: rgb(var(--main-color));
+  color: white;
+}
+
+#where-was-i-container .where-was-i-button--light {
+  background-color: transparent;
+  color: rgb(var(--dark-color));
+}
+
+#where-was-i-container .buttons-container {
+  display: flex; 
+  gap: .25rem;
+}
+
+#where-was-i-container .where-was-i-button[tooltip] {
+  position: relative;
+}
+
+#where-was-i-container .where-was-i-button[tooltip]:before {
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: attr(tooltip);
+  position: absolute;
+  top: 0;
+  background-color: white;
+  translate: -75% -75%;
+  color: black;
+  width: 160px;
+  font-size: .6rem;
+  font-weight: 600;
+  transition: opacity .4s ease, translate .4s ease;
+  padding: .3rem;
+  border-radius: 0.25rem;
+  display: block;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+#where-was-i-container .where-was-i-button[tooltip]:hover:before {
+  opacity: 1;
+  translate: -75% calc(-100% - 4px);
+}
+
+#where-was-i-container .where-was-i-button[tooltip]:after {
+  opacity: 0;
+  position: absolute;
+  top: -4px;
+  right: 8px;
+  z-index: 2;
+  content: "";
+  width: 0; 
+  height: 0; 
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;  
+  border-top: 4px solid white;
+  transition: opacity .4s ease;
+}
+
+#where-was-i-container .where-was-i-button[tooltip]:hover:after {
+  opacity: 1;
+}
+
+#where-was-i-container .where-was-i-button[tooltip][tooltip-direction=bottom]:before {
+  bottom: 0;
+  top: unset;
+  translate: -10% 75%;
+}
+
+#where-was-i-container .where-was-i-button[tooltip][tooltip-direction=bottom]:hover:before {
+  translate: -10% calc(100% + 4px);
+}
+
+#where-was-i-container .where-was-i-button[tooltip][tooltip-direction=bottom]:after {
+  rotate: 180deg;
+  right: 8px;
+  top: unset;
+  bottom: -4px;
+}
+`
+
 const cardsCss = `
+${buttonCss}
 #where-was-i-container {
   --where-was-i-rotation: 6deg;
   position: fixed;
@@ -120,31 +223,6 @@ const cardsCss = `
   margin-left: 2.5rem;
 }
 
-#where-was-i-container .where-was-i-clear-button {
-  padding: 1rem;
-  border-radius: 50%;
-  background-color: rgba(0,0,0,0.7);
-  opacity: .5;
-  color: white;
-  position: absolute;
-  bottom: -2rem;
-  left: 50%;
-  translate: -50% 0;
-  transition: opacity .4s ease;
-}
-
-#where-was-i-container .where-was-i-clear-button:hover {
-  opacity: 1;
-}
-
-#where-was-i-container .where-was-i-clear-button path {
-  transition: fill .4s ease, stroke .4s ease;
-}
-#where-was-i-container .where-was-i-clear-button:hover path {
-  fill: white;
-  stroke: white;
-}
-
 @keyframes getInHere {
   0% {
     translate: 0 200%;
@@ -154,6 +232,43 @@ const cardsCss = `
   }
 }
 `
+
+const screenCss = `
+  #where-was-i-container .where-was-i-screen-container {
+    aspect-ratio: 3 / 1;
+    min-width: 300px;
+    display: flex;
+    padding: .5rem;
+    border-radius: .5rem;
+    background-color: rgba(0,0,0,0);
+    transition: scale .2s ease, background-color .2s ease;
+  }
+  #where-was-i-container .where-was-i-screen-container:hover {
+    scale: 1.03;
+    background-color: rgba(0,0,0,.03);
+  }
+  #where-was-i-container .where-was-i-screen-container__screen {
+    flex-basis: 50%;
+    border-radius: .5rem;
+  }
+
+  #where-was-i-container .where-was-i-screen-container__meta {
+    display: flex;
+    flex-direction: column;
+    padding: .5rem;
+    color: rgb(var(--dark-color));
+  }
+
+  #where-was-i-container .where-was-i-screen-container__title {
+    font-weight: bold;
+    padding-bottom: .3rem;
+  }
+
+  #where-was-i-container .where-was-i-screen-container__subtitle {
+    font-size: smaller;
+    opacity: 0.8;
+  }
+`;
 
 const floatingButtonCss = `
 #where-was-i-container #where-was-i-show-button {
@@ -196,7 +311,13 @@ const floatingButtonCss = `
 
 const panelCss = `
 ${floatingButtonCss}
+${buttonCss}
+${screenCss}
 #where-was-i-panel {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
   position: fixed;
   left: 0;
   right: 0;
@@ -205,7 +326,6 @@ ${floatingButtonCss}
   translate: 0 100%;
   transition: translate .4s ease, box-shadow .4s ease;
   box-shadow: 0 0 0 0 rgba(0,0,0,0.15);
-  background-color: white;
   color: rgb(var(--dark-color));
   padding: 1rem;
   box-sizing: border-box;
@@ -213,8 +333,7 @@ ${floatingButtonCss}
 
 #where-was-i-container.open #where-was-i-panel {
   translate: 0 0;
-  pointer-events: all;
-  box-shadow: 0px -10px 10px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 #where-was-i-panel #where-was-i-panel-screens-container {
@@ -227,14 +346,6 @@ ${floatingButtonCss}
   scrollbar-width: thin;
   padding: .5rem;
   padding-top: 3rem;
-}
-
-#where-was-i-panel #where-was-i-panel-screens-container > div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: wrap;
 }
 
 #where-was-i-panel #where-was-i-panel-controls {
@@ -254,32 +365,6 @@ ${floatingButtonCss}
   font-size: 1.2rem;
 }
 
-#where-was-i-panel .where-was-i-clear-button {
-  background-color: transparent;
-  color: rgb(var(--dark-color));
-  transition: background-color .4s ease, color .4s ease;
-  padding: 0.3rem 0.6rem;
-  border: none;
-}
-#where-was-i-panel .where-was-i-clear-button path {
-  transition: stroke .4s ease, fill .4s ease;
-}
-#where-was-i-panel .where-was-i-clear-button circle {
-  transition: fill .4s ease;
-}
-
-#where-was-i-panel .where-was-i-clear-button:hover {
-  background-color: rgb(var(--main-color));
-  color: white;
-}
-
-#where-was-i-panel .where-was-i-clear-button:hover path {
-  fill: white;
-  stroke: white;
-}
-#where-was-i-panel .where-was-i-clear-button:hover circle {
-  fill: white;
-}
 
 #where-was-i-panel .where-was-i-screen {
   display: block;
@@ -289,6 +374,7 @@ ${floatingButtonCss}
   box-shadow: 0 0 0 0 rgba(var(--main-color), .2);
   border: 1px solid rgba(var(--main-color), .2);
   border-radius: .2rem;
+  
 }
 
 #where-was-i-panel .where-was-i-screen:hover {
@@ -298,47 +384,36 @@ ${floatingButtonCss}
 `
 
 const drawerCss = `
-body {
-  max-width: 100%;
-  transition: padding-left .4s ease, max-width .4s ease;
-}
-body:has(#where-was-i-container.open) {
-  padding-left: 360px;
-  max-width: calc(100% - 360px);
-}
-
+${buttonCss}
 ${floatingButtonCss}
-
+${screenCss}
 #where-was-i-drawer {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
   position: fixed;
   inset: 0;
   right: auto;
-  background: rgb(var(--dark-color));
   width: 360px;
   padding: 1rem;
+  color: rgb(var(--dark-color));
+  box-shadow: 0 0 0 0 rgba(0,0,0,0.15);
   translate: -100% 0;
-  transition: translate .4s ease;
+  transition: translate .4s ease, box-shadow .4s ease;
 }
 
 #where-was-i-container.open #where-was-i-drawer {
   translate: 0 0;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-#where-was-i-container .screens {
+#where-was-i-container #where-was-i-panel-screens-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-#where-was-i-container .screen {
-  width: 100%;
-  aspect-ratio: 2 / 1;
-  display: flex;
-  flex-direction: column;
-}
-#where-was-i-container .screen .where-was-i-screen {
-  flex: 1;
-}
 
 #where-was-i-container .control-buttons {
   display: flex; 
@@ -346,11 +421,11 @@ ${floatingButtonCss}
 }
 `
 
-const applyCss = function (options: WhereWasIOptions) {
+const applyCss = function () {
   const styleTag = document.createElement('style')
-  styleTag.innerHTML = resetCss
+  styleTag.innerHTML = generalCss
 
-  switch (options.style) {
+  switch (window.wwiOptions.style) {
     case 'panel':
       styleTag.innerHTML += panelCss
       break
