@@ -13,7 +13,7 @@ const CARD_CANVAS_OPTIONS: Partial<CanvasOptions> = {
 }
 
 const extractMetafields = function (options: WhereWasIOptions) {
-  logOptions("extractMetafields", options)
+  logOptions('extractMetafields', options)
   if (!options.metafields) {
     return
   }
@@ -49,7 +49,7 @@ const extractMetafields = function (options: WhereWasIOptions) {
 }
 
 export const generateScreenshot = async function (options: WhereWasIOptions) {
-  logOptions("generateScreenshot", options)
+  logOptions('generateScreenshot', options)
   const screenshotTarget = document.body
 
   const canvas = await html2canvas(screenshotTarget, {
@@ -67,7 +67,7 @@ const createHistory = async function (
   history: Array<LocationObject>,
   options: WhereWasIOptions,
 ) {
-  logOptions("createHistory", options)
+  logOptions('createHistory', options)
   if (options.acceptedPaths) {
     let shouldReturn = false
     switch (options.acceptedPaths.type) {

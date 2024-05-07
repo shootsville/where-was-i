@@ -434,7 +434,7 @@ ${screenCss}
 `
 
 const applyCss = function (options: WhereWasIOptions) {
-  logOptions("applyCss", options)
+  logOptions('applyCss', options)
   const styleTag = document.createElement('style')
   styleTag.innerHTML = generalCss
 

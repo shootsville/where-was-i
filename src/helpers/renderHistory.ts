@@ -9,7 +9,7 @@ const renderHistory = function (
   history: Array<LocationObject>,
   options: WhereWasIOptions,
 ) {
-  logOptions("renderHistory", options)
+  logOptions('renderHistory', options)
   const body = document.body
   const wwiContainer = createWwiElement<HTMLDivElement>(
     'wwi-container',
