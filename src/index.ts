@@ -15,16 +15,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-  | {
-    /** path should contain the following string */
-    type: 'contains'
-    path: string
-  }
-  | {
-    /** path should start with the following string */
-    type: 'startsWith'
-    path: string
-  }
+    | {
+        /** path should contain the following string */
+        type: 'contains'
+        path: string
+      }
+    | {
+        /** path should start with the following string */
+        type: 'startsWith'
+        path: string
+      }
 
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
@@ -37,7 +37,6 @@ declare type LocationObject = {
   newObject: boolean
   metafields?: string[]
 }
-
 
 window.wwiOptions = { maxAmount: 12, style: 'cards' }
 
@@ -101,7 +100,7 @@ const WhereWasI = function (instanceOptions?: WhereWasIOptions) {
 
   return {
     initiate,
-    initiated
+    initiated,
   }
 }
 
