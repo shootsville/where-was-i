@@ -4,6 +4,41 @@ import applyCss from './helpers/applyCss'
 import 'url-change-event'
 import { getStorage, setStorage } from './helpers/storage'
 
+declare type WhereWasIOptions = {
+  /** The title to display in the control panel, @default "Where was i?" */
+  panelTitle?: string
+  /** the maximum amount of location objects to display */
+  maxAmount?: number
+  /** the style for the location objects, @default "panel" */
+  style?: 'cards' | 'panel' | 'drawer'
+  /** how often the screenshot should refresh */
+  screenRefreshRate?: number
+  /** adds filter to which paths should be added as location objects */
+  acceptedPaths?:
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
+
+  /** get the content of meta fields to use as metadata along each screenshot */
+  metafields?: Array<string | Array<string>>
+}
+
+declare type LocationObject = {
+  title: string
+  location: string
+  imageData: string
+  newObject: boolean
+  metafields?: string[]
+}
+
+
 window.wwiOptions = { maxAmount: 12, style: 'cards' }
 
 let INTERVAL = 0
@@ -36,6 +71,19 @@ const WhereWasI = function (instanceOptions?: WhereWasIOptions) {
     window.wwiOptions = instanceOptions
   }
 
+  let initiated = false
+  const initiate = () => {
+    initiated = true
+    createHistory(location.pathname, storage).then(res => {
+      storage = res
+      setStorage(storage)
+      renderHistory(storage)
+    })
+
+    updateCurrentScreen(location.pathname)
+    applyCss()
+  }
+
   window.addEventListener('urlchangeevent', () => {
     clearInterval(INTERVAL)
     /** SPA:s trigger url change event before changing rendered page */
@@ -49,52 +97,13 @@ const WhereWasI = function (instanceOptions?: WhereWasIOptions) {
     }, 500)
   })
 
-  document.addEventListener('DOMContentLoaded', () => {
-    createHistory(location.pathname, storage).then(res => {
-      storage = res
-      setStorage(storage)
-      renderHistory(storage)
-    })
-    updateCurrentScreen(location.pathname)
+  document.addEventListener('DOMContentLoaded', initiate)
 
-    applyCss()
-  })
-}
-
-declare type WhereWasIOptions = {
-  /** The title to display in the control panel, @default "Where was i?" */
-  panelTitle?: string
-  /** the maximum amount of location objects to display */
-  maxAmount?: number
-  /** the style for the location objects, @default "panel" */
-  style?: 'cards' | 'panel' | 'drawer'
-  /** how often the screenshot should refresh */
-  screenRefreshRate?: number
-  /** adds filter to which paths should be added as location objects */
-  acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
-
-  /** get the content of meta fields to use as metadata along each screenshot */
-  metafields?: Array<string | Array<string>>
-}
-
-declare type LocationObject = {
-  title: string
-  location: string
-  imageData: string
-  newObject: boolean
-  metafields?: string[]
+  return {
+    initiate,
+    initiated
+  }
 }
 
 export type { LocationObject, WhereWasIOptions }
-
 export default WhereWasI
