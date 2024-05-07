@@ -4,12 +4,12 @@ import { LocationObject } from '..'
 
 const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
-  ignoreElements: (elm) => ["script", "meta"].includes(elm.nodeName)
+  ignoreElements: elm => ['script', 'meta'].includes(elm.nodeName),
 }
 
 const CARD_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
-  ignoreElements: (elm) => ["script", "meta"].includes(elm.nodeName)
+  ignoreElements: elm => ['script', 'meta'].includes(elm.nodeName),
 }
 
 const extractMetafields = function () {
@@ -50,15 +50,12 @@ const extractMetafields = function () {
 export const generateScreenshot = async function () {
   const screenshotTarget = document.body
 
-  const canvas = await html2canvas(
-    screenshotTarget, {
-    ...(
-      window.wwiOptions.style === 'cards'
-        ? CARD_CANVAS_OPTIONS
-        : PANEL_CANVAS_OPTIONS),
-    ...window.wwiOptions.canvasOptions
-  },
-  )
+  const canvas = await html2canvas(screenshotTarget, {
+    ...(window.wwiOptions.style === 'cards'
+      ? CARD_CANVAS_OPTIONS
+      : PANEL_CANVAS_OPTIONS),
+    ...window.wwiOptions.canvasOptions,
+  })
 
   const base64image = canvas.toDataURL('image/png')
 
