@@ -439,16 +439,16 @@ const applyCss = function (options: WhereWasIOptions) {
   const styleTag = document.createElement('style')
   styleTag.innerHTML = generalCss
 
-  switch (options.style) {
-    case 'panel':
-      styleTag.innerHTML += panelCss
-      break
-    case 'drawer':
-      styleTag.innerHTML += drawerCss
-      break
-    default:
-      styleTag.innerHTML += cardsCss
-      break
+  if (options.style === "panel") {
+    styleTag.innerHTML += panelCss
+  }
+
+  if (options.style === 'drawer') {
+    styleTag.innerHTML += drawerCss
+  }
+
+  if (options.style === "cards") {
+    styleTag.innerHTML += cardsCss
   }
 
   document.head.append(styleTag)
