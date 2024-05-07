@@ -16,21 +16,23 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
 
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
   /** html2canvas options, see https://html2canvas.hertzen.com/configuration for all options */
   canvasOptions?: CanvasOptions
+  /** set log level */
+  logging?: "debug" | "default"
 }
 
 declare type LocationObject = {
@@ -45,7 +47,14 @@ const DEFAULT_OPTIONS: WhereWasIOptions = { maxAmount: 12, style: 'cards' }
 
 let INTERVAL = 0
 
+export function logOptions(func: string, opt: WhereWasIOptions) {
+  if (opt.logging === "debug") {
+    console.debug(`${func} recieved options`, opt)
+  }
+}
+
 const updateCurrentScreen = function (path: string, options: WhereWasIOptions) {
+  logOptions("updateCurrentScreen", options)
   INTERVAL = window.setInterval(() => {
     generateScreenshot(options).then(res => {
       const storage = getStorage()
@@ -68,11 +77,13 @@ const updateCurrentScreen = function (path: string, options: WhereWasIOptions) {
 
 const WhereWasI = function (options?: WhereWasIOptions) {
   let storage = getStorage()
-
   options = options ?? DEFAULT_OPTIONS
+
+  logOptions("WhereWasI", options)
 
   let initiated = false
   const initiate = (initOptions?: WhereWasIOptions) => {
+    logOptions("initiate", options)
     initOptions = initOptions ?? DEFAULT_OPTIONS
     initiated = true
     createHistory(location.pathname, storage, initOptions).then(res => {
@@ -86,6 +97,7 @@ const WhereWasI = function (options?: WhereWasIOptions) {
   }
 
   window.addEventListener('urlchangeevent', () => {
+    logOptions("urlchangevent", options)
     clearInterval(INTERVAL)
     /** SPA:s trigger url change event before changing rendered page */
     setTimeout(() => {

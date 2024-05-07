@@ -1,4 +1,4 @@
-import type { WhereWasIOptions } from '..'
+import { logOptions, type WhereWasIOptions } from '..'
 
 const resetCss = `
 #wwi-container {
@@ -434,6 +434,7 @@ ${screenCss}
 `
 
 const applyCss = function (options: WhereWasIOptions) {
+  logOptions("applyCss", options)
   const styleTag = document.createElement('style')
   styleTag.innerHTML = generalCss
 

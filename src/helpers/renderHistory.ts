@@ -1,4 +1,4 @@
-import { LocationObject, WhereWasIOptions } from '..'
+import { LocationObject, WhereWasIOptions, logOptions } from '..'
 import getCardsView from '../views/cardsView'
 import getDrawerView from '../views/drawerView'
 import getPanelsView from '../views/panelsView'
@@ -9,6 +9,7 @@ const renderHistory = function (
   history: Array<LocationObject>,
   options: WhereWasIOptions,
 ) {
+  logOptions("renderHistory", options)
   const body = document.body
   const wwiContainer = createWwiElement<HTMLDivElement>(
     'wwi-container',
