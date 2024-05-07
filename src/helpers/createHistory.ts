@@ -5,12 +5,12 @@ import { logOptions } from './logger'
 
 const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
-  ignoreElements: elm => ['script', 'meta'].includes(elm.nodeName),
+  ignoreElements: elm => customElements.get(elm.nodeName.toLowerCase()) !== undefined,
 }
 
 const CARD_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
-  ignoreElements: elm => ['script', 'meta'].includes(elm.nodeName),
+  ignoreElements: elm => customElements.get(elm.nodeName.toLowerCase()) !== undefined,
 }
 
 const extractMetafields = function (options: WhereWasIOptions) {

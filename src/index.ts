@@ -44,7 +44,7 @@ declare type LocationObject = {
   metafields?: string[]
 }
 
-const DEFAULT_OPTIONS: WhereWasIOptions = { maxAmount: 12, style: 'cards' }
+const DEFAULT_OPTIONS: WhereWasIOptions = { maxAmount: 12, style: 'cards', logging: "debug" }
 
 let INTERVAL = 0
 
