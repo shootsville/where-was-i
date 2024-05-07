@@ -51,10 +51,7 @@ const getPanelsView = function (
     '&#x2715;',
     ['wwi-button', 'wwi-button'],
   )
-  const screensContainer = createWwiElement(
-    'wwi-screens-container',
-    'div',
-  )
+  const screensContainer = createWwiElement('wwi-screens-container', 'div')
   const buttonsContainer = createWwiElement(
     'wwi-panel-buttons-container',
     'div',

@@ -20,7 +20,9 @@ export const removeFromStorage = function (obj: LocationObject) {
   const newStorage = getStorage().filter(st => st.location !== obj.location)
   setStorage(newStorage)
   setShowButtonValue(newStorage.length)
-  document.querySelector(`.wwi-screen-container[href="${obj.location}"`)?.remove();
+  document
+    .querySelector(`.wwi-screen-container[href="${obj.location}"`)
+    ?.remove()
 }
 
 export const clearStorage = function (options: WhereWasIOptions) {

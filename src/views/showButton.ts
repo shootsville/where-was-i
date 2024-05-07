@@ -40,8 +40,8 @@ const addShowButton = function (
 
   container.append(showButton)
   window.setTimeout(() => {
-    showButton.classList.add("wwi-show-button--settled")
-  }, 3000);
+    showButton.classList.add('wwi-show-button--settled')
+  }, 3000)
 }
 
 const setShowButtonValue = function (amount: number) {

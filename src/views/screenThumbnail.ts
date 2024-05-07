@@ -48,7 +48,7 @@ export const getScreenThumbnail = function (
     `wwi-screen-thumb-${friendlyIdSlug}-remove-btn`,
     'button',
     trashMiniIcon,
-    ['wwi-button', 'wwi-button--light']
+    ['wwi-button', 'wwi-button--light'],
   )
 
   screenContainer.href = obj.location
