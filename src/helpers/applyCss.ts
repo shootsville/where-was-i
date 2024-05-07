@@ -439,7 +439,7 @@ const applyCss = function (options: WhereWasIOptions) {
   const styleTag = document.createElement('style')
   styleTag.innerHTML = generalCss
 
-  if (options.style === "panel") {
+  if (options.style === 'panel') {
     styleTag.innerHTML += panelCss
   }
 
@@ -447,7 +447,7 @@ const applyCss = function (options: WhereWasIOptions) {
     styleTag.innerHTML += drawerCss
   }
 
-  if (options.style === "cards") {
+  if (options.style === 'cards') {
     styleTag.innerHTML += cardsCss
   }
 
