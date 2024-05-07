@@ -101,7 +101,6 @@ const buttonCss = `
   translate: -75% -75%;
   color: black;
   width: 160px;
-  font-size: .6rem;
   font-weight: 600;
   transition: opacity .4s ease, translate .4s ease;
   padding: .3rem;
@@ -295,7 +294,8 @@ const floatingButtonCss = `
   bottom: 2rem;
   right: 2rem;
   transition: opacity .4s ease, bottom .4s ease;
-  z-index: 2;
+  z-index: 1001;
+  animation: appears .6s ease forwards;
 }
 
 #wwi-container #wwi-show-button:hover {
@@ -308,7 +308,6 @@ const floatingButtonCss = `
   stroke: white;
 }
 
-
 #wwi-container #wwi-show-button[data-count]:after {
   content: attr(data-count);
   font-size: smaller;
@@ -320,6 +319,15 @@ const floatingButtonCss = `
   color: white;
   padding: .2rem .4rem;
   border-radius: 50%;
+}
+
+@keyframes appears {
+  0% {
+    bottom: -5rem;
+  }
+  100% {
+    bottom: 2rem;
+  }
 }
 `
 

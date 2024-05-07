@@ -21,6 +21,7 @@ const renderHistory = function (
   wwiContainer.setAttribute('data-html2canvas-ignore', 'true')
   wwiContainer.id = 'wwi-container'
   wwiContainer.style.setProperty('--children-count', history.length.toString())
+  wwiContainer.style.zIndex = options.zIndex ?? "1000"
 
   /** start fresh if render history gets called again */
   wwiContainer.innerHTML = ''

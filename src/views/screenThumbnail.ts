@@ -72,7 +72,9 @@ export const getScreenThumbnail = function (
       screenSubtitle.append(metaDiv)
     })
   } else {
-    screenSubtitle.innerHTML = obj.location
+    const locDiv = document.createElement('div')
+    locDiv.innerHTML = obj.location
+    screenSubtitle.append(locDiv)
   }
 
   screenMeta.append(screenTitle)
