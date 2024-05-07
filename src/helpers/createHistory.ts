@@ -5,16 +5,14 @@ import { logOptions } from './logger'
 
 const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
-  windowWidth: 800,
-  windowHeight: 450,
-  ignoreElements: elm =>
-    customElements.get(elm.nodeName.toLowerCase()) !== undefined,
+  windowWidth: 1200,
+  windowHeight: 1000,
+  logging: false
 }
 
 const CARD_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
-  ignoreElements: elm =>
-    customElements.get(elm.nodeName.toLowerCase()) !== undefined,
+  logging: false
 }
 
 const extractMetafields = function (options: WhereWasIOptions) {

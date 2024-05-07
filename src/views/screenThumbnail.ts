@@ -49,8 +49,6 @@ export const getScreenThumbnail = function (
 
   screen.style.setProperty('--card-index', index.toString())
   screen.src = obj.imageData
-  screen.style.backgroundSize = 'cover'
-  screen.style.backgroundPosition = 'center center'
 
   screen.addEventListener('click', function (e) {
     const currentTarget = e.currentTarget as HTMLElement
