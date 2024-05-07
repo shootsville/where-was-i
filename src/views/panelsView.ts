@@ -21,7 +21,10 @@ const renderPanelScreens = function (
     .forEach(screen => screensContainer.append(screen))
 }
 
-const getPanelsView = function (history: Array<LocationObject>, options: WhereWasIOptions) {
+const getPanelsView = function (
+  history: Array<LocationObject>,
+  options: WhereWasIOptions,
+) {
   const panelView = createWwiElement<HTMLDivElement>('wwi-panel', 'div')
   const controlPanel = createWwiElement('wwi-panel-controls', 'div')
   const controlPanelTitle = createWwiElement(

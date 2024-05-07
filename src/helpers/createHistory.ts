@@ -51,9 +51,7 @@ export const generateScreenshot = async function (options: WhereWasIOptions) {
   const screenshotTarget = document.body
 
   const canvas = await html2canvas(screenshotTarget, {
-    ...(options.style === 'cards'
-      ? CARD_CANVAS_OPTIONS
-      : PANEL_CANVAS_OPTIONS),
+    ...(options.style === 'cards' ? CARD_CANVAS_OPTIONS : PANEL_CANVAS_OPTIONS),
     ...options.canvasOptions,
   })
 
@@ -65,9 +63,8 @@ export const generateScreenshot = async function (options: WhereWasIOptions) {
 const createHistory = async function (
   newItem: string,
   history: Array<LocationObject>,
-  options: WhereWasIOptions
+  options: WhereWasIOptions,
 ) {
-
   if (options.acceptedPaths) {
     let shouldReturn = false
     switch (options.acceptedPaths.type) {

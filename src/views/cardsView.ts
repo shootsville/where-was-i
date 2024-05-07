@@ -5,7 +5,10 @@ import { LocationObject, WhereWasIOptions } from '..'
 
 const ROTATION = 6
 
-const getCardsView = function (history: Array<LocationObject>, options: WhereWasIOptions) {
+const getCardsView = function (
+  history: Array<LocationObject>,
+  options: WhereWasIOptions,
+) {
   const cardsDiv = createWwiElement<HTMLDivElement>('wwi-cards', 'div')
   const clearButton = createWwiElement(
     'wwi-clear-button',

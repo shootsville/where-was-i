@@ -5,7 +5,10 @@ import getPanelsView from '../views/panelsView'
 import { addShowButton } from '../views/showButton'
 import { createWwiElement } from './elementFactory'
 
-const renderHistory = function (history: Array<LocationObject>, options: WhereWasIOptions) {
+const renderHistory = function (
+  history: Array<LocationObject>,
+  options: WhereWasIOptions,
+) {
   const body = document.body
   const wwiContainer = createWwiElement<HTMLDivElement>(
     'wwi-container',

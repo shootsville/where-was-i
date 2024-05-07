@@ -1,4 +1,4 @@
-import type { WhereWasIOptions } from "..";
+import type { WhereWasIOptions } from '..'
 
 const resetCss = `
 #wwi-container {
