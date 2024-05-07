@@ -1,4 +1,4 @@
-import { LocationObject } from '..'
+import { LocationObject, WhereWasIOptions } from '..'
 import {
   ANIMATION_TIMEOUT,
   setShowButtonValue,
@@ -15,11 +15,11 @@ export const setStorage = function (locations: LocationObject[]) {
   window.sessionStorage.setItem('wwi-items', JSON.stringify(locations))
 }
 
-export const clearStorage = function () {
+export const clearStorage = function (options: WhereWasIOptions) {
   toggleVisibility(false)
   setTimeout(() => {
     window.sessionStorage.removeItem('wwi-items')
     setShowButtonValue(0)
-    renderHistory([])
+    renderHistory([], options)
   }, ANIMATION_TIMEOUT)
 }

@@ -1,6 +1,6 @@
 import html2canvas from 'html2canvas'
 import { Options as CanvasOptions } from 'html2canvas'
-import { LocationObject } from '..'
+import { LocationObject, WhereWasIOptions } from '..'
 
 const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
@@ -12,14 +12,14 @@ const CARD_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   ignoreElements: elm => ['script', 'meta'].includes(elm.nodeName),
 }
 
-const extractMetafields = function () {
-  if (!window.wwiOptions.metafields) {
+const extractMetafields = function (options: WhereWasIOptions) {
+  if (!options.metafields) {
     return
   }
 
   const fields: string[] = []
 
-  window.wwiOptions.metafields.forEach(f => {
+  options.metafields.forEach(f => {
     if (typeof f === 'string') {
       const metaElm = document.querySelector(
         `meta[property='${f}'], meta[name='${f}']`,
@@ -47,14 +47,14 @@ const extractMetafields = function () {
   return fields
 }
 
-export const generateScreenshot = async function () {
+export const generateScreenshot = async function (options: WhereWasIOptions) {
   const screenshotTarget = document.body
 
   const canvas = await html2canvas(screenshotTarget, {
-    ...(window.wwiOptions.style === 'cards'
+    ...(options.style === 'cards'
       ? CARD_CANVAS_OPTIONS
       : PANEL_CANVAS_OPTIONS),
-    ...window.wwiOptions.canvasOptions,
+    ...options.canvasOptions,
   })
 
   const base64image = canvas.toDataURL('image/png')
@@ -65,8 +65,8 @@ export const generateScreenshot = async function () {
 const createHistory = async function (
   newItem: string,
   history: Array<LocationObject>,
+  options: WhereWasIOptions
 ) {
-  const options = window.wwiOptions
 
   if (options.acceptedPaths) {
     let shouldReturn = false
@@ -84,9 +84,9 @@ const createHistory = async function (
     }
   }
 
-  const imageData = await generateScreenshot()
+  const imageData = await generateScreenshot(options)
   const newLocation = `${location.origin}${newItem}`
-  const metafields = extractMetafields()
+  const metafields = extractMetafields(options)
   const sortedHistory = [
     {
       location: newLocation,

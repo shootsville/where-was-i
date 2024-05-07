@@ -16,16 +16,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
 
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
@@ -41,13 +41,13 @@ declare type LocationObject = {
   metafields?: string[]
 }
 
-window.wwiOptions = { maxAmount: 12, style: 'cards' }
+const DEFAULT_OPTIONS: WhereWasIOptions = { maxAmount: 12, style: 'cards' }
 
 let INTERVAL = 0
 
-const updateCurrentScreen = function (path: string) {
+const updateCurrentScreen = function (path: string, options: WhereWasIOptions) {
   INTERVAL = window.setInterval(() => {
-    generateScreenshot().then(res => {
+    generateScreenshot(options).then(res => {
       const storage = getStorage()
       const newLocation = `${location.origin}${path}`
       const currentLocationObject = storage.find(
@@ -63,39 +63,37 @@ const updateCurrentScreen = function (path: string) {
 
       setStorage(storage)
     })
-  }, window.wwiOptions.screenRefreshRate ?? 5000)
+  }, options.screenRefreshRate ?? 5000)
 }
 
-const WhereWasI = function (instanceOptions?: WhereWasIOptions) {
+const WhereWasI = function (options?: WhereWasIOptions) {
   let storage = getStorage()
 
-  if (instanceOptions) {
-    window.wwiOptions = instanceOptions
-  }
+  options = options ?? DEFAULT_OPTIONS;
 
   let initiated = false
   const initiate = () => {
     initiated = true
-    createHistory(location.pathname, storage).then(res => {
+    createHistory(location.pathname, storage, options).then(res => {
       storage = res
       setStorage(storage)
-      renderHistory(storage)
+      renderHistory(storage, options)
     })
 
-    updateCurrentScreen(location.pathname)
-    applyCss()
+    updateCurrentScreen(location.pathname, options)
+    applyCss(options)
   }
 
   window.addEventListener('urlchangeevent', () => {
     clearInterval(INTERVAL)
     /** SPA:s trigger url change event before changing rendered page */
     setTimeout(() => {
-      createHistory(location.pathname, storage).then(res => {
+      createHistory(location.pathname, storage, options).then(res => {
         storage = res
         setStorage(storage)
-        renderHistory(storage)
+        renderHistory(storage, options)
       })
-      updateCurrentScreen(location.pathname)
+      updateCurrentScreen(location.pathname, options)
     }, 500)
   })
 

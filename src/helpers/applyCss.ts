@@ -1,3 +1,5 @@
+import type { WhereWasIOptions } from "..";
+
 const resetCss = `
 #wwi-container {
   --main-color: 100, 108, 255;
@@ -431,11 +433,11 @@ ${screenCss}
 }
 `
 
-const applyCss = function () {
+const applyCss = function (options: WhereWasIOptions) {
   const styleTag = document.createElement('style')
   styleTag.innerHTML = generalCss
 
-  switch (window.wwiOptions.style) {
+  switch (options.style) {
     case 'panel':
       styleTag.innerHTML += panelCss
       break

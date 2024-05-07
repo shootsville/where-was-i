@@ -1,4 +1,4 @@
-import { LocationObject } from '..'
+import { LocationObject, WhereWasIOptions } from '..'
 import { infoMiniIcon, trashMiniIcon } from './icons'
 import { createWwiElement } from '../helpers/elementFactory'
 import { getScreenThumbnail } from './screenThumbnail'
@@ -20,7 +20,7 @@ const renderPanelScreens = function (
     .forEach(screen => screensContainer.append(screen))
 }
 
-const getDrawerView = function (history: Array<LocationObject>) {
+const getDrawerView = function (history: Array<LocationObject>, options: WhereWasIOptions) {
   const drawerView = createWwiElement<HTMLDivElement>('wwi-drawer', 'div')
   const controlPanel = createWwiElement(
     '#wwi-panel-controls',
@@ -31,7 +31,7 @@ const getDrawerView = function (history: Array<LocationObject>) {
   const controlPanelTitle = createWwiElement(
     'wwi-panel-screens-title',
     'h3',
-    window.wwiOptions.panelTitle ?? 'Where was I?',
+    options.panelTitle ?? 'Where was I?',
   )
   const clearButton = createWwiElement(
     'wwi-panel-screens-clear-button',
@@ -68,7 +68,7 @@ This is only stored on your computer and is removed as soon as you close the bro
   clearButton.setAttribute('tooltip', 'Clear your session history')
   clearButton.setAttribute('tooltip-direction', 'bottom')
 
-  clearButton.addEventListener('click', clearStorage)
+  clearButton.addEventListener('click', () => clearStorage(options))
 
   buttonsContainer.append(infoButton)
   buttonsContainer.append(clearButton)
