@@ -1,6 +1,6 @@
 {
   "name": "where-was-i",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "A plugin for your page to display an interactive history of your users session",
   "main": "./lib/index.min.js",
   "module": "./lib/index.min.js",

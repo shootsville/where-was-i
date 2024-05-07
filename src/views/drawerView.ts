@@ -51,7 +51,7 @@ const getDrawerView = function (
   const screensContainer = createWwiElement(
     'wwi-panel-screens-container',
     'div',
-    undefined
+    undefined,
   )
   const buttonsContainer = createWwiElement(
     'wwi-panel-buttons-container',
