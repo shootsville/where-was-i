@@ -7,12 +7,12 @@ const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
   windowWidth: 1200,
   windowHeight: 1000,
-  logging: false
+  logging: false,
 }
 
 const CARD_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
-  logging: false
+  logging: false,
 }
 
 const extractMetafields = function (options: WhereWasIOptions) {
