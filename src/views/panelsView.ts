@@ -3,6 +3,7 @@ import { infoMiniIcon, trashMiniIcon } from './icons'
 import { createWwiElement } from '../helpers/elementFactory'
 import { getScreenThumbnail } from './screenThumbnail'
 import { clearStorage } from '../helpers/storage'
+import { toggleVisibility } from './showButton'
 
 const renderPanelScreens = function (
   history: LocationObject[],
@@ -44,6 +45,12 @@ const getPanelsView = function (
     infoMiniIcon,
     ['wwi-button', 'wwi-button--light'],
   )
+  const closeButton = createWwiElement(
+    'wwi-panel-screens-close-button',
+    'button',
+    "&#x2715;",
+    ['wwi-button', 'wwi-button'],
+  )
   const screensContainer = createWwiElement(
     'wwi-panel-screens-container',
     'div',
@@ -59,6 +66,7 @@ const getPanelsView = function (
 
   clearButton.setAttribute('tooltip', 'Clear your session history')
   clearButton.addEventListener('click', () => clearStorage(options))
+  closeButton.addEventListener("click", () => toggleVisibility(false))
 
   infoButton.setAttribute(
     'tooltip',
@@ -68,9 +76,29 @@ This is only stored on your computer and is removed as soon as you close the bro
 
   buttonsContainer.append(infoButton)
   buttonsContainer.append(clearButton)
+  buttonsContainer.append(closeButton)
 
   controlPanel.append(controlPanelTitle)
   controlPanel.append(buttonsContainer)
+
+  let closeTimeout = 0;
+  let mouseWithin = true;
+  panelView.addEventListener("mouseenter", function () {
+    mouseWithin = true;
+    if (closeTimeout) {
+      clearTimeout(closeTimeout)
+    }
+  })
+
+  panelView.addEventListener("mouseleave", function () {
+    mouseWithin = false
+    closeTimeout = window.setTimeout(() => {
+      if (mouseWithin) {
+        return
+      }
+      toggleVisibility(false)
+    }, 1200)
+  })
 
   panelView.append(screensContainer)
   panelView.append(controlPanel)

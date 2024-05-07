@@ -271,6 +271,11 @@ const screenCss = `
   #wwi-container .wwi-screen-container__title {
     font-weight: bold;
     padding-bottom: .3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   #wwi-container .wwi-screen-container__subtitle {

@@ -3,6 +3,7 @@ import { infoMiniIcon, trashMiniIcon } from './icons'
 import { createWwiElement } from '../helpers/elementFactory'
 import { getScreenThumbnail } from './screenThumbnail'
 import { clearStorage } from '../helpers/storage'
+import { toggleVisibility } from './showButton'
 
 const renderPanelScreens = function (
   history: LocationObject[],
@@ -48,6 +49,12 @@ const getDrawerView = function (
     infoMiniIcon,
     ['wwi-button', 'wwi-button--light'],
   )
+  const closeButton = createWwiElement(
+    'wwi-panel-screens-close-button',
+    'button',
+    "&#x2715;",
+    ['wwi-button', 'wwi-button'],
+  )
   const screensContainer = createWwiElement(
     'wwi-panel-screens-container',
     'div',
@@ -71,14 +78,33 @@ This is only stored on your computer and is removed as soon as you close the bro
   clearButton.setAttribute('tooltip-direction', 'bottom')
 
   clearButton.addEventListener('click', () => clearStorage(options))
+  closeButton.addEventListener("click", () => toggleVisibility(false))
 
-  buttonsContainer.append(infoButton)
+  controlPanelTitle.append(infoButton)
+
   buttonsContainer.append(clearButton)
+  buttonsContainer.append(closeButton)
+
   controlPanel.append(controlPanelTitle)
   controlPanel.append(buttonsContainer)
-
   screensContainer.append(controlPanel)
+
   renderPanelScreens(history, screensContainer)
+  let mouseWithin = true;
+  drawerView.addEventListener("mouseenter", function () {
+    mouseWithin = true;
+  })
+
+  drawerView.addEventListener("mouseleave", function () {
+    mouseWithin = false
+    setTimeout(() => {
+      if (mouseWithin) {
+        return
+      }
+      toggleVisibility(false)
+    }, 1500)
+  })
+
   drawerView.append(screensContainer)
   return drawerView
 }
