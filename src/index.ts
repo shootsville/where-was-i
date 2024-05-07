@@ -17,16 +17,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
 
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
@@ -61,12 +61,12 @@ const updateCurrentScreen = function (path: string, options: WhereWasIOptions) {
       const currentLocationObject = storage.find(
         s => s.location === newLocation,
       )
-      const currentLocationElement = document.querySelector<HTMLDivElement>(
+      const currentLocationElement = document.querySelector<HTMLImageElement>(
         `#wwi-container [data-location="${newLocation}"]`,
       )
       if (currentLocationObject && currentLocationElement) {
         currentLocationObject.imageData = res
-        currentLocationElement.style.background = `url(${res})`
+        currentLocationElement.src = res
       }
 
       setStorage(storage)

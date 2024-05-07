@@ -15,9 +15,9 @@ export const getScreenThumbnail = function (
     undefined,
     ['wwi-screen-container'],
   )
-  const screen = createWwiElement(
+  const screen = createWwiElement<HTMLImageElement>(
     `wwi-screen-thumb-${friendlyIdSlug}`,
-    'div',
+    'img',
     undefined,
     obj.newObject
       ? ['wwi-screen-container__screen', 'wwi-screen-container__screen--new']
@@ -43,12 +43,12 @@ export const getScreenThumbnail = function (
   )
 
   screenContainer.href = obj.location
-  screen.title = obj.title
+  screen.alt = obj.title
   screen.dataset.index = index.toString()
   screen.dataset.location = obj.location
 
   screen.style.setProperty('--card-index', index.toString())
-  screen.style.background = `url(${obj.imageData})`
+  screen.src = obj.imageData
   screen.style.backgroundSize = 'cover'
   screen.style.backgroundPosition = 'center center'
 

@@ -255,6 +255,7 @@ const screenCss = `
     flex-basis: 40%;
     max-width: 40%;
     border-radius: .5rem;
+    aspect-ratio: 15 / 11;
   }
 
   #wwi-container .wwi-screen-container__meta {
