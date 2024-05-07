@@ -39,6 +39,9 @@ const addShowButton = function (
   showButton.addEventListener('click', () => toggleVisibility())
 
   container.append(showButton)
+  window.setTimeout(() => {
+    showButton.classList.add("wwi-show-button--settled")
+  }, 3000);
 }
 
 const setShowButtonValue = function (amount: number) {

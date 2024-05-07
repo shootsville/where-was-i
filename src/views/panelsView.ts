@@ -52,7 +52,7 @@ const getPanelsView = function (
     ['wwi-button', 'wwi-button'],
   )
   const screensContainer = createWwiElement(
-    'wwi-panel-screens-container',
+    'wwi-screens-container',
     'div',
   )
   const buttonsContainer = createWwiElement(
@@ -71,34 +71,37 @@ const getPanelsView = function (
   infoButton.setAttribute(
     'tooltip',
     `This is your recently visited pages on this site. 
-This is only stored on your computer and is removed as soon as you close the browser`,
+This is only stored on your computer and is removed as soon as you close the browser window`,
   )
 
-  buttonsContainer.append(infoButton)
+  controlPanelTitle.append(infoButton)
+
   buttonsContainer.append(clearButton)
   buttonsContainer.append(closeButton)
 
   controlPanel.append(controlPanelTitle)
   controlPanel.append(buttonsContainer)
 
-  let closeTimeout = 0
-  let mouseWithin = true
-  panelView.addEventListener('mouseenter', function () {
-    mouseWithin = true
-    if (closeTimeout) {
-      clearTimeout(closeTimeout)
-    }
-  })
-
-  panelView.addEventListener('mouseleave', function () {
-    mouseWithin = false
-    closeTimeout = window.setTimeout(() => {
-      if (mouseWithin) {
-        return
+  if (options.autoClosing !== false) {
+    let closeTimeout = 0
+    let mouseWithin = true
+    panelView.addEventListener('mouseenter', function () {
+      mouseWithin = true
+      if (closeTimeout) {
+        window.clearTimeout(closeTimeout)
       }
-      toggleVisibility(false)
-    }, 1200)
-  })
+    })
+
+    panelView.addEventListener('mouseleave', function () {
+      mouseWithin = false
+      closeTimeout = window.setTimeout(() => {
+        if (mouseWithin) {
+          return
+        }
+        toggleVisibility(false)
+      }, 1200)
+    })
+  }
 
   panelView.append(screensContainer)
   panelView.append(controlPanel)

@@ -53,10 +53,10 @@ const getDrawerView = function (
     'wwi-panel-screens-close-button',
     'button',
     '&#x2715;',
-    ['wwi-button', 'wwi-button'],
+    ['wwi-button'],
   )
   const screensContainer = createWwiElement(
-    'wwi-panel-screens-container',
+    'wwi-screens-container',
     'div',
     undefined,
   )
@@ -90,20 +90,26 @@ This is only stored on your computer and is removed as soon as you close the bro
   screensContainer.append(controlPanel)
 
   renderPanelScreens(history, screensContainer)
-  let mouseWithin = true
-  drawerView.addEventListener('mouseenter', function () {
-    mouseWithin = true
-  })
-
-  drawerView.addEventListener('mouseleave', function () {
-    mouseWithin = false
-    setTimeout(() => {
-      if (mouseWithin) {
-        return
+  if (options.autoClosing !== false) {
+    let closeTimeout = 0
+    let mouseWithin = true
+    drawerView.addEventListener('mouseenter', function () {
+      mouseWithin = true
+      if (closeTimeout) {
+        window.clearTimeout(closeTimeout)
       }
-      toggleVisibility(false)
-    }, 1500)
-  })
+    })
+
+    drawerView.addEventListener('mouseleave', function () {
+      mouseWithin = false
+      closeTimeout = window.setTimeout(() => {
+        if (mouseWithin) {
+          return
+        }
+        toggleVisibility(false)
+      }, 1500)
+    })
+  }
 
   drawerView.append(screensContainer)
   return drawerView

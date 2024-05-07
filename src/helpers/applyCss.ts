@@ -97,6 +97,7 @@ const buttonCss = `
   content: attr(tooltip);
   position: absolute;
   top: 0;
+  font-size: 1rem;
   background-color: white;
   translate: -75% -75%;
   color: black;
@@ -237,7 +238,6 @@ ${buttonCss}
 
 const screenCss = `
   #wwi-container .wwi-screen-container {
-    aspect-ratio: 3 / 1;
     min-width: 300px;
     display: flex;
     padding: .5rem;
@@ -266,11 +266,17 @@ const screenCss = `
     max-width: 60%;
     padding: .5rem;
     color: rgb(var(--dark-color));
+    align-items: baseline;
+    overflow: hidden;
+  }
+  
+  #wwi-container .wwi-screen-container__meta button {
+    align-self: end;
   }
 
   #wwi-container .wwi-screen-container__title {
     font-weight: bold;
-    padding-bottom: .3rem;
+    margin-bottom: .3rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -281,12 +287,15 @@ const screenCss = `
   #wwi-container .wwi-screen-container__subtitle {
     font-size: smaller;
     opacity: 0.8;
+    flex: 1;
+    max-width: 100%;
   }
 
   #wwi-container .wwi-screen-container__subtitle > div {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    max-width: 100%;
   }
 `
 
@@ -303,6 +312,10 @@ const floatingButtonCss = `
   transition: opacity .4s ease, bottom .4s ease;
   z-index: 1001;
   animation: appears .6s ease forwards;
+}
+
+#wwi-container #wwi-show-button--settled {
+  animation: unset;
 }
 
 #wwi-container #wwi-show-button:hover {
@@ -365,16 +378,16 @@ ${screenCss}
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-#wwi-panel #wwi-panel-screens-container {
+#wwi-panel #wwi-screens-container {
   position: relative;
   display: flex;
   gap: 1rem;
   overflow-x: auto;
   height: 100%;
-  scrollbar-color: rgba(100, 108, 255, 0.3) white;
-  scrollbar-width: thin;
   padding: .5rem;
   padding-top: 3rem;
+  scrollbar-color: rgba(100, 108, 255, 0.3) transparent;
+  scrollbar-width: thin;
 }
 
 #wwi-panel #wwi-panel-controls {
@@ -437,10 +450,15 @@ ${screenCss}
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-#wwi-container #wwi-panel-screens-container {
+#wwi-container #wwi-screens-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  height: 100vh;
+  max-height: 100vh;
+  overflow-y: scroll;
+  scrollbar-color: rgba(100, 108, 255, 0.3) transparent;
+  scrollbar-width: thin;
 }
 
 

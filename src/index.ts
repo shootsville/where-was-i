@@ -17,16 +17,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
 
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
@@ -36,6 +36,8 @@ declare type WhereWasIOptions = {
   logging?: 'debug' | 'default'
   /** z-index of the container. @default 1000 */
   zIndex?: string
+  /** auto close the drawer/panel when leaving. @default true */
+  autoClosing?: boolean
 }
 
 declare type LocationObject = {
@@ -51,6 +53,8 @@ const DEFAULT_OPTIONS: WhereWasIOptions = {
   style: 'cards',
   logging: 'debug',
   zIndex: '1000',
+  screenRefreshRate: 10000,
+  autoClosing: true
 }
 
 let INTERVAL = 0
@@ -100,9 +104,9 @@ const WhereWasI = function (options?: WhereWasIOptions) {
 
   window.addEventListener('urlchangeevent', () => {
     logOptions('urlchangevent', options)
-    clearInterval(INTERVAL)
+    window.clearInterval(INTERVAL)
     /** SPA:s trigger url change event before changing rendered page */
-    setTimeout(() => {
+    window.setTimeout(() => {
       createHistory(location.pathname, storage, options).then(res => {
         storage = res
         setStorage(storage)

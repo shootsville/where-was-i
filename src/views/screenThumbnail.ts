@@ -1,6 +1,8 @@
 import { createWwiElement } from '../helpers/elementFactory'
 import { LocationObject } from '..'
 import { ANIMATION_TIMEOUT, toggleVisibility } from './showButton'
+import { trashMiniIcon } from './icons'
+import { removeFromStorage } from '../helpers/storage'
 
 export const getScreenThumbnail = function (
   obj: LocationObject,
@@ -42,6 +44,13 @@ export const getScreenThumbnail = function (
     ['wwi-screen-container__subtitle'],
   )
 
+  const removeScreenButton = createWwiElement<HTMLButtonElement>(
+    `wwi-screen-thumb-${friendlyIdSlug}-remove-btn`,
+    'button',
+    trashMiniIcon,
+    ['wwi-button', 'wwi-button--light']
+  )
+
   screenContainer.href = obj.location
   screen.alt = obj.title
   screen.dataset.index = index.toString()
@@ -58,9 +67,14 @@ export const getScreenThumbnail = function (
     }
     e.preventDefault()
     toggleVisibility(false)
-    setTimeout(() => {
+    window.setTimeout(() => {
       window.location.href = newLoc
     }, ANIMATION_TIMEOUT)
+  })
+
+  removeScreenButton.addEventListener('click', function (e) {
+    e.preventDefault()
+    removeFromStorage(obj)
   })
 
   if (obj.metafields) {
@@ -77,6 +91,7 @@ export const getScreenThumbnail = function (
 
   screenMeta.append(screenTitle)
   screenMeta.append(screenSubtitle)
+  screenMeta.append(removeScreenButton)
 
   screenContainer.append(screen)
   screenContainer.append(screenMeta)
