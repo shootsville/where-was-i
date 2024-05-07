@@ -1,9 +1,10 @@
-import { LocationObject, WhereWasIOptions, logOptions } from '..'
+import { LocationObject, WhereWasIOptions } from '..'
 import getCardsView from '../views/cardsView'
 import getDrawerView from '../views/drawerView'
 import getPanelsView from '../views/panelsView'
 import { addShowButton } from '../views/showButton'
 import { createWwiElement } from './elementFactory'
+import { logOptions } from './logger'
 
 const renderHistory = function (
   history: Array<LocationObject>,

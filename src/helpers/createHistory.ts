@@ -1,6 +1,7 @@
 import html2canvas from 'html2canvas'
 import { Options as CanvasOptions } from 'html2canvas'
-import { LocationObject, WhereWasIOptions, logOptions } from '..'
+import { LocationObject, WhereWasIOptions } from '..'
+import { logOptions } from './logger'
 
 const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,

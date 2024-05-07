@@ -1,4 +1,5 @@
-import { logOptions, type WhereWasIOptions } from '..'
+import { type WhereWasIOptions } from '..'
+import { logOptions } from './logger'
 
 const resetCss = `
 #wwi-container {
