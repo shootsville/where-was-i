@@ -48,7 +48,7 @@ const getPanelsView = function (
   const closeButton = createWwiElement(
     'wwi-panel-screens-close-button',
     'button',
-    "&#x2715;",
+    '&#x2715;',
     ['wwi-button', 'wwi-button'],
   )
   const screensContainer = createWwiElement(
@@ -66,7 +66,7 @@ const getPanelsView = function (
 
   clearButton.setAttribute('tooltip', 'Clear your session history')
   clearButton.addEventListener('click', () => clearStorage(options))
-  closeButton.addEventListener("click", () => toggleVisibility(false))
+  closeButton.addEventListener('click', () => toggleVisibility(false))
 
   infoButton.setAttribute(
     'tooltip',
@@ -81,16 +81,16 @@ This is only stored on your computer and is removed as soon as you close the bro
   controlPanel.append(controlPanelTitle)
   controlPanel.append(buttonsContainer)
 
-  let closeTimeout = 0;
-  let mouseWithin = true;
-  panelView.addEventListener("mouseenter", function () {
-    mouseWithin = true;
+  let closeTimeout = 0
+  let mouseWithin = true
+  panelView.addEventListener('mouseenter', function () {
+    mouseWithin = true
     if (closeTimeout) {
       clearTimeout(closeTimeout)
     }
   })
 
-  panelView.addEventListener("mouseleave", function () {
+  panelView.addEventListener('mouseleave', function () {
     mouseWithin = false
     closeTimeout = window.setTimeout(() => {
       if (mouseWithin) {

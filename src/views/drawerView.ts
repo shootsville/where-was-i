@@ -52,7 +52,7 @@ const getDrawerView = function (
   const closeButton = createWwiElement(
     'wwi-panel-screens-close-button',
     'button',
-    "&#x2715;",
+    '&#x2715;',
     ['wwi-button', 'wwi-button'],
   )
   const screensContainer = createWwiElement(
@@ -78,7 +78,7 @@ This is only stored on your computer and is removed as soon as you close the bro
   clearButton.setAttribute('tooltip-direction', 'bottom')
 
   clearButton.addEventListener('click', () => clearStorage(options))
-  closeButton.addEventListener("click", () => toggleVisibility(false))
+  closeButton.addEventListener('click', () => toggleVisibility(false))
 
   controlPanelTitle.append(infoButton)
 
@@ -90,12 +90,12 @@ This is only stored on your computer and is removed as soon as you close the bro
   screensContainer.append(controlPanel)
 
   renderPanelScreens(history, screensContainer)
-  let mouseWithin = true;
-  drawerView.addEventListener("mouseenter", function () {
-    mouseWithin = true;
+  let mouseWithin = true
+  drawerView.addEventListener('mouseenter', function () {
+    mouseWithin = true
   })
 
-  drawerView.addEventListener("mouseleave", function () {
+  drawerView.addEventListener('mouseleave', function () {
     mouseWithin = false
     setTimeout(() => {
       if (mouseWithin) {
