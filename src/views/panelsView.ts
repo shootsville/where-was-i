@@ -4,6 +4,7 @@ import { createWwiElement } from '../helpers/elementFactory'
 import { getScreenThumbnail } from './screenThumbnail'
 import { clearStorage } from '../helpers/storage'
 import { toggleVisibility } from './showButton'
+import getFooterView from './footerView'
 
 const renderPanelScreens = function (
   history: LocationObject[],
@@ -100,8 +101,9 @@ This is only stored on your computer and is removed as soon as you close the bro
     })
   }
 
-  panelView.append(screensContainer)
   panelView.append(controlPanel)
+  panelView.append(screensContainer)
+  panelView.append(getFooterView())
 
   return panelView
 }

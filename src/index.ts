@@ -6,6 +6,12 @@ import { getStorage, setStorage } from './helpers/storage'
 import { Options as CanvasOptions } from 'html2canvas'
 import { logOptions } from './helpers/logger'
 
+type ShowButtonPostionType =
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'top-left'
+  | 'top-right'
+
 declare type WhereWasIOptions = {
   /** The title to display in the control panel, @default "Where was i?" */
   panelTitle?: string
@@ -27,7 +33,6 @@ declare type WhereWasIOptions = {
         type: 'startsWith'
         path: string
       }
-
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
   /** html2canvas options, see https://html2canvas.hertzen.com/configuration for all options */
@@ -38,6 +43,8 @@ declare type WhereWasIOptions = {
   zIndex?: string
   /** auto close the drawer/panel when leaving. @default true */
   autoClosing?: boolean
+  /** where the show button should be positioned. @default bottom-right */
+  showButtonPosition?: ShowButtonPostionType
 }
 
 declare type LocationObject = {
@@ -50,11 +57,12 @@ declare type LocationObject = {
 
 const DEFAULT_OPTIONS: WhereWasIOptions = {
   maxAmount: 12,
-  style: 'cards',
+  style: 'drawer',
   logging: 'debug',
   zIndex: '1000',
   screenRefreshRate: 10000,
   autoClosing: true,
+  showButtonPosition: 'bottom-right',
 }
 
 let INTERVAL = 0

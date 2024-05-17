@@ -34,11 +34,11 @@ const renderHistory = function (
       break
     case 'drawer':
       wwiView = getDrawerView(history, options)
-      addShowButton(wwiContainer, history)
+      addShowButton(wwiContainer, history, options)
       break
     default:
       wwiView = getPanelsView(history, options)
-      addShowButton(wwiContainer, history)
+      addShowButton(wwiContainer, history, options)
       break
   }
 

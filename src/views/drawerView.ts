@@ -4,6 +4,7 @@ import { createWwiElement } from '../helpers/elementFactory'
 import { getScreenThumbnail } from './screenThumbnail'
 import { clearStorage } from '../helpers/storage'
 import { toggleVisibility } from './showButton'
+import getFooterView from './footerView'
 
 const renderPanelScreens = function (
   history: LocationObject[],
@@ -67,6 +68,8 @@ const getDrawerView = function (
     ['buttons-container'],
   )
 
+  const footerContainer = getFooterView()
+
   infoButton.setAttribute(
     'tooltip',
     `This is your recently visited pages on this site. 
@@ -87,7 +90,6 @@ This is only stored on your computer and is removed as soon as you close the bro
 
   controlPanel.append(controlPanelTitle)
   controlPanel.append(buttonsContainer)
-  screensContainer.append(controlPanel)
 
   renderPanelScreens(history, screensContainer)
   if (options.autoClosing !== false) {
@@ -111,7 +113,10 @@ This is only stored on your computer and is removed as soon as you close the bro
     })
   }
 
+  drawerView.append(controlPanel)
   drawerView.append(screensContainer)
+  drawerView.append(footerContainer)
+
   return drawerView
 }
 

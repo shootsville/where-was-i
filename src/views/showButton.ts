@@ -1,4 +1,4 @@
-import { LocationObject } from '..'
+import { LocationObject, WhereWasIOptions } from '..'
 import { createWwiElement } from '../helpers/elementFactory'
 import { historyIcon } from './icons'
 
@@ -31,8 +31,14 @@ export const toggleVisibility = function (show?: boolean) {
 const addShowButton = function (
   container: HTMLDivElement,
   history: LocationObject[],
+  options: WhereWasIOptions,
 ) {
-  const showButton = createWwiElement('wwi-show-button', 'button', historyIcon)
+  const showButton = createWwiElement(
+    'wwi-show-button',
+    'button',
+    historyIcon,
+    [`wwi-show-button--position-${options.showButtonPosition ?? "bottom-right"}`]
+  )
 
   showButton.setAttribute('data-count', history.length.toString())
 
