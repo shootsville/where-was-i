@@ -37,7 +37,11 @@ const addShowButton = function (
     'wwi-show-button',
     'button',
     historyIcon,
-    [`wwi-show-button--position-${options.showButtonPosition ?? "bottom-right"}`]
+    [
+      `wwi-show-button--position-${
+        options.showButtonPosition ?? 'bottom-right'
+      }`,
+    ],
   )
 
   showButton.setAttribute('data-count', history.length.toString())
