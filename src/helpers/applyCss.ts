@@ -121,7 +121,6 @@ const buttonCss = `
 
 #wwi-container [tooltip] {
   position: relative;
-  display: inline-block;
 }
 
 #wwi-container [tooltip]:before {
@@ -375,9 +374,6 @@ const floatingButtonCss = `
   bottom: -5rem;
 }
 
-
-
-
 #wwi-container .wwi-show-button--position-top-right {
   top: 5rem;
   right: 2rem;
@@ -398,9 +394,6 @@ const floatingButtonCss = `
   animation: disappears-left .6s ease forwards;
   left: -5rem;
 }
-
-
-
 
 #wwi-container #wwi-show-button--settled {
   animation: unset;
@@ -553,7 +546,6 @@ ${footerCss}
   position: fixed;
   inset: 0;
   right: auto;
-  width: 360px;
   padding: 1rem;
   color: rgb(var(--dark-color));
   box-shadow: 0 0 0 0 rgba(0,0,0,0.15);
@@ -574,11 +566,11 @@ ${footerCss}
   flex-direction: column;
   gap: 1rem;
   height: 100vh;
-  overflow-y: scroll;
   max-height: 100vh;
   scrollbar-color: rgba(100, 108, 255, 0.3) transparent;
   scrollbar-width: thin;
-  overflow-x: hidden;
+  overflow: auto;
+  padding: 0 .5rem
 }
 
 #wwi-container #wwi-panel-screens-title {

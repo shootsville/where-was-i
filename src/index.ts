@@ -19,20 +19,20 @@ declare type WhereWasIOptions = {
   maxAmount?: number
   /** the style for the location objects, @default "panel" */
   style?: 'cards' | 'panel' | 'drawer'
-  /** how often the screenshot should refresh */
+  /** how often the screenshot should refresh in milliseconds. @default 15000 */
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
   /** html2canvas options, see https://html2canvas.hertzen.com/configuration for all options */
@@ -60,7 +60,7 @@ const DEFAULT_OPTIONS: WhereWasIOptions = {
   style: 'drawer',
   logging: 'debug',
   zIndex: '1000',
-  screenRefreshRate: 10000,
+  screenRefreshRate: 15000,
   autoClosing: true,
   showButtonPosition: 'bottom-right',
 }
@@ -86,7 +86,7 @@ const updateCurrentScreen = function (path: string, options: WhereWasIOptions) {
 
       setStorage(storage)
     })
-  }, options.screenRefreshRate ?? 5000)
+  }, options.screenRefreshRate ?? 15000)
 }
 
 const WhereWasI = function (options?: WhereWasIOptions) {
