@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shootsville/where-was-i"
+    "url": "git+https://github.com/shootsville/where-was-i.git"
   },
   "keywords": [
     "userplugin",
