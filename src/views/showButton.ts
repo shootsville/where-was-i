@@ -38,7 +38,8 @@ const addShowButton = function (
     'button',
     historyIcon,
     [
-      `wwi-show-button--position-${options.showButtonPosition ?? 'bottom-right'
+      `wwi-show-button--position-${
+        options.showButtonPosition ?? 'bottom-right'
       }`,
     ],
   )
@@ -64,7 +65,6 @@ const setShowButtonValue = function (amount: number) {
       showButton.classList.remove('wwi-show-button--show')
     }
   }
-
 }
 
 export { addShowButton, setShowButtonValue }

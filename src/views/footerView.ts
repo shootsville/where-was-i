@@ -28,7 +28,10 @@ const getFooterView = function (options: WhereWasIOptions) {
     'tooltip',
     `Is something not working as expected? File a support errand here`,
   )
-  supportLink.setAttribute('tooltip-direction', options.style === "drawer" ? 'top-left' : 'top-right')
+  supportLink.setAttribute(
+    'tooltip-direction',
+    options.style === 'drawer' ? 'top-left' : 'top-right',
+  )
 
   featureRequestLink.href = `mailto:info@shootsville.se?subject=Feature request for "Where was I?"&body=Got a feature request for "Where was I?"? Get in touch!`
   featureRequestLink.innerText = 'Feature request'
@@ -36,7 +39,10 @@ const getFooterView = function (options: WhereWasIOptions) {
     'tooltip',
     `Got a feature request for "Where was I?"? Get in touch!`,
   )
-  featureRequestLink.setAttribute('tooltip-direction', options.style === "drawer" ? 'top-left' : 'top-right')
+  featureRequestLink.setAttribute(
+    'tooltip-direction',
+    options.style === 'drawer' ? 'top-left' : 'top-right',
+  )
 
   footerLinks.append(featureRequestLink)
   footerLinks.append(supportLink)
