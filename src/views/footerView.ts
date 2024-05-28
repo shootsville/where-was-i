@@ -1,7 +1,8 @@
+import { WhereWasIOptions } from '..'
 import { createWwiElement } from '../helpers/elementFactory'
 import { logoIcon } from './icons'
 
-const getFooterView = function () {
+const getFooterView = function (options: WhereWasIOptions) {
   const footerContainer = createWwiElement('wwi-footer', 'div')
   const footerLinks = createWwiElement('wwi-footer-links', 'div')
   const footerDisclaimer = createWwiElement('wwi-footer-disclaimer', 'p')
@@ -27,7 +28,7 @@ const getFooterView = function () {
     'tooltip',
     `Is something not working as expected? File a support errand here`,
   )
-  supportLink.setAttribute('tooltip-direction', 'top-left')
+  supportLink.setAttribute('tooltip-direction', options.style === "drawer" ? 'top-left' : 'top-right')
 
   featureRequestLink.href = `mailto:info@shootsville.se?subject=Feature request for "Where was I?"&body=Got a feature request for "Where was I?"? Get in touch!`
   featureRequestLink.innerText = 'Feature request'
@@ -35,7 +36,7 @@ const getFooterView = function () {
     'tooltip',
     `Got a feature request for "Where was I?"? Get in touch!`,
   )
-  featureRequestLink.setAttribute('tooltip-direction', 'top-left')
+  featureRequestLink.setAttribute('tooltip-direction', options.style === "drawer" ? 'top-left' : 'top-right')
 
   footerLinks.append(featureRequestLink)
   footerLinks.append(supportLink)

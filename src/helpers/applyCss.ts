@@ -61,7 +61,7 @@ const footerCss = `
   display: flex;
   text-decoration: none;
   gap: 6px;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
@@ -131,9 +131,10 @@ const buttonCss = `
   content: attr(tooltip);
   position: absolute;
   top: 0;
+  right: 25%;
   font-size: 10px;
   background-color: white;
-  translate: -75% -75%;
+  translate: 0 -75%;
   color: black;
   width: 160px;
   font-weight: 600;
@@ -146,14 +147,14 @@ const buttonCss = `
 
 #wwi-container [tooltip]:hover:before {
   opacity: 1;
-  translate: -75% calc(-100% - 4px);
+  translate: 0 calc(-100% - 4px);
 }
 
 #wwi-container [tooltip]:after {
   opacity: 0;
   position: absolute;
-  top: -4px;
-  right: 8px;
+  top: -5px;
+  right: calc(25% + 8px);
   z-index: 2;
   content: "";
   width: 0; 
@@ -171,16 +172,17 @@ const buttonCss = `
 #wwi-container [tooltip][tooltip-direction=bottom]:before {
   bottom: 0;
   top: unset;
-  translate: -10% 75%;
+  translate: 0 75%;
+  right: 25%;
 }
 
 #wwi-container [tooltip][tooltip-direction=bottom]:hover:before {
-  translate: -10% calc(100% + 4px);
+  translate: 0 calc(100% + 4px);
 }
 
 #wwi-container [tooltip][tooltip-direction=bottom]:after {
   rotate: 180deg;
-  right: 8px;
+  right: calc(25% + 8px);
   top: unset;
   bottom: -4px;
 }
@@ -357,12 +359,30 @@ const floatingButtonCss = `
 }
 
 #wwi-container .wwi-show-button--position-bottom-right {
+  bottom: -5rem;
+  right: 2rem;
+}
+#wwi-container .wwi-show-button--position-bottom-left {
+  bottom: -5rem;
+  left: 2rem;
+}
+
+#wwi-container .wwi-show-button--position-top-right {
+  top: 5rem;
+  right: -5rem;
+}
+#wwi-container .wwi-show-button--position-top-left {
+  top: 5rem;
+  left: 2rem;
+}
+
+#wwi-container .wwi-show-button--position-bottom-right.wwi-show-button--show {
   bottom: 2rem;
   right: 2rem;
   animation: appears .6s ease forwards;
 }
 
-#wwi-container .wwi-show-button--position-bottom-left {
+#wwi-container .wwi-show-button--position-bottom-left.wwi-show-button--show {
   bottom: 2rem;
   left: 2rem;
   animation: appears .6s ease forwards;
@@ -374,15 +394,12 @@ const floatingButtonCss = `
   bottom: -5rem;
 }
 
-#wwi-container .wwi-show-button--position-top-right {
-  top: 5rem;
-  right: 2rem;
+#wwi-container .wwi-show-button--position-top-right.wwi-show-button--show {
   animation: appears-right .6s ease forwards;
 }
 
-#wwi-container .wwi-show-button--position-top-left {
-  top: 5rem;
-  left: 2rem;
+#wwi-container .wwi-show-button--position-top-left.wwi-show-button--show {
+
   animation: appears-left .6s ease forwards;
 }
 
@@ -393,10 +410,6 @@ const floatingButtonCss = `
 #wwi-container.open #wwi-show-button.wwi-show-button--position-top-left {
   animation: disappears-left .6s ease forwards;
   left: -5rem;
-}
-
-#wwi-container #wwi-show-button--settled {
-  animation: unset;
 }
 
 #wwi-container #wwi-show-button:hover {
@@ -500,15 +513,10 @@ ${footerCss}
   -webkit-backdrop-filter: blur(8px);
 }
 
-#wwi-panel #wwi-footer {
-  max-width: 250px;
-}
-
 #wwi-container.open #wwi-panel {
   translate: 0 0;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
-
 
 #wwi-panel #wwi-screens-container {
   position: relative;

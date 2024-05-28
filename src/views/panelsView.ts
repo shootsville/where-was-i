@@ -103,7 +103,7 @@ This is only stored on your computer and is removed as soon as you close the bro
 
   panelView.append(controlPanel)
   panelView.append(screensContainer)
-  panelView.append(getFooterView())
+  panelView.append(getFooterView(options))
 
   return panelView
 }

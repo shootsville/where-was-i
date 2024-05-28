@@ -68,7 +68,7 @@ const getDrawerView = function (
     ['buttons-container'],
   )
 
-  const footerContainer = getFooterView()
+  const footerContainer = getFooterView(options)
 
   infoButton.setAttribute(
     'tooltip',

@@ -38,16 +38,17 @@ const addShowButton = function (
     'button',
     historyIcon,
     [
-      `wwi-show-button--position-${
-        options.showButtonPosition ?? 'bottom-right'
+      `wwi-show-button--position-${options.showButtonPosition ?? 'bottom-right'
       }`,
     ],
   )
 
+  if (history.length) {
+    showButton.classList.add('wwi-show-button--show')
+  }
+
   showButton.setAttribute('data-count', history.length.toString())
-
   showButton.addEventListener('click', () => toggleVisibility())
-
   container.append(showButton)
   window.setTimeout(() => {
     showButton.classList.add('wwi-show-button--settled')
@@ -59,7 +60,11 @@ const setShowButtonValue = function (amount: number) {
 
   if (showButton) {
     showButton.setAttribute('data-count', amount.toString())
+    if (!amount) {
+      showButton.classList.remove('wwi-show-button--show')
+    }
   }
+
 }
 
 export { addShowButton, setShowButtonValue }

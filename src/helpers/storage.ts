@@ -27,9 +27,9 @@ export const removeFromStorage = function (obj: LocationObject) {
 
 export const clearStorage = function (options: WhereWasIOptions) {
   toggleVisibility(false)
+  setShowButtonValue(0)
   window.setTimeout(() => {
     window.sessionStorage.removeItem('wwi-items')
-    setShowButtonValue(0)
     renderHistory([], options)
   }, ANIMATION_TIMEOUT)
 }
