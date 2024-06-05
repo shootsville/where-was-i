@@ -1,8 +1,11 @@
-import { LocationObject, WhereWasIOptions } from ".."
-import renderHistory from "../helpers/renderHistory"
-import { setShowButtonValue, toggleVisibility, ANIMATION_TIMEOUT } from "../views/showButton"
-import { IStorage } from "./storage"
-
+import { LocationObject, WhereWasIOptions } from '..'
+import renderHistory from '../helpers/renderHistory'
+import {
+  setShowButtonValue,
+  toggleVisibility,
+  ANIMATION_TIMEOUT,
+} from '../views/showButton'
+import { IStorage } from './storage'
 
 const getStorage = function () {
   return JSON.parse(
@@ -32,4 +35,9 @@ const clearStorage = function (options: WhereWasIOptions) {
   }, ANIMATION_TIMEOUT)
 }
 
-export const wwiLocalStorage: IStorage = { getStorage, setStorage, removeFromStorage, clearStorage }
+export const wwiLocalStorage: IStorage = {
+  getStorage,
+  setStorage,
+  removeFromStorage,
+  clearStorage,
+}

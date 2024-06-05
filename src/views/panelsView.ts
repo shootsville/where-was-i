@@ -62,7 +62,9 @@ const getPanelsView = function (
   renderPanelScreens(history, screensContainer)
 
   clearButton.setAttribute('tooltip', 'Clear your session history')
-  clearButton.addEventListener('click', () => window.wwiStorage.clearStorage(options))
+  clearButton.addEventListener('click', () =>
+    window.wwiStorage.clearStorage(options),
+  )
   closeButton.addEventListener('click', () => toggleVisibility(false))
 
   infoButton.setAttribute(

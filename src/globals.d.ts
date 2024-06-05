@@ -1,4 +1,3 @@
-
 declare type IStorage = {
   getStorage: () => Array<LocationObject>
   setStorage: (locations: LocationObject[]) => void
@@ -6,6 +5,8 @@ declare type IStorage = {
   clearStorage: (options: WhereWasIOptions) => void
 }
 
-interface Window { wwiStorage: IStorage; }
+interface Window {
+  wwiStorage: IStorage
+}
 
-window.wwiStorage = window.wwiStorage || {};
+window.wwiStorage = window.wwiStorage || {}

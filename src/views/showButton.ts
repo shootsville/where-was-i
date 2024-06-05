@@ -38,7 +38,8 @@ const addShowButton = function (
     'button',
     options.showButtonOptions?.html ?? historyIcon,
     [
-      `wwi-show-button--position-${options.showButtonOptions?.position ?? 'bottom-right'
+      `wwi-show-button--position-${
+        options.showButtonOptions?.position ?? 'bottom-right'
       }`,
     ],
   )

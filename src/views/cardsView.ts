@@ -74,7 +74,9 @@ const getCardsView = function (
     cardsDiv.append(card)
   })
 
-  clearButton.addEventListener('click', () => window.wwiStorage.clearStorage(options))
+  clearButton.addEventListener('click', () =>
+    window.wwiStorage.clearStorage(options),
+  )
 
   cardsDiv.append(clearButton)
 

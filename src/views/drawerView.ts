@@ -79,7 +79,9 @@ This is only stored on your computer and is removed as soon as you close the bro
   clearButton.setAttribute('tooltip', 'Clear your session history')
   clearButton.setAttribute('tooltip-direction', 'bottom')
 
-  clearButton.addEventListener('click', () => window.wwiStorage.clearStorage(options))
+  clearButton.addEventListener('click', () =>
+    window.wwiStorage.clearStorage(options),
+  )
   closeButton.addEventListener('click', () => toggleVisibility(false))
 
   controlPanelTitle.append(infoButton)
