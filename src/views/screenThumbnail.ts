@@ -2,7 +2,6 @@ import { createWwiElement } from '../helpers/elementFactory'
 import { LocationObject } from '..'
 import { ANIMATION_TIMEOUT, toggleVisibility } from './showButton'
 import { trashMiniIcon } from './icons'
-import { removeFromStorage } from '../helpers/storage'
 
 export const getScreenThumbnail = function (
   obj: LocationObject,
@@ -74,7 +73,7 @@ export const getScreenThumbnail = function (
 
   removeScreenButton.addEventListener('click', function (e) {
     e.preventDefault()
-    removeFromStorage(obj)
+    window.wwiStorage.removeFromStorage(obj)
   })
 
   if (obj.metafields) {

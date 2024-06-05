@@ -1,22 +1,20 @@
-import { LocationObject, WhereWasIOptions } from '..'
-import {
-  ANIMATION_TIMEOUT,
-  setShowButtonValue,
-  toggleVisibility,
-} from '../views/showButton'
-import renderHistory from './renderHistory'
+import { LocationObject, WhereWasIOptions } from ".."
+import renderHistory from "../helpers/renderHistory"
+import { setShowButtonValue, toggleVisibility, ANIMATION_TIMEOUT } from "../views/showButton"
+import { IStorage } from "./storage"
 
-export const getStorage = function () {
+
+const getStorage = function () {
   return JSON.parse(
     window.sessionStorage.getItem('wwi-items') ?? '[]',
   ) as Array<LocationObject>
 }
 
-export const setStorage = function (locations: LocationObject[]) {
+const setStorage = function (locations: LocationObject[]) {
   window.sessionStorage.setItem('wwi-items', JSON.stringify(locations))
 }
 
-export const removeFromStorage = function (obj: LocationObject) {
+const removeFromStorage = function (obj: LocationObject) {
   const newStorage = getStorage().filter(st => st.location !== obj.location)
   setStorage(newStorage)
   setShowButtonValue(newStorage.length)
@@ -25,7 +23,7 @@ export const removeFromStorage = function (obj: LocationObject) {
     ?.remove()
 }
 
-export const clearStorage = function (options: WhereWasIOptions) {
+const clearStorage = function (options: WhereWasIOptions) {
   toggleVisibility(false)
   setShowButtonValue(0)
   window.setTimeout(() => {
@@ -33,3 +31,5 @@ export const clearStorage = function (options: WhereWasIOptions) {
     renderHistory([], options)
   }, ANIMATION_TIMEOUT)
 }
+
+export const wwiSessionStorage: IStorage = { getStorage, setStorage, removeFromStorage, clearStorage }

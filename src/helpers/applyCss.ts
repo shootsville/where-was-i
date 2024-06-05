@@ -345,11 +345,11 @@ const screenCss = `
   }
 `
 
-const floatingButtonCss = `
+const floatingButtonCss = (options: WhereWasIOptions) => `
 #wwi-container #wwi-show-button {
   padding: 0.75rem;
   border-radius: 50%;
-  background-color: rgba(0,0,0,0.7);
+  background-color: ${options.showButtonOptions?.color ?? 'rgba(0,0,0,0.7)'};
   opacity: .5;
   color: white;
   position: fixed;
@@ -488,8 +488,8 @@ const floatingButtonCss = `
 }
 `
 
-const panelCss = `
-${floatingButtonCss}
+const panelCss = (options: WhereWasIOptions) => `
+${floatingButtonCss(options)}
 ${buttonCss}
 ${screenCss}
 ${footerCss}
@@ -542,9 +542,9 @@ ${footerCss}
 }
 `
 
-const drawerCss = `
+const drawerCss = (options: WhereWasIOptions) => `
 ${buttonCss}
-${floatingButtonCss}
+${floatingButtonCss(options)}
 ${screenCss}
 ${footerCss}
 #wwi-drawer {
@@ -599,11 +599,11 @@ const applyCss = function (options: WhereWasIOptions) {
   styleTag.innerHTML = generalCss
 
   if (options.style === 'panel') {
-    styleTag.innerHTML += panelCss
+    styleTag.innerHTML += panelCss(options)
   }
 
   if (options.style === 'drawer') {
-    styleTag.innerHTML += drawerCss
+    styleTag.innerHTML += drawerCss(options)
   }
 
   if (options.style === 'cards') {

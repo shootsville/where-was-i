@@ -3,7 +3,16 @@ import { createWwiElement } from '../helpers/elementFactory'
 import { logoIcon } from './icons'
 
 const getFooterView = function (options: WhereWasIOptions) {
+  if (options.footerOptions?.hide) {
+    return
+  }
+
   const footerContainer = createWwiElement('wwi-footer', 'div')
+  if (options.footerOptions?.customHtml) {
+    footerContainer.innerHTML = options.footerOptions.customHtml
+    return footerContainer
+  }
+
   const footerLinks = createWwiElement('wwi-footer-links', 'div')
   const footerDisclaimer = createWwiElement('wwi-footer-disclaimer', 'p')
   const supportLink = createWwiElement<HTMLAnchorElement>(

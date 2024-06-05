@@ -1,6 +1,5 @@
 import { trashIcon } from './icons'
 import { createWwiElement } from '../helpers/elementFactory'
-import { clearStorage } from '../helpers/storage'
 import { LocationObject, WhereWasIOptions } from '..'
 
 const ROTATION = 6
@@ -75,7 +74,7 @@ const getCardsView = function (
     cardsDiv.append(card)
   })
 
-  clearButton.addEventListener('click', () => clearStorage(options))
+  clearButton.addEventListener('click', () => window.wwiStorage.clearStorage(options))
 
   cardsDiv.append(clearButton)
 

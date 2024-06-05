@@ -2,7 +2,6 @@ import { LocationObject, WhereWasIOptions } from '..'
 import { infoMiniIcon, trashMiniIcon } from './icons'
 import { createWwiElement } from '../helpers/elementFactory'
 import { getScreenThumbnail } from './screenThumbnail'
-import { clearStorage } from '../helpers/storage'
 import { toggleVisibility } from './showButton'
 import getFooterView from './footerView'
 
@@ -80,7 +79,7 @@ This is only stored on your computer and is removed as soon as you close the bro
   clearButton.setAttribute('tooltip', 'Clear your session history')
   clearButton.setAttribute('tooltip-direction', 'bottom')
 
-  clearButton.addEventListener('click', () => clearStorage(options))
+  clearButton.addEventListener('click', () => window.wwiStorage.clearStorage(options))
   closeButton.addEventListener('click', () => toggleVisibility(false))
 
   controlPanelTitle.append(infoButton)
@@ -115,7 +114,9 @@ This is only stored on your computer and is removed as soon as you close the bro
 
   drawerView.append(controlPanel)
   drawerView.append(screensContainer)
-  drawerView.append(footerContainer)
+  if (footerContainer) {
+    drawerView.append(footerContainer)
+  }
 
   return drawerView
 }

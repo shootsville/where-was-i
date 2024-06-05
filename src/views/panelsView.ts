@@ -2,7 +2,6 @@ import { LocationObject, WhereWasIOptions } from '..'
 import { infoMiniIcon, trashMiniIcon } from './icons'
 import { createWwiElement } from '../helpers/elementFactory'
 import { getScreenThumbnail } from './screenThumbnail'
-import { clearStorage } from '../helpers/storage'
 import { toggleVisibility } from './showButton'
 import getFooterView from './footerView'
 
@@ -63,7 +62,7 @@ const getPanelsView = function (
   renderPanelScreens(history, screensContainer)
 
   clearButton.setAttribute('tooltip', 'Clear your session history')
-  clearButton.addEventListener('click', () => clearStorage(options))
+  clearButton.addEventListener('click', () => window.wwiStorage.clearStorage(options))
   closeButton.addEventListener('click', () => toggleVisibility(false))
 
   infoButton.setAttribute(
@@ -103,7 +102,10 @@ This is only stored on your computer and is removed as soon as you close the bro
 
   panelView.append(controlPanel)
   panelView.append(screensContainer)
-  panelView.append(getFooterView(options))
+  const footerContainer = getFooterView(options)
+  if (footerContainer) {
+    panelView.append(footerContainer)
+  }
 
   return panelView
 }

@@ -36,10 +36,9 @@ const addShowButton = function (
   const showButton = createWwiElement(
     'wwi-show-button',
     'button',
-    historyIcon,
+    options.showButtonOptions?.html ?? historyIcon,
     [
-      `wwi-show-button--position-${
-        options.showButtonPosition ?? 'bottom-right'
+      `wwi-show-button--position-${options.showButtonOptions?.position ?? 'bottom-right'
       }`,
     ],
   )
