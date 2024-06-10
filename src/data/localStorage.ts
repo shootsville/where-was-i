@@ -7,19 +7,20 @@ import {
 } from '../views/showButton'
 import { IStorage } from './storage'
 
-const getStorage = function () {
-  return JSON.parse(
+const getStorage = function (): Promise<Array<LocationObject>> {
+  return new Promise(resolve => resolve(JSON.parse(
     window.localStorage.getItem('wwi-items') ?? '[]',
-  ) as Array<LocationObject>
+  ) as Array<LocationObject>));
 }
 
-const setStorage = function (locations: LocationObject[]) {
-  window.localStorage.setItem('wwi-items', JSON.stringify(locations))
+const setStorage = function (locations: LocationObject[]): Promise<void> {
+  return new Promise(resolve => { window.localStorage.setItem('wwi-items', JSON.stringify(locations)); resolve(undefined) })
 }
 
-const removeFromStorage = function (obj: LocationObject) {
-  const newStorage = getStorage().filter(st => st.location !== obj.location)
-  setStorage(newStorage)
+const removeFromStorage = async function (obj: LocationObject) {
+  const storage = await getStorage();
+  const newStorage = storage.filter(st => st.location !== obj.location)
+  await setStorage(newStorage)
   setShowButtonValue(newStorage.length)
   document
     .querySelector(`.wwi-screen-container[href="${obj.location}"`)

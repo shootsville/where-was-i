@@ -36,16 +36,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
   /** html2canvas options, see https://html2canvas.hertzen.com/configuration for all options */
@@ -90,20 +90,21 @@ const updateCurrentScreen = function (path: string, options: WhereWasIOptions) {
   logOptions('updateCurrentScreen', options)
   INTERVAL = window.setInterval(() => {
     generateScreenshot(options).then(res => {
-      const storage = window.wwiStorage.getStorage()
-      const newLocation = `${location.origin}${path}`
-      const currentLocationObject = storage.find(
-        s => s.location === newLocation,
-      )
-      const currentLocationElement = document.querySelector<HTMLImageElement>(
-        `#wwi-container [data-location="${newLocation}"]`,
-      )
-      if (currentLocationObject && currentLocationElement) {
-        currentLocationObject.imageData = res
-        currentLocationElement.src = res
-      }
+      window.wwiStorage.getStorage().then(storage => {
+        const newLocation = `${location.origin}${path}`
+        const currentLocationObject = storage.find(
+          s => s.location === newLocation,
+        )
+        const currentLocationElement = document.querySelector<HTMLImageElement>(
+          `#wwi-container [data-location="${newLocation}"]`,
+        )
+        if (currentLocationObject && currentLocationElement) {
+          currentLocationObject.imageData = res
+          currentLocationElement.src = res
+        }
 
-      window.wwiStorage.setStorage(storage)
+        window.wwiStorage.setStorage(storage)
+      })
     })
   }, options.screenRefreshRate ?? 15000)
 }
@@ -112,8 +113,6 @@ const WhereWasI = function (options?: WhereWasIOptions) {
   options = options ?? DEFAULT_OPTIONS
   window.wwiStorage =
     options.storage === 'local' ? wwiLocalStorage : wwiSessionStorage
-
-  const storage = window.wwiStorage.getStorage()
 
   logOptions('WhereWasI', options)
 
@@ -127,9 +126,11 @@ const WhereWasI = function (options?: WhereWasIOptions) {
       initOptions.storage === 'local' ? wwiLocalStorage : wwiSessionStorage
 
     initiated = true
-    createHistory(location.pathname, storage, initOptions).then(res => {
-      window.wwiStorage.setStorage(res)
-      renderHistory(res, initOptions)
+    window.wwiStorage.getStorage().then(storage => {
+      createHistory(location.pathname, storage, initOptions).then(res => {
+        window.wwiStorage.setStorage(res)
+        renderHistory(res, initOptions)
+      })
     })
 
     updateCurrentScreen(location.pathname, initOptions)
@@ -141,11 +142,14 @@ const WhereWasI = function (options?: WhereWasIOptions) {
     window.clearInterval(INTERVAL)
     /** SPA:s trigger url change event before changing rendered page */
     window.setTimeout(() => {
-      createHistory(location.pathname, storage, options).then(res => {
-        window.wwiStorage.setStorage(res)
-        renderHistory(res, options)
-        renderHistory(storage, options)
+      window.wwiStorage.getStorage().then(storage => {
+        createHistory(location.pathname, storage, options).then(res => {
+          window.wwiStorage.setStorage(res)
+          renderHistory(res, options)
+          renderHistory(storage, options)
+        })
       })
+
       updateCurrentScreen(location.pathname, options)
     }, 500)
   })

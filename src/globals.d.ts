@@ -1,7 +1,7 @@
 declare type IStorage = {
-  getStorage: () => Array<LocationObject>
-  setStorage: (locations: LocationObject[]) => void
-  removeFromStorage: (obj: LocationObject) => void
+  getStorage: () => Promise<Array<LocationObject>>
+  setStorage: (locations: LocationObject[]) => Promise<void>
+  removeFromStorage: (obj: LocationObject) => Promise<void>
   clearStorage: (options: WhereWasIOptions) => void
 }
 
