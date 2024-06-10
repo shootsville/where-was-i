@@ -84,7 +84,11 @@ const createHistory = async function (
     }
 
     if (shouldReturn) {
-      logFunc("createHistory", options, `returning from should return: ${history.map(s => s.location)}`)
+      logFunc(
+        'createHistory',
+        options,
+        `returning from should return: ${history.map(s => s.location)}`,
+      )
       return history
     }
   }
@@ -106,11 +110,21 @@ const createHistory = async function (
   ]
 
   if (options.maxAmount && sortedHistory.length > options.maxAmount) {
-    logFunc("createHistory", options, `returning from sliced sorted history: ${sortedHistory.slice(0, options.maxAmount).map(s => s.location)}`)
+    logFunc(
+      'createHistory',
+      options,
+      `returning from sliced sorted history: ${sortedHistory
+        .slice(0, options.maxAmount)
+        .map(s => s.location)}`,
+    )
     return sortedHistory.slice(0, options.maxAmount)
   }
 
-  logFunc("createHistory", options, `returning sorted history: ${sortedHistory.map(s => s.location)}`)
+  logFunc(
+    'createHistory',
+    options,
+    `returning sorted history: ${sortedHistory.map(s => s.location)}`,
+  )
   return sortedHistory
 }
 
