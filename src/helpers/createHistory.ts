@@ -1,7 +1,7 @@
 import html2canvas from 'html2canvas'
 import { Options as CanvasOptions } from 'html2canvas'
 import { LocationObject, WhereWasIOptions } from '..'
-import { logOptions } from './logger'
+import { logFunc, logOptions } from './logger'
 
 const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
@@ -84,6 +84,7 @@ const createHistory = async function (
     }
 
     if (shouldReturn) {
+      logFunc("createHistory", options, `returning from should return: ${history.map(s => s.location)}`)
       return history
     }
   }
@@ -105,9 +106,11 @@ const createHistory = async function (
   ]
 
   if (options.maxAmount && sortedHistory.length > options.maxAmount) {
+    logFunc("createHistory", options, `returning from sliced sorted history: ${sortedHistory.slice(0, options.maxAmount).map(s => s.location)}`)
     return sortedHistory.slice(0, options.maxAmount)
   }
 
+  logFunc("createHistory", options, `returning sorted history: ${sortedHistory.map(s => s.location)}`)
   return sortedHistory
 }
 

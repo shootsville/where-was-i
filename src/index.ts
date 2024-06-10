@@ -3,7 +3,7 @@ import createHistory, { generateScreenshot } from './helpers/createHistory'
 import applyCss from './helpers/applyCss'
 import 'url-change-event'
 import { Options as CanvasOptions } from 'html2canvas'
-import { logOptions } from './helpers/logger'
+import { logFunc, logOptions } from './helpers/logger'
 import { historyIcon } from './views/icons'
 import { wwiSessionStorage } from './data/sessionStorage'
 import { wwiLocalStorage } from './data/localStorage'
@@ -36,16 +36,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
   /** html2canvas options, see https://html2canvas.hertzen.com/configuration for all options */
@@ -91,6 +91,7 @@ const updateCurrentScreen = function (path: string, options: WhereWasIOptions) {
   INTERVAL = window.setInterval(() => {
     generateScreenshot(options).then(res => {
       window.wwiStorage.getStorage().then(storage => {
+        logFunc('updateCurrentScreen', options, `got storage: ${storage.map(s => s.location)}`)
         const newLocation = `${location.origin}${path}`
         const currentLocationObject = storage.find(
           s => s.location === newLocation,
@@ -103,6 +104,7 @@ const updateCurrentScreen = function (path: string, options: WhereWasIOptions) {
           currentLocationElement.src = res
         }
 
+        logFunc('updateCurrentScreen', options, `setting storage: ${storage.map(s => s.location)}`)
         window.wwiStorage.setStorage(storage)
       })
     })
@@ -127,7 +129,9 @@ const WhereWasI = function (options?: WhereWasIOptions) {
 
     initiated = true
     window.wwiStorage.getStorage().then(storage => {
+      logFunc("initiate", options, `got storage: ${storage.map(s => s.location)}`)
       createHistory(location.pathname, storage, initOptions).then(res => {
+        logFunc("initiate", options, `setting storage: ${res.map(s => s.location)}`)
         window.wwiStorage.setStorage(res)
         renderHistory(res, initOptions)
       })
@@ -144,6 +148,7 @@ const WhereWasI = function (options?: WhereWasIOptions) {
     window.setTimeout(() => {
       window.wwiStorage.getStorage().then(storage => {
         createHistory(location.pathname, storage, options).then(res => {
+          logFunc('urlchangevent', options, `setting storage: ${res.map(s => s.location)}`)
           window.wwiStorage.setStorage(res)
           renderHistory(res, options)
           renderHistory(storage, options)
