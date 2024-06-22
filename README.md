@@ -154,10 +154,10 @@ const whereWasIOptions: WhereWasIOptions = {
   storage: 'local',
   autoClosing: false,
   showButtonOptions: {
-  position: 'bottom-right',
-  html: '<img src="/my-icon.svg">',
-  color: '#FF0000',
-},
+    position: 'bottom-right',
+    html: '<img src="/my-icon.svg">',
+    color: '#FF0000',
+  },
   footerOptions: {
     hide: false,
     customHtml: '<footer>Custom footer</footer>',
