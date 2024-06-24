@@ -1,6 +1,6 @@
 import html2canvas from 'html2canvas'
 import { Options as CanvasOptions } from 'html2canvas'
-import { LocationObject, WhereWasIOptions } from '..'
+import { WhereWasIOptions } from '..'
 import { logFunc, logOptions } from './logger'
 
 const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
@@ -66,66 +66,41 @@ export const generateScreenshot = async function (options: WhereWasIOptions) {
   return base64image
 }
 
-const createHistory = async function (
-  newItem: string,
-  history: Array<LocationObject>,
-  options: WhereWasIOptions,
-) {
-  logOptions('createHistory', options)
+export const createLocationObject = async function (path: string, options: WhereWasIOptions) {
+  const imageData = await generateScreenshot(options)
+  const metafields = extractMetafields(options)
+
+  return {
+    location: path,
+    imageData,
+    title: document.title,
+    newObject: true,
+    metafields: metafields,
+  }
+}
+
+export const shouldStoreNewItem = function (path: string, options: WhereWasIOptions) {
   if (options.acceptedPaths) {
     let shouldReturn = false
     switch (options.acceptedPaths.type) {
       case 'contains':
-        shouldReturn = !newItem.includes(options.acceptedPaths.path)
+        shouldReturn = !path.includes(options.acceptedPaths.path)
         break
       case 'startsWith':
-        shouldReturn = !newItem.startsWith(options.acceptedPaths.path)
+        shouldReturn = !path.startsWith(options.acceptedPaths.path)
         break
     }
 
     if (shouldReturn) {
       logFunc(
-        'createHistory',
+        'shouldStoreNewItem',
         options,
-        `returning from should return: ${history.map(s => s.location)}`,
+        `returning from should return: ${path}`,
       )
-      return history
+      return false
     }
   }
 
-  const imageData = await generateScreenshot(options)
-  const newLocation = `${location.origin}${newItem}`
-  const metafields = extractMetafields(options)
-  const sortedHistory = [
-    {
-      location: newLocation,
-      imageData,
-      title: document.title,
-      newObject: true,
-      metafields: metafields,
-    },
-    ...history
-      .filter(h => h.location !== newLocation)
-      .map(h => ({ ...h, newObject: false })),
-  ]
-
-  if (options.maxAmount && sortedHistory.length > options.maxAmount) {
-    logFunc(
-      'createHistory',
-      options,
-      `returning from sliced sorted history: ${sortedHistory
-        .slice(0, options.maxAmount)
-        .map(s => s.location)}`,
-    )
-    return sortedHistory.slice(0, options.maxAmount)
-  }
-
-  logFunc(
-    'createHistory',
-    options,
-    `returning sorted history: ${sortedHistory.map(s => s.location)}`,
-  )
-  return sortedHistory
+  return true
 }
 
-export default createHistory

@@ -1,8 +1,22 @@
-import { LocationObject, WhereWasIOptions } from '..'
+import { LocationObject } from '..'
+
+export function onlyUnique(value: LocationObject, index: number, array: LocationObject[]) {
+  return array.indexOf(array.find(l => l.location === value.location)!) === index;
+}
+
+export const throwStorageEvent = function (locations: LocationObject[]) {
+  const event = new CustomEvent('wwi-storage', {
+    detail: {
+      locations,
+    },
+  })
+  document.dispatchEvent(event)
+}
 
 export interface IStorage {
-  getStorage: () => Promise<Array<LocationObject>>
-  setStorage: (locations: LocationObject[]) => Promise<void>
-  removeFromStorage: (obj: LocationObject) => Promise<void>
-  clearStorage: (options: WhereWasIOptions) => void
+  get: () => Promise<Array<LocationObject>>
+  set: (locations: LocationObject[]) => Promise<void>
+  remove: (obj: LocationObject) => Promise<void>
+  clear: () => void
+  push: (location: LocationObject) => Promise<void>
 }

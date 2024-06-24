@@ -1,13 +1,10 @@
-import { LocationObject, WhereWasIOptions } from '..'
-import renderHistory from '../helpers/renderHistory'
+import { LocationObject } from '..'
 import {
-  setShowButtonValue,
-  toggleVisibility,
   ANIMATION_TIMEOUT,
 } from '../views/showButton'
-import { IStorage } from './storage'
+import { IStorage, onlyUnique, throwStorageEvent } from './storage'
 
-const getStorage = function (): Promise<Array<LocationObject>> {
+const get = function (): Promise<Array<LocationObject>> {
   return new Promise(resolve =>
     resolve(
       JSON.parse(
@@ -17,35 +14,34 @@ const getStorage = function (): Promise<Array<LocationObject>> {
   )
 }
 
-const setStorage = function (locations: LocationObject[]): Promise<void> {
-  return new Promise(resolve => {
-    window.localStorage.setItem('wwi-items', JSON.stringify(locations))
-    resolve(undefined)
-  })
+const push = async function (location: LocationObject): Promise<void> {
+  const storage = await get()
+  const newStorage = [location, ...storage].filter(onlyUnique)
+  await set(newStorage)
 }
 
-const removeFromStorage = async function (obj: LocationObject) {
-  const storage = await getStorage()
+const set = async function (locations: LocationObject[]): Promise<void> {
+  window.localStorage.setItem('wwi-items', JSON.stringify(locations))
+  throwStorageEvent(locations)
+}
+
+const remove = async function (obj: LocationObject) {
+  const storage = await get()
   const newStorage = storage.filter(st => st.location !== obj.location)
-  await setStorage(newStorage)
-  setShowButtonValue(newStorage.length)
-  document
-    .querySelector(`.wwi-screen-container[href="${obj.location}"`)
-    ?.remove()
+  await set(newStorage)
 }
 
-const clearStorage = function (options: WhereWasIOptions) {
-  toggleVisibility(false)
-  setShowButtonValue(0)
+const clear = function () {
   window.setTimeout(() => {
     window.localStorage.removeItem('wwi-items')
-    renderHistory([], options)
+    throwStorageEvent([])
   }, ANIMATION_TIMEOUT)
 }
 
 export const wwiLocalStorage: IStorage = {
-  getStorage,
-  setStorage,
-  removeFromStorage,
-  clearStorage,
+  get,
+  push,
+  set,
+  remove,
+  clear,
 }

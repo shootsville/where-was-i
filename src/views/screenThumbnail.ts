@@ -1,11 +1,12 @@
 import { createWwiElement } from '../helpers/elementFactory'
-import { LocationObject } from '..'
-import { ANIMATION_TIMEOUT, toggleVisibility } from './showButton'
+import { LocationObject, WhereWasIOptions } from '..'
+import { ANIMATION_TIMEOUT } from './showButton'
 import { trashMiniIcon } from './icons'
 
 export const getScreenThumbnail = function (
   obj: LocationObject,
   index: number,
+  options: WhereWasIOptions
 ) {
   const friendlyIdSlug = obj.location
     .replaceAll(/:/g, '-')
@@ -58,22 +59,24 @@ export const getScreenThumbnail = function (
   screen.style.setProperty('--card-index', index.toString())
   screen.src = obj.imageData
 
-  screen.addEventListener('click', function (e) {
-    const currentTarget = e.currentTarget as HTMLElement
-    const newLoc = currentTarget.dataset.location
-    if (!newLoc) {
-      return true
+  screenContainer.addEventListener('click', function (e) {
+    const currentTarget = e.currentTarget as HTMLAnchorElement
+    if (options.navigationCallback) {
+      const url = new URL(currentTarget.href)
+      requestAnimationFrame(() => options.navigationCallback!(url.pathname))
+      e.preventDefault()
+      return false
     }
     e.preventDefault()
-    toggleVisibility(false)
     window.setTimeout(() => {
-      window.location.href = newLoc
+      window.location.href = currentTarget.href
     }, ANIMATION_TIMEOUT)
   })
 
   removeScreenButton.addEventListener('click', function (e) {
+    e.stopPropagation()
     e.preventDefault()
-    window.wwiStorage.removeFromStorage(obj)
+    window.wwiStorage.remove(obj)
   })
 
   if (obj.metafields) {

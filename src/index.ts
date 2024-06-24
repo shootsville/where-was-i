@@ -1,5 +1,5 @@
-import renderHistory from './helpers/renderHistory'
-import createHistory, { generateScreenshot } from './helpers/createHistory'
+import HistoryPanel from './helpers/renderHistory'
+import { createLocationObject, generateScreenshot, shouldStoreNewItem } from './helpers/createHistory'
 import applyCss from './helpers/applyCss'
 import 'url-change-event'
 import { Options as CanvasOptions } from 'html2canvas'
@@ -7,6 +7,8 @@ import { logFunc, logOptions } from './helpers/logger'
 import { historyIcon } from './views/icons'
 import { wwiSessionStorage } from './data/sessionStorage'
 import { wwiLocalStorage } from './data/localStorage'
+import ShowButton, { ANIMATION_TIMEOUT } from './views/showButton'
+import { createWwiElement } from './helpers/elementFactory'
 
 type ShowButtonPostionType =
   | 'bottom-left'
@@ -32,20 +34,20 @@ declare type WhereWasIOptions = {
   maxAmount?: number
   /** the style for the location objects, @default "panel" */
   style?: 'cards' | 'panel' | 'drawer'
-  /** how often the screenshot should refresh in milliseconds. @default 15000 */
+  /** how often the screenshot should refresh in milliseconds. @default 5000 */
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
   /** html2canvas options, see https://html2canvas.hertzen.com/configuration for all options */
@@ -62,6 +64,9 @@ declare type WhereWasIOptions = {
   showButtonOptions?: ShowButtonOptions
   /** styling options for the footer.  */
   footerOptions?: FooterOptions
+
+  /** callback to be called when a location is navigated to.  */
+  navigationCallback?: (location: string) => void
 }
 
 declare type LocationObject = {
@@ -76,7 +81,7 @@ const DEFAULT_OPTIONS: WhereWasIOptions = {
   maxAmount: 12,
   style: 'drawer',
   zIndex: '1000',
-  screenRefreshRate: 15000,
+  screenRefreshRate: 5000,
   autoClosing: true,
   showButtonOptions: {
     position: 'bottom-right',
@@ -84,106 +89,134 @@ const DEFAULT_OPTIONS: WhereWasIOptions = {
   },
 }
 
-let INTERVAL = 0
+class WhereWasI {
+  #options: WhereWasIOptions
+  #interval: number
+  #historyPanel: HistoryPanel
+  #showButton: ShowButton
+  #container: HTMLDivElement
 
-const updateCurrentScreen = function (path: string, options: WhereWasIOptions) {
-  logOptions('updateCurrentScreen', options)
-  INTERVAL = window.setInterval(() => {
-    generateScreenshot(options).then(res => {
-      window.wwiStorage.getStorage().then(storage => {
-        logFunc(
-          'updateCurrentScreen',
-          options,
-          `got storage: ${storage.map(s => s.location)}`,
-        )
-        const newLocation = `${location.origin}${path}`
-        const currentLocationObject = storage.find(
-          s => s.location === newLocation,
-        )
-        const currentLocationElement = document.querySelector<HTMLImageElement>(
-          `#wwi-container [data-location="${newLocation}"]`,
-        )
-        if (currentLocationObject && currentLocationElement) {
-          currentLocationObject.imageData = res
-          currentLocationElement.src = res
+  constructor(options?: WhereWasIOptions) {
+    this.#options = { ...DEFAULT_OPTIONS, ...options }
+    this.#interval = 0
+
+    window.wwiStorage = this.#options.storage === 'local' ? wwiLocalStorage : wwiSessionStorage
+    window.addEventListener('urlchangeevent', () => {
+      this.#showButton?.toggleVisibility(false)
+      setTimeout(() => {
+        logOptions('urlchangevent', this.#options)
+
+        if (shouldStoreNewItem(location.pathname, this.#options)) {
+          createLocationObject(`${location.origin}${location.pathname}`, this.#options).then((locationObject) => {
+            window.wwiStorage.push(locationObject)
+          })
         }
 
-        logFunc(
-          'updateCurrentScreen',
-          options,
-          `setting storage: ${storage.map(s => s.location)}`,
-        )
-        window.wwiStorage.setStorage(storage)
-      })
-    })
-  }, options.screenRefreshRate ?? 15000)
-}
-
-const WhereWasI = function (options?: WhereWasIOptions) {
-  options = options ?? DEFAULT_OPTIONS
-  window.wwiStorage =
-    options.storage === 'local' ? wwiLocalStorage : wwiSessionStorage
-
-  logOptions('WhereWasI', options)
-
-  let initiated = false
-  const initiate = (initOptions?: WhereWasIOptions) => {
-    logOptions('initiate', options)
-
-    initOptions = initOptions ?? DEFAULT_OPTIONS
-
-    window.wwiStorage =
-      initOptions.storage === 'local' ? wwiLocalStorage : wwiSessionStorage
-
-    initiated = true
-    window.wwiStorage.getStorage().then(storage => {
-      logFunc(
-        'initiate',
-        options,
-        `got storage: ${storage.map(s => s.location)}`,
-      )
-      createHistory(location.pathname, storage, initOptions).then(res => {
-        logFunc(
-          'initiate',
-          options,
-          `setting storage: ${res.map(s => s.location)}`,
-        )
-        window.wwiStorage.setStorage(res)
-        renderHistory(res, initOptions)
-      })
+        this.#updateCurrentScreen()
+      }, ANIMATION_TIMEOUT)
     })
 
-    updateCurrentScreen(location.pathname, initOptions)
-    applyCss(initOptions)
+    /** :: MAIN RENDERING EVENT :: */
+    document.addEventListener('wwi-storage', (event) => {
+      const locations = (event as CustomEvent).detail.locations
+      this.#container.style.setProperty('--children-count', locations.length.toString())
+      this.#showButton?.setShowButtonValue(locations.length)
+
+      if (!locations.length) {
+        this.#showButton?.toggleVisibility(false)
+        setTimeout(() => { this.#historyPanel.render(locations) }, ANIMATION_TIMEOUT)
+      } else {
+        this.#historyPanel.render(locations)
+      }
+    })
+
+    document.addEventListener('wwi-hide-view', () => {
+      this.#showButton?.toggleVisibility(false)
+    })
+
+    this.#container = createWwiElement<HTMLDivElement>(
+      'wwi-container',
+      'div',
+      '',
+    )
+    this.#historyPanel = new HistoryPanel(this.#options)
+    this.#showButton = new ShowButton(this.#container, this.#options)
+
+    logOptions('WhereWasI', this.#options)
   }
 
-  window.addEventListener('urlchangeevent', () => {
-    logOptions('urlchangevent', options)
-    window.clearInterval(INTERVAL)
-    /** SPA:s trigger url change event before changing rendered page */
-    window.setTimeout(() => {
-      window.wwiStorage.getStorage().then(storage => {
-        createHistory(location.pathname, storage, options).then(res => {
-          logFunc(
-            'urlchangevent',
-            options,
-            `setting storage: ${res.map(s => s.location)}`,
-          )
-          window.wwiStorage.setStorage(res)
-          renderHistory(res, options)
-          renderHistory(storage, options)
-        })
-      })
+  async initiate() {
+    logOptions('initiate', this.#options)
 
-      updateCurrentScreen(location.pathname, options)
-    }, 500)
-  })
+    logFunc(
+      'initiate',
+      this.#options,
+      `Iniated where was i`,
+    )
 
-  document.addEventListener('DOMContentLoaded', () => initiate(options))
+    this.#container.setAttribute('data-html2canvas-ignore', 'true')
+    this.#container.id = 'wwi-container'
+    this.#container.style.zIndex = this.#options.zIndex ?? '1000'
 
-  return {
-    initiate,
-    initiated,
+    /** start fresh if render history gets called again */
+    this.#container.innerHTML = ''
+
+    setTimeout(() => {
+      this.#render()
+    }, 800)
+
+    this.#updateCurrentScreen()
+    applyCss(this.#options)
+  }
+
+  #updateCurrentScreen() {
+    logOptions('updateCurrentScreen', this.#options)
+    if (this.#interval > 0) {
+      window.clearInterval(this.#interval)
+      this.#interval = 0
+    }
+
+    this.#interval = window.setInterval(async () => {
+      if (this.#showButton.isOpen) {
+        return
+      }
+
+      const newScreen = await generateScreenshot(this.#options)
+      const storage = await window.wwiStorage.get()
+      logFunc(
+        'updateCurrentScreen',
+        this.#options,
+        `got storage: ${storage.map(s => s.location)}`,
+      )
+
+      const currentLocationObject = storage.find(
+        s => s.location === location.pathname,
+      )
+
+      const currentLocationElement = document.querySelector<HTMLImageElement>(
+        `#wwi-container [data-location="${location.pathname}"]`,
+      )
+      if (currentLocationObject && currentLocationElement) {
+        currentLocationObject.imageData = newScreen
+        currentLocationElement.src = newScreen
+      }
+
+      logFunc(
+        'updateCurrentScreen',
+        this.#options,
+        `setting storage: ${storage.map(s => s.location)}`,
+      )
+      window.wwiStorage.set(storage)
+    }, this.#options.screenRefreshRate ?? 5000)
+  }
+
+  async #render() {
+    const newLocation = await createLocationObject(`${location.origin}${location.pathname}`, this.#options)
+    window.wwiStorage.push(newLocation)
+
+    this.#container.append(this.#showButton.showButton)
+    this.#container.append(this.#historyPanel.historyView.view)
+    document.body.append(this.#container)
   }
 }
 
