@@ -13,6 +13,7 @@ import { wwiSessionStorage } from './data/sessionStorage'
 import { wwiLocalStorage } from './data/localStorage'
 import ShowButton, { ANIMATION_TIMEOUT } from './views/showButton'
 import { createWwiElement } from './helpers/elementFactory'
+import { throwStorageEvent } from './data/storage'
 
 type ShowButtonPostionType =
   | 'bottom-left'
@@ -42,16 +43,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
   /** html2canvas options, see https://html2canvas.hertzen.com/configuration for all options */
@@ -220,11 +221,16 @@ class WhereWasI {
   }
 
   async #render() {
-    const newLocation = await createLocationObject(
-      `${location.origin}${location.pathname}`,
-      this.#options,
-    )
-    window.wwiStorage.push(newLocation)
+    if (shouldStoreNewItem(location.pathname, this.#options)) {
+      const newLocation = await createLocationObject(
+        `${location.origin}${location.pathname}`,
+        this.#options,
+      )
+      window.wwiStorage.push(newLocation)
+    } else {
+      const storage = await window.wwiStorage.get()
+      throwStorageEvent(storage)
+    }
 
     this.#container.append(this.#showButton.showButton)
     this.#container.append(this.#historyPanel.historyView.view)

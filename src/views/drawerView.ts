@@ -60,10 +60,9 @@ class DrawerView implements IHistoryView {
     infoButton.setAttribute(
       'tooltip',
       `This is your recently visited pages on this site. 
-This is only stored on your computer${
-        options.storage === 'session'
-          ? ' and will be cleared when you close your browser'
-          : '. Clear the history by clicking the trash bin'
+This is only stored on your computer${options.storage === 'session'
+        ? ' and will be cleared when you close your browser'
+        : '. Clear the history by clicking the trash bin'
       }`,
     )
     infoButton.setAttribute('tooltip-direction', 'bottom')
@@ -119,7 +118,7 @@ This is only stored on your computer${
     this.#screensContainer
       .querySelectorAll('.wwi-screen-container')
       .forEach(elm => elm.remove())
-    this.#screensContainer.querySelector('.wwi-no-session-elm')?.remove()
+    this.#screensContainer.querySelector('#wwi-no-session-elm')?.remove()
     if (!locations.length) {
       const emptyLabel = createWwiElement('wwi-no-session-elm', 'em')
       emptyLabel.innerText = 'No session history'
