@@ -1,5 +1,9 @@
 import HistoryPanel from './helpers/renderHistory'
-import { createLocationObject, generateScreenshot, shouldStoreNewItem } from './helpers/createHistory'
+import {
+  createLocationObject,
+  generateScreenshot,
+  shouldStoreNewItem,
+} from './helpers/createHistory'
 import applyCss from './helpers/applyCss'
 import 'url-change-event'
 import { Options as CanvasOptions } from 'html2canvas'
@@ -38,16 +42,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-  | {
-    /** path should contain the following string */
-    type: 'contains'
-    path: string
-  }
-  | {
-    /** path should start with the following string */
-    type: 'startsWith'
-    path: string
-  }
+    | {
+        /** path should contain the following string */
+        type: 'contains'
+        path: string
+      }
+    | {
+        /** path should start with the following string */
+        type: 'startsWith'
+        path: string
+      }
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
   /** html2canvas options, see https://html2canvas.hertzen.com/configuration for all options */
@@ -100,14 +104,18 @@ class WhereWasI {
     this.#options = { ...DEFAULT_OPTIONS, ...options }
     this.#interval = 0
 
-    window.wwiStorage = this.#options.storage === 'local' ? wwiLocalStorage : wwiSessionStorage
+    window.wwiStorage =
+      this.#options.storage === 'local' ? wwiLocalStorage : wwiSessionStorage
     window.addEventListener('urlchangeevent', () => {
       this.#showButton?.toggleVisibility(false)
       setTimeout(() => {
         logOptions('urlchangevent', this.#options)
 
         if (shouldStoreNewItem(location.pathname, this.#options)) {
-          createLocationObject(`${location.origin}${location.pathname}`, this.#options).then((locationObject) => {
+          createLocationObject(
+            `${location.origin}${location.pathname}`,
+            this.#options,
+          ).then(locationObject => {
             window.wwiStorage.push(locationObject)
           })
         }
@@ -117,14 +125,19 @@ class WhereWasI {
     })
 
     /** :: MAIN RENDERING EVENT :: */
-    document.addEventListener('wwi-storage', (event) => {
+    document.addEventListener('wwi-storage', event => {
       const locations = (event as CustomEvent).detail.locations
-      this.#container.style.setProperty('--children-count', locations.length.toString())
+      this.#container.style.setProperty(
+        '--children-count',
+        locations.length.toString(),
+      )
       this.#showButton?.setShowButtonValue(locations.length)
 
       if (!locations.length) {
         this.#showButton?.toggleVisibility(false)
-        setTimeout(() => { this.#historyPanel.render(locations) }, ANIMATION_TIMEOUT)
+        setTimeout(() => {
+          this.#historyPanel.render(locations)
+        }, ANIMATION_TIMEOUT)
       } else {
         this.#historyPanel.render(locations)
       }
@@ -148,11 +161,7 @@ class WhereWasI {
   async initiate() {
     logOptions('initiate', this.#options)
 
-    logFunc(
-      'initiate',
-      this.#options,
-      `Iniated where was i`,
-    )
+    logFunc('initiate', this.#options, `Iniated where was i`)
 
     this.#container.setAttribute('data-html2canvas-ignore', 'true')
     this.#container.id = 'wwi-container'
@@ -211,7 +220,10 @@ class WhereWasI {
   }
 
   async #render() {
-    const newLocation = await createLocationObject(`${location.origin}${location.pathname}`, this.#options)
+    const newLocation = await createLocationObject(
+      `${location.origin}${location.pathname}`,
+      this.#options,
+    )
     window.wwiStorage.push(newLocation)
 
     this.#container.append(this.#showButton.showButton)

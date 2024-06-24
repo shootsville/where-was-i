@@ -9,11 +9,10 @@ class CardsView implements IHistoryView {
   #options: WhereWasIOptions
 
   view: HTMLDivElement
-  onHideView = () => { }
+  onHideView = () => {}
 
   constructor(options: WhereWasIOptions) {
     this.#options = options
-
 
     const cardsDiv = createWwiElement<HTMLDivElement>('wwi-cards', 'div')
     const clearButton = createWwiElement(
@@ -23,9 +22,7 @@ class CardsView implements IHistoryView {
       ['wwi-button'],
     )
 
-    clearButton.addEventListener('click', () =>
-      window.wwiStorage.clear(),
-    )
+    clearButton.addEventListener('click', () => window.wwiStorage.clear())
 
     cardsDiv.append(clearButton)
 
@@ -92,7 +89,6 @@ class CardsView implements IHistoryView {
 
       this.view.append(card)
     })
-
   }
 }
 

@@ -66,7 +66,10 @@ export const generateScreenshot = async function (options: WhereWasIOptions) {
   return base64image
 }
 
-export const createLocationObject = async function (path: string, options: WhereWasIOptions) {
+export const createLocationObject = async function (
+  path: string,
+  options: WhereWasIOptions,
+) {
   const imageData = await generateScreenshot(options)
   const metafields = extractMetafields(options)
 
@@ -79,7 +82,10 @@ export const createLocationObject = async function (path: string, options: Where
   }
 }
 
-export const shouldStoreNewItem = function (path: string, options: WhereWasIOptions) {
+export const shouldStoreNewItem = function (
+  path: string,
+  options: WhereWasIOptions,
+) {
   if (options.acceptedPaths) {
     let shouldReturn = false
     switch (options.acceptedPaths.type) {
@@ -103,4 +109,3 @@ export const shouldStoreNewItem = function (path: string, options: WhereWasIOpti
 
   return true
 }
-

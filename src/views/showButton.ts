@@ -18,8 +18,9 @@ class ShowButton {
       'button',
       options.showButtonOptions?.html ?? historyIcon,
       [
-        "wwi-show-button--show",
-        `wwi-show-button--position-${options.showButtonOptions?.position ?? 'bottom-right'
+        'wwi-show-button--show',
+        `wwi-show-button--position-${
+          options.showButtonOptions?.position ?? 'bottom-right'
         }`,
       ],
     )
@@ -56,6 +57,5 @@ class ShowButton {
     this.showButton.classList.toggle('open')
   }
 }
-
 
 export default ShowButton

@@ -1,7 +1,13 @@
 import { LocationObject } from '..'
 
-export function onlyUnique(value: LocationObject, index: number, array: LocationObject[]) {
-  return array.indexOf(array.find(l => l.location === value.location)!) === index;
+export function onlyUnique(
+  value: LocationObject,
+  index: number,
+  array: LocationObject[],
+) {
+  return (
+    array.indexOf(array.find(l => l.location === value.location)!) === index
+  )
 }
 
 export const throwStorageEvent = function (locations: LocationObject[]) {

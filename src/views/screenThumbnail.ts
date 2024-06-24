@@ -6,7 +6,7 @@ import { trashMiniIcon } from './icons'
 export const getScreenThumbnail = function (
   obj: LocationObject,
   index: number,
-  options: WhereWasIOptions
+  options: WhereWasIOptions,
 ) {
   const friendlyIdSlug = obj.location
     .replaceAll(/:/g, '-')

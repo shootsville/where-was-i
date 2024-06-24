@@ -1,9 +1,6 @@
 import { LocationObject } from '..'
-import {
-  ANIMATION_TIMEOUT,
-} from '../views/showButton'
+import { ANIMATION_TIMEOUT } from '../views/showButton'
 import { IStorage, onlyUnique, throwStorageEvent } from './storage'
-
 
 const get = function (): Promise<Array<LocationObject>> {
   return new Promise(resolve =>

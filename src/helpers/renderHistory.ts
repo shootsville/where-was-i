@@ -13,7 +13,6 @@ class HistoryPanel {
   #options: WhereWasIOptions
   historyView: IHistoryView
 
-
   constructor(options: WhereWasIOptions) {
     logOptions('renderHistory', options)
     this.#options = options
