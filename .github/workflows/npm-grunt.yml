@@ -39,4 +39,6 @@ jobs:
         # jekyll: # optional, default is true
         # Enable verbose output
         verbose: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 
