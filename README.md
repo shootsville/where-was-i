@@ -22,41 +22,56 @@
 Where Was I? is available as a module through npm or as a CDN.
 
 Npm install:
+
 ```sh
 npm install -S where-was-i
 ```
 
 And then in the root of your project:
+
 ```ts
-import whereWasI from "where-was-i"
+import whereWasI from 'where-was-i'
 
 whereWasI()
 ```
 
-Or via CDN, add Where Was I? with dependencies manually to the `<head>` element of your site:
+Or via CDN, add Where Was I? with dependencies manually to the `<head>` element
+of your site:
+
 ```html
-<script src="//cdn.jsdelivr.net/npm/url-change-event@0.1.7/dist/url-change-event.min.js" defer></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
-<script src="//cdn.jsdelivr.net/npm/where-was-i@0.3.4/lib/index.iife.min.js" defer></script>
+<script
+  src="//cdn.jsdelivr.net/npm/url-change-event@0.1.7/dist/url-change-event.min.js"
+  defer
+></script>
+<script
+  src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+  defer
+></script>
+<script
+  src="//cdn.jsdelivr.net/npm/where-was-i@0.3.4/lib/index.iife.min.js"
+  defer
+></script>
 ```
 
 Then initiate it:
+
 ```html
 <script>
-  if (typeof WhereWasI !== "undefined" && typeof html2canvas !== "undefined") {
+  if (typeof WhereWasI !== 'undefined' && typeof html2canvas !== 'undefined') {
     WhereWasI()
   }
 </script>
 ```
 
-
 ## Options
-Where Was I? offers a lot of customizability to tailor the plugin to fit your needs
+
+Where Was I? offers a lot of customizability to tailor the plugin to fit your
+needs
 
 ### Types
 
-`ShowButtonPostionType`
-Specifies the position of the show button.
+`ShowButtonPostionType` Specifies the position of the show button.
+
 ```ts
 type ShowButtonPostionType =
   | 'bottom-left'
@@ -65,8 +80,8 @@ type ShowButtonPostionType =
   | 'top-right'
 ```
 
-`ShowButtonOptions`
-Options for customizing the show button.
+`ShowButtonOptions` Options for customizing the show button.
+
 ```ts
 type ShowButtonOptions = {
   /** The position of the show button */
@@ -78,8 +93,8 @@ type ShowButtonOptions = {
 }
 ```
 
-`FooterOptions`
-Options for customizing the footer.
+`FooterOptions` Options for customizing the footer.
+
 ```ts
 type FooterOptions = {
   /** Hide the footer */
@@ -89,8 +104,8 @@ type FooterOptions = {
 }
 ```
 
-`WhereWasIOptions`
-Options for configuring "Where Was I?".
+`WhereWasIOptions` Options for configuring "Where Was I?".
+
 ```ts
 type WhereWasIOptions = {
   /** The title to display in the control panel. @default "Where was i?" */
@@ -132,11 +147,13 @@ type WhereWasIOptions = {
 }
 ```
 
-
 ### Example usage
+
+## 🏠 [Example SPA](/docs/spa-example/dist/index.html)
+
 ```ts
 const whereWasIOptions: WhereWasIOptions = {
-  panelTitle: "Recent Locations",
+  panelTitle: 'Recent Locations',
   maxAmount: 10,
   style: 'cards',
   screenRefreshRate: 20000,
@@ -165,7 +182,6 @@ const whereWasIOptions: WhereWasIOptions = {
 }
 
 whereWasI(whereWasIOptions)
-
 ```
 
 ## Author
