@@ -26,7 +26,7 @@ jobs:
       run: |
         cd docs/spa-example
         npm install
-        grunt
+        npm build
 
     - name: GitHub Pages
       # You may pin to the exact commit or the version.
@@ -34,7 +34,7 @@ jobs:
       uses: crazy-max/ghaction-github-pages@v4.0.0
       with:
         # Build directory to deploy
-        build_dir: ./docs/spa-example
+        build_dir: ./docs/spa-example/dist
         # Allow Jekyll to build your site
         # jekyll: # optional, default is true
         # Enable verbose output
