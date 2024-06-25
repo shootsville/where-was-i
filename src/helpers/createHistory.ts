@@ -7,7 +7,9 @@ const PANEL_CANVAS_OPTIONS: Partial<CanvasOptions> = {
   scale: 0.25,
   scrollY: 0,
   width: 1200,
-  height: 1000,
+  height: 800,
+  windowWidth: 1200,
+  windowHeight: 800,
   logging: false,
 }
 

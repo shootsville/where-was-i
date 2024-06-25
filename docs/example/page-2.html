@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Where Was I? - Example</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+  <script src="//cdn.jsdelivr.net/npm/where-was-i@0.3.4/lib/index.iife.min.js" defer></script>
+</head>
+
+
+<body style="background: linear-gradient(to right, rgb(212, 20, 90), rgb(251, 176, 59));">
+  <div id="root">
+    <nav>
+      <a href="/"><img src="/assets/logo.svg" class="logo" alt="Where was I? logo"></a>
+      <div style="flex: 1 1 0%;"></div>
+      <a class="nav-link" href="/page-1.html">Page 1</a>
+      <a class="nav-link" href="/page-2.html">Page 2</a>
+      <a class="nav-link" href="/page-3.html">Page 3</a>
+    </nav>
+    <main>
+      <h1>Where Was I? - Example</h1>
+      <cite><em>Where Was I?</em> works great normal http based pages!</cite>
+      <h1>Hello from Page 2</h1>
+      <p>This is a page </p>
+    </main>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const wwi = new WhereWasI()
+      wwi.initiate()
+    })
+  </script>
+</body>
+
+</html>

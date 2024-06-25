@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="176" height="55" viewBox="0 0 176 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(4.000000, 4.000000)">
+            <rect fill="#8EA8EA" x="0" y="0" width="168" height="47" rx="23.5"></rect>
+            <g transform="translate(43.000000, 7.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-width="3">
+                <path d="M57.1482885,-13 C63.7757055,-13 69.1482885,-18.372583 69.1482885,-25 C69.1482885,-31.627417 63.7757055,-37 57.1482885,-37 C50.5208716,-37 45.1482885,-31.627417 45.1482885,-25 L45.1482885,70.7034229" transform="translate(57.148289, 16.851711) rotate(90.000000) translate(-57.148289, -16.851711) "></path>
+                <path d="M0.5,4.35171145 L3.5,1.35171145"></path>
+                <path d="M0,4.85171145 L3.5,8.35171145"></path>
+                <path d="M97.5,13.3517115 L97.5,18.3517115"></path>
+                <path d="M102.5,18.3517115 L97.5,18.3517115"></path>
+            </g>
+            <text id="WHERE-WAS-I?" font-family="SatoshiVariable-BoldItalic_Bold-Italic, Satoshi Variable" font-size="16" font-style="italic" font-weight="bold" letter-spacing="-0.4" fill="#FFFFFF">
+                <tspan x="15.1399346" y="33">WHERE WAS I?</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

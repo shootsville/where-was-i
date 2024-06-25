@@ -14,6 +14,7 @@ import { wwiLocalStorage } from './data/localStorage'
 import ShowButton, { ANIMATION_TIMEOUT } from './views/showButton'
 import { createWwiElement } from './helpers/elementFactory'
 import { throwStorageEvent } from './data/storage'
+import attachLocationChangeEvent from './helpers/locationChange';
 
 type ShowButtonPostionType =
   | 'bottom-left'
@@ -43,16 +44,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
   /** html2canvas options, see https://html2canvas.hertzen.com/configuration for all options */
@@ -94,6 +95,7 @@ const DEFAULT_OPTIONS: WhereWasIOptions = {
   },
 }
 
+
 class WhereWasI {
   #options: WhereWasIOptions
   #interval: number
@@ -104,13 +106,14 @@ class WhereWasI {
   constructor(options?: WhereWasIOptions) {
     this.#options = { ...DEFAULT_OPTIONS, ...options }
     this.#interval = 0
+    attachLocationChangeEvent(window, history)
 
     window.wwiStorage =
       this.#options.storage === 'local' ? wwiLocalStorage : wwiSessionStorage
-    window.addEventListener('urlchangeevent', () => {
+    window.addEventListener('locationchange', () => {
       this.#showButton?.toggleVisibility(false)
       setTimeout(() => {
-        logOptions('urlchangevent', this.#options)
+        logOptions('locationchange', this.#options)
 
         if (shouldStoreNewItem(location.pathname, this.#options)) {
           createLocationObject(
