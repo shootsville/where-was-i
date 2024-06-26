@@ -37,7 +37,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: '/where-was-i/spa-example/dist/',
+    basename: '/where-was-i/spa-example/dist',
   },
 )
 
