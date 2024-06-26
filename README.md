@@ -42,18 +42,16 @@ of your site:
 
 ```html
 <script
-  src="//cdn.jsdelivr.net/npm/url-change-event@0.1.7/dist/url-change-event.min.js"
-  defer
-></script>
-<script
   src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
   defer
 ></script>
 <script
-  src="//cdn.jsdelivr.net/npm/where-was-i@0.3.4/lib/index.iife.min.js"
+  src="//cdn.jsdelivr.net/npm/where-was-i@0.4.4/lib/index.iife.min.js"
   defer
 ></script>
 ```
+
+Note: Where Was I? depends on html2canvas, which is not included in the CDN.
 
 Then initiate it:
 

@@ -61,7 +61,6 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "html2canvas": "^1.4.1",
-    "url-change-event": "^0.1.7"
+    "html2canvas": "^1.4.1"
   }
 }
