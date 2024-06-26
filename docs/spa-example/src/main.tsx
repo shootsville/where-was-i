@@ -8,16 +8,7 @@ import Page3 from './router/page-3.tsx'
 import Page2 from './router/page-2.tsx'
 import WhereWasI from 'where-was-i'
 import Index from './router/index.tsx'
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Error = (err: any) => {
-  console.error(err)
-  return (
-    <div>
-      <h1>Error</h1>
-    </div>
-  )
-}
+import { Error } from './Error.tsx'
 
 const router = createBrowserRouter([
   {
