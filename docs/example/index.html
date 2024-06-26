@@ -40,7 +40,8 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const wwi = new WhereWasI()
+      const savedSettings = JSON.parse(localStorage.getItem('settings') || '{}')
+      const wwi = new WhereWasI(savedSettings)
       wwi.initiate()
     })
   </script>

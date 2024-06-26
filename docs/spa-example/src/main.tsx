@@ -42,7 +42,10 @@ const router = createBrowserRouter(
   },
 )
 
+const savedSettings = JSON.parse(localStorage.getItem('wwi-settings') || '{}')
+
 const wwi = new WhereWasI({
+  ...savedSettings,
   isSpa: true,
   navigationCallback: (path: string) => router.navigate(path),
   basePath: '/where-was-i/spa-example/dist',

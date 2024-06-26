@@ -9,6 +9,52 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Suez+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./example/style.css">
+  <script>
+    const settings = JSON.parse(localStorage.getItem('settings')) || {
+      panelTitle: 'Recent Locations',
+      maxAmount: 10,
+      style: 'drawer',
+      screenRefreshRate: 20000,
+      storage: 'session',
+      autoClosing: true,
+    }
+
+    let panelTitleInput, maxAmountInput, screenRefreshRateInput, styleSelect, storageSelect, autoClosingInput
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      panelTitleInput = document.querySelector('input[name="panelTitle"]')
+      panelTitleInput.value = settings.panelTitle
+
+      maxAmountInput = document.querySelector('input[name="maxAmount"]')
+      maxAmountInput.value = settings.maxAmount
+
+      screenRefreshRateInput = document.querySelector('input[name="screenRefreshRate"]')
+      screenRefreshRateInput.value = settings.screenRefreshRate
+
+      styleSelect = document.querySelector('select[name="style"]')
+      styleSelect.value = settings.style
+
+      storageSelect = document.querySelector('select[name="storage"]')
+      storageSelect.value = settings.storage
+
+      autoClosingInput = document.querySelector('input[name="autoClosing"]')
+      autoClosingInput.checked = settings.autoClosing
+    });
+
+    function save(e) {
+      e.preventDefault()
+      settings.panelTitle = panelTitleInput.value
+      settings.maxAmount = maxAmountInput.value
+      settings.screenRefreshRate = screenRefreshRateInput.value
+      settings.style = styleSelect.value
+      settings.storage = storageSelect.value
+      settings.autoClosing = autoClosingInput.checked
+      localStorage.setItem('settings', JSON.stringify(settings))
+      document.querySelector('#settings-dialog').close()
+    }
+
+  </script>
 </head>
 
 <body>
@@ -27,6 +73,51 @@
         <a href="./spa-example/dist">Single Page Application</a>
         (<small><a href="https://github.com/shootsville/where-was-i/tree/main/docs/spa-example">Source</a></small>)
       </li>
+    </ul>
+
+    <div>
+
+      <button id="settings-button" style="background-color: white; color: black;"
+        onclick="document.querySelector('#settings-dialog').showModal()">Settings</button>
+    </div>
+
+    <dialog id="settings-dialog">
+      <h2>Settings</h2>
+      <form onSubmit="save(event); return false">
+        <div>
+          <label for="panelTitle">Panel title</label>
+          <input type="text" name="panelTitle" placeholder="Panel title" value="">
+        </div>
+        <div>
+          <label for="maxAmount">Max amount</label>
+          <input type="number" name="maxAmount" placeholder="Max amount" value="">
+        </div>
+        <div>
+          <label for="screenRefreshRate">Screen refresh rate</label>
+          <input type="number" name="screenRefreshRate" placeholder="Screen refresh rate" value="">
+        </div>
+        <div>
+          <label for="style">Style</label>
+          <select name="style">
+            <option value="panel">Panel</option>
+            <option value="drawer">Drawer</option>
+          </select>
+        </div>
+        <div>
+          <label for="storage">Storage</label>
+          <select name="storage">
+            <option value="session">Session</option>
+            <option value="local">Local</option>
+          </select>
+        </div>
+        <div>
+          <label for="autoClosing">Auto closing</label>
+          <input type="checkbox" name="autoClosing" value="">
+        </div>
+        <button type="submit">Save</button>
+        <button type="button" onclick="document.querySelector('#settings-dialog').close()">Cancel</button>
+      </form>
+    </dialog>
   </main>
 </body>
 
