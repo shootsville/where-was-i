@@ -56,3 +56,67 @@ nav {
     }
   }
 }
+
+.wwi-bubble {
+  --bottom: 10rem;
+  --right: 2rem;
+  animation: appear 0.75s 1s cubic-bezier(0.7, 1.83, 0.09, 0.71) forwards;
+  position: fixed;
+  right: var(--right);
+  bottom: var(--bottom);
+  opacity: 0;
+
+  .content {
+    --mask: radial-gradient(11.18px at 15px 50%, #000 99%, #0000 101%) 0
+        calc(50% - 20px) / 51% 40px repeat-y,
+      radial-gradient(11.18px at -5px 50%, #0000 99%, #000 101%) 10px 50% /
+        calc(51% - 10px) 40px repeat-y,
+      radial-gradient(11.18px at calc(100% - 15px) 50%, #000 99%, #0000 101%)
+        100% calc(50% - 20px) / 51% 40px repeat-y,
+      radial-gradient(11.18px at calc(100% + 5px) 50%, #0000 99%, #000 101%)
+        calc(100% - 10px) 50% / calc(51% - 10px) 40px repeat-y;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+    position: relative;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, rgb(212, 20, 90), rgb(251, 176, 59));
+    padding: 1rem 3rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.2rem rgb(251, 176, 59);
+    z-index: 100;
+
+    strong {
+      &::after,
+      &::before {
+        content: '”';
+      }
+    }
+  }
+
+  .arrow {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: 2rem;
+    bottom: -5rem;
+    border-left: 2rem solid transparent;
+    border-right: 2rem solid transparent;
+    border-top: 7rem solid rgb(251, 176, 59);
+    rotate: -30deg;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    scale: 0;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
