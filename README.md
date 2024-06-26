@@ -146,6 +146,8 @@ type WhereWasIOptions = {
   showButtonOptions?: ShowButtonOptions
   /** Styling options for the footer */
   footerOptions?: FooterOptions
+  /** Callback function for navigating to previous location. Useful for SPAs with custom routing */
+  navigationCallback?: (path: string) => void
 }
 ```
 
@@ -178,6 +180,9 @@ const whereWasIOptions: WhereWasIOptions = {
   footerOptions: {
     hide: false,
     customHtml: '<footer>Custom footer</footer>',
+  },
+  navigationCallback: (path: string) => {
+    navigate(path)
   },
 }
 

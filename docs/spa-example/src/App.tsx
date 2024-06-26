@@ -1,4 +1,3 @@
-import whereWasILogo from './assets/logo.svg'
 import './App.css'
 import { Link, Outlet } from 'react-router-dom'
 
@@ -7,7 +6,11 @@ function App() {
     <>
       <nav>
         <Link to='/'>
-          <img src={whereWasILogo} className='logo' alt='Where was I? logo' />
+          <img
+            src='https://shootsville.github.io/where-was-i/example/assets/logo.svg'
+            className='logo'
+            alt='Where was I? logo'
+          />
         </Link>
         <div style={{ flex: 1 }} />
         <Link to='/page-1' className='nav-link'>
