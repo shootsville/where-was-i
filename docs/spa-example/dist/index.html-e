@@ -9,8 +9,8 @@
   <link rel="icon" type="image/svg+xml" href="./src/assets/logo.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Where Was I? - SPA Example</title>
-  <script type="module" crossorigin src="./assets/index-BR2DUO_A.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-C9gQrL9L.css">
+  <script type="module" crossorigin src="/assets/index-BR2DUO_A.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-C9gQrL9L.css">
 </head>
 
 <body>
