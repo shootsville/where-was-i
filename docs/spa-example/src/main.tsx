@@ -10,31 +10,36 @@ import WhereWasI from 'where-was-i'
 import Index from './router/index.tsx'
 import { Error } from './Error.tsx'
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      errorElement: <Error />,
+      element: <App />,
+      children: [
+        {
+          index: true,
+          element: <Index />,
+        },
+        {
+          path: '/page-1',
+          element: <Page1 />,
+        },
+        {
+          path: '/page-2',
+          element: <Page2 />,
+        },
+        {
+          path: '/page-3',
+          element: <Page3 />,
+        },
+      ],
+    },
+  ],
   {
-    path: '/',
-    errorElement: <Error />,
-    element: <App />,
-    children: [
-      {
-        index: true,
-        element: <Index />,
-      },
-      {
-        path: '/page-1',
-        element: <Page1 />,
-      },
-      {
-        path: '/page-2',
-        element: <Page2 />,
-      },
-      {
-        path: '/page-3',
-        element: <Page3 />,
-      },
-    ],
+    basename: '/where-was-i/spa-example/dist/',
   },
-])
+)
 
 const wwi = new WhereWasI({
   navigationCallback: (path: string) => router.navigate(path),
