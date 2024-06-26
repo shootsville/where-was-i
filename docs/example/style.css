@@ -126,3 +126,7 @@ nav {
     }
   }
 }
+
+ul {
+  list-style: none;
+}

@@ -15,6 +15,8 @@
 
 > A plugin for your page to display an interactive history of your users session
 
+## [Demo](https://shootsville.github.io/where-was-i/)
+
 ### 🏠 [Homepage](https://github.com/shootsville/where-was-i)
 
 ## Install
@@ -148,8 +150,6 @@ type WhereWasIOptions = {
 ```
 
 ### Example usage
-
-## 🏠 [Example SPA](/docs/spa-example/dist/index.html)
 
 ```ts
 const whereWasIOptions: WhereWasIOptions = {
