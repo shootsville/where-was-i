@@ -32,9 +32,11 @@ npm install -S where-was-i
 And then in the root of your project:
 
 ```ts
-import whereWasI from 'where-was-i'
+import WhereWasI from 'where-was-i'
 
-whereWasI()
+const wwi = new WhereWasI() // or new WhereWasI(options)
+
+wwi.initiate()
 ```
 
 Or via CDN, add Where Was I? with dependencies manually to the `<head>` element
@@ -57,9 +59,10 @@ Then initiate it:
 
 ```html
 <script>
-  if (typeof WhereWasI !== 'undefined' && typeof html2canvas !== 'undefined') {
-    WhereWasI()
-  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const wwi = new WhereWasI() // or new WhereWasI(options)
+    wwi.initiate()
+  })
 </script>
 ```
 
@@ -190,7 +193,8 @@ const whereWasIOptions: WhereWasIOptions = {
   basePath: '/app',
 }
 
-whereWasI(whereWasIOptions)
+const wwi = new WhereWasI(whereWasIOptions)
+wwi.initiate()
 ```
 
 ## Author
