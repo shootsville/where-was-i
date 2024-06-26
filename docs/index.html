@@ -17,6 +17,7 @@
       screenRefreshRate: 20000,
       storage: 'session',
       autoClosing: true,
+      metafields: ['wwi:title']
     }
 
     let panelTitleInput, maxAmountInput, screenRefreshRateInput, styleSelect, storageSelect, autoClosingInput
@@ -93,7 +94,7 @@
           <input type="number" name="maxAmount" placeholder="Max amount" value="">
         </div>
         <div>
-          <label for="screenRefreshRate">Screen refresh rate</label>
+          <label for="screenRefreshRate">Screen refresh rate (ms)</label>
           <input type="number" name="screenRefreshRate" placeholder="Screen refresh rate" value="">
         </div>
         <div>
@@ -110,7 +111,7 @@
             <option value="local">Local</option>
           </select>
         </div>
-        <div>
+        <div class="inline-flex">
           <label for="autoClosing">Auto closing</label>
           <input type="checkbox" name="autoClosing" value="">
         </div>

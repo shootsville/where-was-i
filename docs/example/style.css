@@ -156,9 +156,16 @@ form {
     flex-direction: column;
     gap: 0.5rem;
     text-align: left;
+
+    &.inline-flex {
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
-  input,
+  input:not([type='checkbox']),
   select {
     width: 100%;
     padding: 0.5rem;
