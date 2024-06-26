@@ -42,7 +42,9 @@ const router = createBrowserRouter(
 )
 
 const wwi = new WhereWasI({
+  isSpa: true,
   navigationCallback: (path: string) => router.navigate(path),
+  basePath: '/where-was-i/spa-example/dist',
 })
 
 wwi.initiate()

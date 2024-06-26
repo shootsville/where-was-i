@@ -146,8 +146,12 @@ type WhereWasIOptions = {
   showButtonOptions?: ShowButtonOptions
   /** Styling options for the footer */
   footerOptions?: FooterOptions
+  /** Flag that the application is a SPA */
+  isSpa?: boolean
   /** Callback function for navigating to previous location. Useful for SPAs with custom routing */
   navigationCallback?: (path: string) => void
+  /** SPA basepath */
+  basePath?: string
 }
 ```
 
@@ -181,9 +185,11 @@ const whereWasIOptions: WhereWasIOptions = {
     hide: false,
     customHtml: '<footer>Custom footer</footer>',
   },
+  isSpa: true,
   navigationCallback: (path: string) => {
     navigate(path)
   },
+  basePath: '/app',
 }
 
 whereWasI(whereWasIOptions)

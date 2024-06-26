@@ -33,6 +33,18 @@ declare type FooterOptions = {
   customHtml?: string
 }
 
+type WhereWasISpaOptions = {
+  isSpa: true
+  /** callback to be called when a location is navigated to.  */
+  navigationCallback?: (location: string) => void
+  /** if the app uses a custom base path, add it here so the plugin can navigate to the correct location */
+  basePath?: string
+}
+
+type WhereWasINormalOptions = {
+  isSpa?: false
+}
+
 declare type WhereWasIOptions = {
   /** The title to display in the control panel, @default "Where was i?" */
   panelTitle?: string
@@ -44,16 +56,16 @@ declare type WhereWasIOptions = {
   screenRefreshRate?: number
   /** adds filter to which paths should be added as location objects */
   acceptedPaths?:
-    | {
-        /** path should contain the following string */
-        type: 'contains'
-        path: string
-      }
-    | {
-        /** path should start with the following string */
-        type: 'startsWith'
-        path: string
-      }
+  | {
+    /** path should contain the following string */
+    type: 'contains'
+    path: string
+  }
+  | {
+    /** path should start with the following string */
+    type: 'startsWith'
+    path: string
+  }
   /** get the content of meta fields to use as metadata along each screenshot */
   metafields?: Array<string | Array<string>>
   /** html2canvas options, see https://html2canvas.hertzen.com/configuration for all options */
@@ -71,9 +83,7 @@ declare type WhereWasIOptions = {
   /** styling options for the footer.  */
   footerOptions?: FooterOptions
 
-  /** callback to be called when a location is navigated to.  */
-  navigationCallback?: (location: string) => void
-}
+} & (WhereWasISpaOptions | WhereWasINormalOptions)
 
 declare type LocationObject = {
   title: string

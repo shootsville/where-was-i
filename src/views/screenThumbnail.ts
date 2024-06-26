@@ -61,9 +61,10 @@ export const getScreenThumbnail = function (
 
   screenContainer.addEventListener('click', function (e) {
     const currentTarget = e.currentTarget as HTMLAnchorElement
-    if (options.navigationCallback) {
+    if (options.isSpa && options.navigationCallback) {
       const url = new URL(currentTarget.href)
-      requestAnimationFrame(() => options.navigationCallback!(url.pathname))
+      const path = url.pathname.replace(options.basePath ?? '', '')
+      requestAnimationFrame(() => options.navigationCallback!(path))
       e.preventDefault()
       return false
     }
