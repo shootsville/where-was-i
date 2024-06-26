@@ -77,9 +77,8 @@
     </ul>
 
     <div>
-
-      <button id="settings-button" style="background-color: white; color: black;"
-        onclick="document.querySelector('#settings-dialog').showModal()">Settings</button>
+      <p>You can setup <em>Where Was I?</em> in the settings dialog to see some examples of how it can be used.</p>
+      <button id="settings-button" onclick="document.querySelector('#settings-dialog').showModal()">Settings</button>
     </div>
 
     <dialog id="settings-dialog">
@@ -111,12 +110,15 @@
             <option value="local">Local</option>
           </select>
         </div>
-        <div class="inline-flex">
+        <div class="flex-row content-between">
           <label for="autoClosing">Auto closing</label>
           <input type="checkbox" name="autoClosing" value="">
         </div>
-        <button type="submit">Save</button>
-        <button type="button" onclick="document.querySelector('#settings-dialog').close()">Cancel</button>
+        <div class="flex-row">
+          <button type="submit">Save</button>
+          <button type="button" class="secondary"
+            onclick="document.querySelector('#settings-dialog').close()">Cancel</button>
+        </div>
       </form>
     </dialog>
   </main>

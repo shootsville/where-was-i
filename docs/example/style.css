@@ -157,11 +157,15 @@ form {
     gap: 0.5rem;
     text-align: left;
 
-    &.inline-flex {
+    &.flex-row {
       flex-direction: row;
       gap: 1rem;
-      justify-content: space-between;
       align-items: center;
+      justify-content: center;
+    }
+
+    &.content-between {
+      justify-content: space-between;
     }
   }
 
@@ -175,6 +179,15 @@ form {
     border: none;
     font-size: 1rem;
     font-family: 'Suez One', serif;
+  }
+}
+
+button {
+  background-color: white;
+  color: black;
+  &.secondary {
+    background-color: transparent;
+    color: white;
   }
 }
 
