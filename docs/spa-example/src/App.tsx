@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <nav>
-        <Link to='/'>
+        <Link to='/index'>
           <img
             src='https://shootsville.github.io/where-was-i/example/assets/logo.svg'
             className='logo'
