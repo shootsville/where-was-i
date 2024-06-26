@@ -22,12 +22,18 @@ function App() {
         <Link to='/page-3' className='nav-link'>
           Page 3
         </Link>
+        <a
+          href='https://shootsville.github.io/where-was-i/'
+          className='nav-link'
+        >
+          Back to examples
+        </a>
       </nav>
       <main>
         <h1>Where Was I? - SPA</h1>
         <cite>
           <em>Where Was I?</em> works great with single page applications!
-          Navigate betwwn paget in the navbar and see your pages update in the
+          Navigate between pages in the navbar and see your pages update in the
           sidebar
         </cite>
         <Outlet />

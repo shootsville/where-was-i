@@ -60,10 +60,9 @@ class DrawerView implements IHistoryView {
     infoButton.setAttribute(
       'tooltip',
       `This is your recently visited pages on this site. 
-This is only stored on your computer${
-        options.storage === 'session'
-          ? ' and will be cleared when you close your browser'
-          : '. Clear the history by clicking the trash bin'
+This is only stored on your computer${options.storage === 'session'
+        ? ' and will be cleared when you close your browser'
+        : '. Clear the history by clicking the trash bin'
       }`,
     )
     infoButton.setAttribute('tooltip-direction', 'bottom')
@@ -88,14 +87,14 @@ This is only stored on your computer${
     if (options.autoClosing !== false) {
       let closeTimeout = 0
       let mouseWithin = true
-      this.#screensContainer.addEventListener('mouseenter', function () {
+      drawerView.addEventListener('mouseenter', function () {
         mouseWithin = true
         if (closeTimeout) {
           window.clearTimeout(closeTimeout)
         }
       })
 
-      this.#screensContainer.addEventListener('mouseleave', function () {
+      drawerView.addEventListener('mouseleave', function () {
         mouseWithin = false
         closeTimeout = window.setTimeout(() => {
           if (mouseWithin) {
