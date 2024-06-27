@@ -38,17 +38,23 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: '/where-was-i/spa-example/dist',
+    basename:
+      import.meta.env.MODE !== 'development'
+        ? '/where-was-i/spa-example/dist'
+        : undefined,
   },
 )
 
-const savedSettings = JSON.parse(localStorage.getItem('wwi-settings') || '{}')
+const savedSettings = JSON.parse(localStorage.getItem('settings') || '{}')
 
 const wwi = new WhereWasI({
   ...savedSettings,
   isSpa: true,
   navigationCallback: (path: string) => router.navigate(path),
-  basePath: '/where-was-i/spa-example/dist',
+  basePath:
+    import.meta.env.MODE !== 'development'
+      ? '/where-was-i/spa-example/dist'
+      : undefined,
 })
 
 wwi.initiate()

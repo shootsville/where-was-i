@@ -513,6 +513,11 @@ ${footerCss}
   -webkit-backdrop-filter: blur(8px);
 }
 
+#wwi-container .wwi-screen-container {
+  width: 0;
+  flex-basis: 300px;
+}
+
 #wwi-container.open #wwi-panel {
   translate: 0 0;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -522,7 +527,7 @@ ${footerCss}
   position: relative;
   display: flex;
   gap: 1rem;
-  padding: .25rem 0;
+  padding: .25rem .5rem;
   overflow-x: auto;
   height: 100%;
   scrollbar-color: rgba(100, 108, 255, 0.3) transparent;
